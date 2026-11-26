@@ -17,8 +17,9 @@
 1. **Bebas AI Slop**: Dilarang memakai gradien ungu-biru neon, kartu 3-kolom identik dengan ikon bulat di tengah terus-menerus, *glowing blur orbs* di hero, atau teks klise AI (*"Revolusioner", "Solusi terdepan di era digital"*).
 2. **Uji Tukar Logo**: Setiap template wajib punya tipografi, palet warna, dan komposisi hero yang berbeda dari template lain.
 3. **Semua Tombol Berfungsi**: Pencarian, filter, tab menu, keranjang WhatsApp, kalkulator harga, dan form simulasi di tiap demo harus benar-benar bekerja di browser—tidak ada link mati `#`.
-4. **Aset Foto Legal & Lokal**: Seluruh gambar diunduh dan disimpan di `templates/<slug>/assets/img/` dalam `.webp` / `.jpg` (`< 180 KB` per file) serta dicatat sumbernya di `ASSETS-CREDITS.md`. Dilarang hardcode URL CDN pihak ketiga yang bisa mati sewaktu-waktu.
-5. **Responsive & WCAG AA**: Zero horizontal overflow di viewport `360px` & `390px`, target klik/sentuh `>= 44x44px`, rasio kontras teks `>= 4.5:1`.
+4. **Aset Foto Legal & Lokal**: Seluruh gambar diunduh dan disimpan di `templates/<slug>/assets/img/` dalam `.webp` / `.jpg` (`< 180 KB` per file). Dilarang hardcode URL CDN pihak ketiga yang bisa mati sewaktu-waktu.
+5. **Fokus UI/UX & Tanpa File Dokumen Tambahan**: Developer tidak perlu membuat file `.md` tambahan di tiap template—langsung fokus merancang tampilan UI/UX, aset gambar, dan interaksi demo di browser.
+6. **Responsive & WCAG AA**: Zero horizontal overflow di viewport `360px` & `390px`, target klik/sentuh `>= 44x44px`, rasio kontras teks `>= 4.5:1`.
 
 ---
 
@@ -40,7 +41,7 @@ Jika developer memakai AI coding agent (Antigravity / Claude Code / Codex / Curs
 
 ## Panduan Sumber Foto Internet Gratis & Aman Komersial
 
-Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dalam **template website jasa/komersial tanpa wajib atribusi** (namun tetap catat link aslinya di `ASSETS-CREDITS.md`):
+Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dalam **template website jasa/komersial tanpa wajib atribusi**:
 
 1. **Unsplash (`unsplash.com`)** — Terbaik untuk foto *hero editorial*, arsitektur, kantor, eksterior bangunan, dan suasana kafe. *(Hindari menyiratkan model wajah memberi testimoni palsu atau dukungan medis/politik.)*
 2. **Pexels (`pexels.com`)** — Lisensi secara eksplisit mengizinkan pemakaian di *website templates*; sangat kuat untuk foto UMKM, interaksi kerja tim, klinik, fashion, serta **video pendek gratis** bila perlu hero dinamis.
@@ -81,47 +82,35 @@ Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dal
 
 ## Daftar Task Bertahap
 
-### Task 1: Siapkan Dokumentasi Aturan Repo & Kerangka Folder
+### Task 1: Siapkan Data Katalog & Etalase Live Preview (`data/templates.json` + `katalog-demo/`)
 **Files:**
-- Create: `README.md` (alur kerja repo & cara preview lokal dengan Live Server / `npx serve`)
-- Create: `docs/DESIGN-RULES-ANTISLOP.md` (ringkasan aturan anti-slop untuk developer)
-- Create: `docs/ASSET-SOURCES.md` (panduan unduh, kompresi ke `.webp`, dan format `ASSETS-CREDITS.md`)
 - Create: `data/templates.json` (skema array objek: `slug`, `title`, `category`, `industry`, `tagline`, `palette`, `fonts`, `features`, `demoPath`, `thumbPath`, `wave`, `status`)
-
-- [ ] **Step 1:** Buat file `data/templates.json` berisi definisi awal 12 metadata template (Wave 1 berstatus `"ready"` saat dibuat, Wave 2 `"planned"`).
-- [ ] **Step 2:** Tulis `docs/DESIGN-RULES-ANTISLOP.md` dan `docs/ASSET-SOURCES.md` agar siapapun yang melanjutkan repo langsung mematuhi standar desain dan lisensi foto.
-- [ ] **Step 3:** Commit fondasi repo ke branch `feat/repo-setup` dan merge ke `main`.
-
----
-
-### Task 2: Bangun Etalase Katalog & Live Preview (`katalog-demo/`)
-**Files:**
 - Create: `katalog-demo/index.html`
 - Create: `katalog-demo/styles.css`
 - Create: `katalog-demo/app.js`
 - Create: `katalog-demo/preview.html`
 
-- [ ] **Step 1:** Implementasi `katalog-demo/app.js` untuk fetch `../data/templates.json`, render kartu template, filter kategori (`Semua`, `Company Profile`, `Ekspor & Manufaktur`, `Toko Online`, `Kuliner & Kafe`, `Jasa & Klinik`, `Landing Page`), pencarian real-time, dan empty-state dengan tombol reset.
-- [ ] **Step 2:** Implementasi `katalog-demo/preview.html?tpl=<slug>` berupa viewer dengan toolbar atas: saklar viewport **`Desktop (100%)`**, **`Tablet (768px)`**, **`HP (390px)`**, link buka tab baru, dan modal **Form Request Template** yang menyusun pesan WhatsApp otomatis berisi nama template pilihan klien + nama usaha + domain impian.
-- [ ] **Step 3:** Uji buka lewat server statis lokal (`npx serve .`), pastikan filter, empty-state, pergantian mode HP/Desktop di `preview.html`, dan tombol WhatsApp berfungsi tanpa error konsol.
-- [ ] **Step 4:** Commit ke branch `feat/katalog-etalase`.
+- [ ] **Step 1:** Buat `data/templates.json` berisi daftar metadata 12 template (Wave 1 dan Wave 2).
+- [ ] **Step 2:** Bangun `katalog-demo/index.html`, `styles.css`, dan `app.js` untuk render kartu template, filter kategori (`Semua`, `Company Profile`, `Ekspor & Manufaktur`, `Toko Online`, `Kuliner & Kafe`, `Jasa & Klinik`, `Landing Page`), pencarian real-time, dan empty-state dengan tombol reset.
+- [ ] **Step 3:** Bangun `katalog-demo/preview.html?tpl=<slug>` berupa viewer UI/UX dengan toolbar saklar viewport **`Desktop (100%)`**, **`Tablet (768px)`**, **`HP (390px)`**, link buka tab baru, dan modal **Form Request Template** yang menyusun pesan WhatsApp otomatis.
+- [ ] **Step 4:** Uji buka lewat server statis lokal (`npx serve .`), pastikan filter, empty-state, pergantian mode HP/Desktop di `preview.html`, dan tombol WhatsApp berfungsi tanpa error konsol, lalu commit ke branch `feat/katalog-etalase`.
 
 ---
 
-### Task 3 (Wave 1 - Template 1): `templates/ekspor-komoditas-agro/`
+### Task 2 (Wave 1 - Template 1): `templates/ekspor-komoditas-agro/`
 **Files:**
-- Create: `templates/ekspor-komoditas-agro/index.html`, `style.css`, `app.js`, `ASSETS-CREDITS.md`, `assets/img/*.webp`
+- Create: `templates/ekspor-komoditas-agro/index.html`, `style.css`, `app.js`, `assets/img/*.webp`
 
 - [ ] **Step 1:** Riset palet & pairing font lewat `ui-ux-pro-max` (*Industrial Earth Editorial*: `#F7F5F0`, `#1B241E`, `#9A4D2A`; *Space Grotesk + IBM Plex Sans*).
-- [ ] **Step 2:** Unduh 5–7 foto komoditas & logistik (kopi/briket/rempah/kontainer) dari Unsplash/Pexels/Wikimedia `CC0`, kompres `.webp` (`< 180 KB`), catat ke `ASSETS-CREDITS.md`.
-- [ ] **Step 3:** Bangun section: Navbar bersih + toggle bahasa `ID | EN`, Hero fotografi penuh dengan badge angka kapasitas ekspor (`tabular-nums`), Grid Katalog Komoditas (klik untuk lihat spek teknis), Tabel Spesifikasi Ekspor (HS Code, Moisture, Packaging, MOQ, Port of Loading), Alur Pengiriman & Sertifikasi, Form *Request Quotation* ke WhatsApp/email.
+- [ ] **Step 2:** Unduh 5–7 foto komoditas & logistik (kopi/briket/rempah/kontainer) dari Unsplash/Pexels/Wikimedia `CC0`, kompres `.webp` (`< 180 KB`).
+- [ ] **Step 3:** Bangun UI/UX: Navbar bersih + toggle bahasa `ID | EN`, Hero fotografi penuh dengan badge angka kapasitas ekspor (`tabular-nums`), Grid Katalog Komoditas (klik untuk lihat spek teknis), Tabel Spesifikasi Ekspor (HS Code, Moisture, Packaging, MOQ, Port of Loading), Alur Pengiriman & Sertifikasi, Form *Request Quotation* ke WhatsApp/email.
 - [ ] **Step 4:** Audit via checklist `antislop` + cek responsif `390px` & `1280px`, ambil screenshot `thumb.webp` untuk kartu di `data/templates.json`, lalu commit `feat/tpl-ekspor-komoditas-agro`.
 
 ---
 
-### Task 4 (Wave 1 - Template 2): `templates/profil-arsitek-kontraktor/`
+### Task 3 (Wave 1 - Template 2): `templates/profil-arsitek-kontraktor/`
 **Files:**
-- Create: `templates/profil-arsitek-kontraktor/index.html`, `style.css`, `app.js`, `ASSETS-CREDITS.md`, `assets/img/*.webp`
+- Create: `templates/profil-arsitek-kontraktor/index.html`, `style.css`, `app.js`, `assets/img/*.webp`
 
 - [ ] **Step 1:** Terapkan *Swiss Architectural Grid* (`#F2F1EE`, `#111315`, `#B68938`; *Syne / Instrument Sans + Inter*) dengan garis pemisah `1px` tegas dan penomoran proyek (`01`, `02`, `03`).
 - [ ] **Step 2:** Bangun Hero tipografi besar + 1 foto proyek utama, Galeri Portofolio interaktif dengan filter (*Semua / Rumah Tinggal / Komersial / Interior*) + modal detail spesifikasi proyek (luas tanah, tahun selesai, lokasi), Timeline proses kerja, serta Form Konsultasi Estimasi Bangun.
@@ -129,9 +118,9 @@ Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dal
 
 ---
 
-### Task 5 (Wave 1 - Template 3): `templates/toko-fashion-katalog/`
+### Task 4 (Wave 1 - Template 3): `templates/toko-fashion-katalog/`
 **Files:**
-- Create: `templates/toko-fashion-katalog/index.html`, `style.css`, `app.js`, `ASSETS-CREDITS.md`, `assets/img/*.webp`
+- Create: `templates/toko-fashion-katalog/index.html`, `style.css`, `app.js`, `assets/img/*.webp`
 
 - [ ] **Step 1:** Terapkan *Warm Lookbook Magazine* (`#FBF9F5`, `#231B15`, `#7C2D36`; *Cormorant Garamond + Plus Jakarta Sans*).
 - [ ] **Step 2:** Bangun Hero *split* editorial foto vertikal, Filter Koleksi, Kartu Produk dengan pemilih varian **Ukuran (S/M/L/XL)** dan **Warna**, Drawer Keranjang Belanja hidup (tambah, kurang, hapus, hitung total otomatis), dan tombol **Pesan lewat WhatsApp** dengan daftar belanja terformat rapi.
@@ -139,9 +128,9 @@ Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dal
 
 ---
 
-### Task 6 (Wave 1 - Template 4): `templates/kuliner-kafe-roastery/`
+### Task 5 (Wave 1 - Template 4): `templates/kuliner-kafe-roastery/`
 **Files:**
-- Create: `templates/kuliner-kafe-roastery/index.html`, `style.css`, `app.js`, `ASSETS-CREDITS.md`, `assets/img/*.webp`
+- Create: `templates/kuliner-kafe-roastery/index.html`, `style.css`, `app.js`, `assets/img/*.webp`
 
 - [ ] **Step 1:** Gunakan foto tajam dari **Foodiesfeed** dan Pexels + palet *Warm Roastery* (`#FAF3E8`, `#1E1612`, `#C05621`; *Fraunces + DM Sans*).
 - [ ] **Step 2:** Bangun Hero bertekstur hangat, Tab Menu Interaktif (*Signature Coffee / Artisan Tea / Bakery & Bites*) dengan daftar harga rapi `tabular-nums`, Strip Jam Buka & Lokasi Cabang, dan Formulir Reservasi Meja ke WhatsApp.
@@ -149,9 +138,9 @@ Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dal
 
 ---
 
-### Task 7 (Wave 1 - Template 5): `templates/jasa-klinik-kesehatan/`
+### Task 6 (Wave 1 - Template 5): `templates/jasa-klinik-kesehatan/`
 **Files:**
-- Create: `templates/jasa-klinik-kesehatan/index.html`, `style.css`, `app.js`, `ASSETS-CREDITS.md`, `assets/img/*.webp`
+- Create: `templates/jasa-klinik-kesehatan/index.html`, `style.css`, `app.js`, `assets/img/*.webp`
 
 - [ ] **Step 1:** Terapkan *Calm Clinical Paper* (`#FAFBFD`, `#1E2E3E`, `#2E6F5E`; *Plus Jakarta Sans + Inter*).
 - [ ] **Step 2:** Bangun Daftar Layanan berbasis kategori keluhan/perawatan, Profil Dokter/Praktisi (pakai foto natural non-endorsement dengan keterangan demo jelas), Akordeon `<details>` FAQ Persiapan Kunjungan, dan Form *Booking Slot Jadwal* (pilih layanan, tanggal, jam, kirim ke WhatsApp).
@@ -159,9 +148,9 @@ Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dal
 
 ---
 
-### Task 8 (Wave 1 - Template 6): `templates/landing-produk-digital/`
+### Task 7 (Wave 1 - Template 6): `templates/landing-produk-digital/`
 **Files:**
-- Create: `templates/landing-produk-digital/index.html`, `style.css`, `app.js`, `ASSETS-CREDITS.md`, `assets/img/*.webp`
+- Create: `templates/landing-produk-digital/index.html`, `style.css`, `app.js`, `assets/img/*.webp`
 
 - [ ] **Step 1:** Terapkan *Sharp Light Bento / Editorial* (`#F6F7F9`, `#0F172A`, `#1D4ED8`; *Bricolage Grotesque + Inter*) **tanpa gradien ungu-biru dan tanpa neon glow**.
 - [ ] **Step 2:** Bangun Hero + mockup interaktif (tab switch fitur aplikasi), Tabel Perbandingan Paket dengan toggle **Bayar Bulanan vs Tahunan**, Testimoni studi kasus terukur, dan CTA Uji Coba / Konsultasi.
@@ -169,7 +158,7 @@ Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dal
 
 ---
 
-### Task 9: Ekspansi Wave 2 (6 Template Tambahan) & Quality Gate Final
+### Task 8: Ekspansi Wave 2 (6 Template Tambahan) & Quality Gate Final UI/UX
 **Files:**
 - Modify: `data/templates.json` (aktifkan `"status": "ready"` untuk tiap template Wave 2 setelah selesai)
 - Create:
@@ -180,6 +169,6 @@ Gunakan sumber foto berlisensi bebas komersial yang mengizinkan pemakaian di dal
   - `templates/jasa-rental-otomotif/`
   - `templates/landing-event-edukasi/`
 
-- [ ] **Step 1:** Kerjakan masing-masing template Wave 2 dalam branch `feat/tpl-<slug>` terpisah mengikuti alur riset `ui-ux-pro-max` + filter `antislop` + aset foto lokal terkompres (`ASSETS-CREDITS.md`).
+- [ ] **Step 1:** Kerjakan masing-masing template Wave 2 dalam branch `feat/tpl-<slug>` terpisah mengikuti alur riset `ui-ux-pro-max` + filter `antislop` + aset foto lokal terkompres.
 - [ ] **Step 2:** Jalankan verifikasi lintas semua 12 template: cek tidak ada gambar `404`, tidak ada horizontal overflow pada `360px`/`390px`/`1280px`, semua filter di `katalog-demo/index.html` dan switcher HP/Desktop di `preview.html` bekerja penuh.
 - [ ] **Step 3:** Jalankan audit akhir menggunakan `web-design-guidelines` dan `accessibility-engineering` sebelum rilis dan sebelum nantinya digabung ke domain utama `attanation.com`.

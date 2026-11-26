@@ -13,13 +13,14 @@ Jika kamu melanjutkan pengembangan **Katalog Template Jasa Website**, mulai lang
 
 1. **Spesifikasi Desain (12 Template & Identitas Visual):**  
    [`docs/superpowers/specs/2026-11-26-katalog-template-jasa-website-design.md`](./docs/superpowers/specs/2026-11-26-katalog-template-jasa-website-design.md)
-2. **Plan Kerja Bertahap (Task 1–9, Aturan Skill Anti-Generik & Sumber Foto Legal):**  
+2. **Plan Kerja Bertahap (Task 1–8, Fokus UI/UX, Aturan Skill Anti-Generik & Sumber Foto Legal):**  
    [`docs/superpowers/plans/2026-11-26-katalog-template-jasa-website.md`](./docs/superpowers/plans/2026-11-26-katalog-template-jasa-website.md)
 
 Ringkasan alur kerja:
 - Gunakan branch fitur terpisah dari `main`, misal `feat/katalog-etalase` atau `feat/tpl-<slug>`.
+- Fokus penuh ke desain UI/UX, interaksi browser, dan pembuatan demo template (belum perlu membuat file `.md` dokumentasi tambahan).
 - Setiap template baru ditempatkan di folder modular masing-masing dengan tipografi, palet warna, dan komposisi hero unik (bebas gaya *AI slop*).
-- Simpan seluruh foto aset secara lokal (`.webp`/`.jpg` terkompres) di dalam folder template dan catat sumbernya di `ASSETS-CREDITS.md`.
+- Simpan seluruh foto aset legal secara lokal (`.webp`/`.jpg` terkompres) di dalam folder `assets/img/` tiap template.
 
 ---
 

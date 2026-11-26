@@ -58,9 +58,6 @@ Struktur akhir yang disiapkan agar mudah diintegrasikan ke satu domain:
 │   ├── index.html
 │   ├── preview.html                # Viewer split Desktop / Mobile untuk demo mana pun
 │   └── app.js
-└── docs/
-    ├── DESIGN-RULES-ANTISLOP.md    # Aturan anti-generik & checklist QA
-    └── ASSET-SOURCES.md            # Daftar sumber foto komersial & cara optimasi
 ```
 
 ---
