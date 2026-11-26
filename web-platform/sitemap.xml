@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Beranda / Home -->
+  <url>
+    <loc>https://attanation.com/</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Katalog Aplikasi / Apps -->
+  <url>
+    <loc>https://attanation.com/aplikasi.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/aplikasi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/apps.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/aplikasi.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/apps.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/aplikasi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/apps.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/aplikasi.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ATTA DocStudio Pro Product Page -->
+  <url>
+    <loc>https://attanation.com/docstudio.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/docstudio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/docstudio.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/docstudio.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/docstudio.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/docstudio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/docstudio.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/docstudio.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Jasa & Katalog Template / Services -->
+  <url>
+    <loc>https://attanation.com/jasa.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/jasa.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/jasa.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/jasa.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/jasa.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 6 Detail Template Katalog -->
+  <url>
+    <loc>https://attanation.com/template-kasir.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/template-kasir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/template-reservasi.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/template-reservasi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/template-member.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/template-member.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/template-kurir.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/template-kurir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/template-dashboard.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/template-dashboard.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/template-invoice.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/template-invoice.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Cara Beli / How to Buy -->
+  <url>
+    <loc>https://attanation.com/cara-beli.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/cara-beli.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/how-to-buy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/cara-beli.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/how-to-buy.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/cara-beli.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/how-to-buy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/cara-beli.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Tanya Jawab / FAQ -->
+  <url>
+    <loc>https://attanation.com/tanya-jawab.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/tanya-jawab.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/tanya-jawab.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/tanya-jawab.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/tanya-jawab.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Tentang / About -->
+  <url>
+    <loc>https://attanation.com/tentang.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/tentang.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/tentang.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/tentang.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/tentang.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Checkout & Akun -->
+  <url>
+    <loc>https://attanation.com/checkout.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/checkout.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/checkout.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/checkout.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/checkout.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/checkout.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/akun.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/akun.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/account.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/account.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/akun.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/account.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.65</priority>
+  </url>
+
+  <!-- Privasi, Syarat, & Refund / Legal -->
+  <url>
+    <loc>https://attanation.com/legal.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/legal.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/legal.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/legal.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://attanation.com/en/legal.html</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://attanation.com/legal.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://attanation.com/en/legal.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://attanation.com/legal.html"/>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.6</priority>
+  </url>
+</urlset>

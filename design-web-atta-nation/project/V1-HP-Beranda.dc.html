@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>ATTA NATION — Beranda di HP</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&amp;display=swap">
+<style>
+body{margin:0;background:#24392F}
+a{color:#17211C}a:hover{color:#000}
+.m *{box-sizing:border-box}
+.m a:focus-visible,.m button:focus-visible,.m summary:focus-visible{outline:3px solid #F2C94C;outline-offset:3px}
+.ph{aspect-ratio:390/844;border-radius:30px;background:#0E0F0F;padding:6px;box-shadow:0 18px 30px rgba(0,0,0,.35)}
+.ph img{width:100%;height:100%;object-fit:cover;border-radius:24px;display:block}
+.btn{display:block;text-align:center;padding:16px 20px;border-radius:12px;font-weight:700;font-size:17px;text-decoration:none}
+.menu a{display:block;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.2);color:#F4F6F3;text-decoration:none;font-size:22px;font-weight:700}
+details{border-bottom:1px solid #C9CFCB;padding:16px 0}
+summary{font-size:19px;font-weight:800;cursor:pointer}
+details ul{margin:10px 0 0;padding-left:20px;font-size:16px;line-height:1.75;color:#3B4842}
+</style>
+</helmet>
+<div class="m" style="width: 390px; min-height: 2750px; overflow: hidden; font-family: 'Bricolage Grotesque', sans-serif; color: #F4F6F3; background-color: #24392F; background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 32px 32px">
+<header style="padding: 16px 20px; display: flex; align-items: center; gap: 10px">
+<a href="V1-HP-Beranda.dc.html" aria-label="ATTA NATION, ke beranda" style="display: flex; align-items: center; gap: 10px; text-decoration: none"><img src="/_blob/0b2af35522f35052ee8e3eab07a0ac8c" alt="" style="width: 36px; height: 36px"><img src="/_blob/0f864ef5da7808a5a5e9b93238ab25fa" alt="ATTA NATION" style="height: 15px; width: auto"></a>
+<button type="button" aria-label="{{menuLabel}}" aria-expanded="{{openStr}}" onClick="{{toggle}}" style="margin-left: auto; width: 48px; height: 48px; border-radius: 12px; border: 2px solid #F4F6F3; background: transparent; color: #F4F6F3; display: grid; place-items: center; cursor: pointer">
+<sc-if value="{{closed}}" hint-placeholder-val="{{true}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></sc-if>
+<sc-if value="{{open}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+</button>
+</header>
+<sc-if value="{{open}}" hint-placeholder-val="{{false}}">
+<nav class="menu" aria-label="Menu utama" style="padding: 4px 20px 28px">
+<a href="V1-HP-Beranda.dc.html">Beranda</a>
+<a href="V1-HP-Aplikasi.dc.html">Aplikasi</a>
+<a href="V1-Jasa.dc.html">Jasa</a>
+<a href="V1-CaraBeli.dc.html">Cara beli</a>
+<a href="V1-Tanya.dc.html">Tanya jawab</a>
+<a href="V1-Akun.dc.html">Masuk</a>
+<a href="https://wa.me/6281235928712" class="btn" style="background: #F2C94C; color: #17211C; border: 0; margin-top: 20px; font-size: 17px; padding: 16px">Chat admin</a>
+</nav>
+</sc-if>
+<section aria-roledescription="carousel" aria-label="Proyek ATTA NATION" onTouchStart="{{ts}}" onTouchEnd="{{te}}" style="padding: 12px 0 36px; overflow: hidden">
+<div style="display: flex; transition: transform .5s cubic-bezier(.2,.7,.2,1); transform: translateX(-{{offset}}%)">
+<div style="flex: 0 0 100%; padding: 0 20px">
+<p style="font-size: 15px; font-weight: 700; color: #F2C94C; margin: 0 0 10px">ATTA DocStudio Pro</p>
+<h1 style="font-size: 38px; line-height: 1.02; letter-spacing: -1px; font-weight: 800; margin: 0">Scan, rapikan, dan kirim dokumen langsung dari HP.</h1>
+<p style="font-size: 17px; line-height: 1.5; color: #C9D6CE; margin: 16px 0 22px">Pemindai dan alat PDF dalam satu aplikasi. Bayar sekali, {{harga}}.</p>
+<a href="V1-DocStudio.dc.html" class="btn" style="background: #F2C94C; color: #17211C">Lihat DocStudio Pro</a>
+<div style="display: flex; gap: 14px; justify-content: center; margin-top: 30px; height: 330px; overflow: hidden">
+<div class="ph" style="width: 168px; height: 364px; transform: rotate(-4deg)"><img src="/_blob/74b8b9aa02882804108d57f055e3031c" alt="Layar pindai DocStudio Pro"></div>
+<div class="ph" style="width: 168px; height: 364px; margin-top: 34px; transform: rotate(5deg)"><img src="/_blob/f6864afe2895ff65bb51a3fd6b0191e4" alt="Daftar dokumen DocStudio Pro"></div>
+</div>
+</div>
+<div style="flex: 0 0 100%; padding: 0 20px">
+<p style="font-size: 15px; font-weight: 700; color: #F2C94C; margin: 0 0 10px">Jasa pembuatan software</p>
+<h1 style="font-size: 38px; line-height: 1.02; letter-spacing: -1px; font-weight: 800; margin: 0">Butuh website atau aplikasi untuk usahamu?</h1>
+<p style="font-size: 17px; line-height: 1.5; color: #C9D6CE; margin: 16px 0 22px">Web kasir dan reservasi, aplikasi Android, sampai dashboard data penjualan.</p>
+<a href="V1-Jasa.dc.html" class="btn" style="background: #F2C94C; color: #17211C">Lihat katalog jasa</a>
+<div style="background: #FAFAF7; color: #17211C; margin-top: 30px; padding: 22px; transform: rotate(-2deg); box-shadow: 0 16px 30px rgba(0,0,0,.3)">
+<div style="padding: 12px 0; border-bottom: 1px solid #C9CFCB; font-size: 19px; font-weight: 800">Web bisnis, kasir, reservasi</div>
+<div style="padding: 12px 0; border-bottom: 1px solid #C9CFCB; font-size: 19px; font-weight: 800">Aplikasi Android</div>
+<div style="padding: 12px 0; font-size: 19px; font-weight: 800">Dashboard dan otomasi data</div>
+</div>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 26px 20px 0">
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="2"><button type="button" aria-label="{{d.label}}" onClick="{{d.go}}" style="width: {{d.w}}px; height: 10px; padding: 0; border-radius: 5px; border: 0; background: {{d.bg}}; cursor: pointer"></button></sc-for>
+<span style="margin-left: auto; font-size: 15px; color: #C9D6CE">Geser untuk proyek lain</span>
+</div>
+</section>
+
+<section style="padding: 8px 20px 36px; display: flex; flex-direction: column; gap: 22px">
+<div style="border-top: 3px solid #F2C94C; padding-top: 14px"><h2 style="font-size: 22px; margin: 0 0 4px; font-weight: 800">Diproses di HP</h2><p style="font-size: 16px; line-height: 1.5; color: #C9D6CE; margin: 0">Dokumen tidak diunggah ke server ATTA NATION.</p></div>
+<div style="border-top: 3px solid #F2C94C; padding-top: 14px"><h2 style="font-size: 22px; margin: 0 0 4px; font-weight: 800">Sekali bayar</h2><p style="font-size: 16px; line-height: 1.5; color: #C9D6CE; margin: 0">Tanpa langganan. Semua fitur Pro langsung terbuka.</p></div>
+<div style="border-top: 3px solid #F2C94C; padding-top: 14px"><h2 style="font-size: 22px; margin: 0 0 4px; font-weight: 800">Tanpa iklan</h2><p style="font-size: 16px; line-height: 1.5; color: #C9D6CE; margin: 0">Tidak ada iklan di dalam aplikasi.</p></div>
+</section>
+
+<section style="background: #FAFAF7; color: #17211C; padding: 44px 20px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="font-size: 32px; margin: 0; font-weight: 800; letter-spacing: -.6px">Aplikasi</h2><a href="V1-HP-Aplikasi.dc.html" style="font-size: 16px; font-weight: 700">Lihat katalog</a></div>
+<div style="display: flex; justify-content: center; margin: 26px 0 22px"><div class="ph" style="width: 200px"><img src="/_blob/f6864afe2895ff65bb51a3fd6b0191e4" alt="Daftar dokumen DocStudio Pro"></div></div>
+<p style="font-size: 14.5px; font-weight: 700; color: #3A6B52; margin: 0 0 6px">Versi 2.5.0, untuk HP Android dan iPhone</p>
+<h3 style="font-size: 28px; margin: 0; font-weight: 800">ATTA DocStudio Pro</h3>
+<p style="font-size: 16.5px; line-height: 1.55; color: #3B4842; margin: 10px 0 18px">Scan surat dan kartu, kecilkan PDF sampai pas batas unggah, gabung berkas, dan tanda tangani.</p>
+<div style="font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums">{{harga}}</div><div style="font-size: 14.5px; color: #4A5750; margin-bottom: 16px">sekali bayar</div>
+<a href="V1-Checkout.dc.html" class="btn" style="background: #17211C; color: #FAFAF7">Beli DocStudio Pro</a>
+</section>
+
+<section style="background: #F2C94C; color: #17211C; padding: 40px 20px">
+<h2 style="font-size: 28px; margin: 0 0 8px; font-weight: 800; letter-spacing: -.5px">Punya usaha dan butuh sistem sendiri?</h2>
+<p style="font-size: 16.5px; line-height: 1.5; margin: 0 0 20px">Lihat template website dan layanan yang bisa dipesan.</p>
+<a href="V1-Jasa.dc.html" class="btn" style="background: #17211C; color: #F2C94C">Buka katalog jasa</a>
+</section>
+<footer style="padding: 36px 20px 44px; border-top: 1px solid rgba(255,255,255,.2)">
+<div style="display: flex; align-items: center; gap: 10px"><img src="/_blob/0b2af35522f35052ee8e3eab07a0ac8c" alt="" style="width: 32px; height: 32px"><img src="/_blob/0f864ef5da7808a5a5e9b93238ab25fa" alt="ATTA NATION" style="height: 14px; width: auto"></div>
+<p style="font-size: 14.5px; color: #C9D6CE; line-height: 1.6; margin: 14px 0 20px">Studio produk teknologi dari Kamal, Bangkalan.</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; font-size: 16px">
+<a href="V1-Tentang.dc.html" style="color: #F4F6F3">Tentang</a><a href="V1-Akun.dc.html" style="color: #F4F6F3">Akun saya</a>
+<a href="V1-Legal.dc.html" style="color: #F4F6F3">Privasi dan syarat</a><a href="https://wa.me/6281235928712" style="color: #F4F6F3">WhatsApp</a>
+<a href="mailto:attalaaliframadhanitrihida@gmail.com" style="color: #F4F6F3">Email</a><a href="https://github.com/attaramadhani" style="color: #F4F6F3">GitHub</a>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"harga":{"editor":"text","default":"Rp30.000"},"$preview":{"width":390,"height":2750}}'>
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { i: 0, open: false }; }
+renderVals() {
+const n = 2; const i = this.state.i;
+const go = (k) => this.setState({ i: (k + n) % n });
+const dots = [];
+for (let k = 0; k < n; k++) dots.push({ label: 'Ke proyek ' + (k + 1), go: () => go(k), w: k === i ? 30 : 10, bg: k === i ? '#F2C94C' : 'rgba(244,246,243,.4)' });
+return {
+harga: this.props.harga ?? 'Rp30.000', offset: i * 100, dots: dots,
+ts: (e) => { this.x0 = e.touches[0].clientX; },
+te: (e) => { const dx = e.changedTouches[0].clientX - this.x0; if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1); },
+open: !!this.state.open, closed: !this.state.open, openStr: this.state.open ? 'true' : 'false', menuLabel: this.state.open ? 'Tutup menu' : 'Buka menu', toggle: () => this.setState({ open: !this.state.open })
+};
+}
+}
+</script>
+</body>
+</html>

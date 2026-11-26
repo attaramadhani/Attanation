@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — Detail Template: Sistem Kasir & Toko Online</title>
+  <meta name="description" content="Detail lengkap template website kasir & toko online UMKM siap pakai dengan pembayaran QRIS Midtrans oleh ATTA NATION.">
+  <link rel="icon" type="image/png" href="assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .spec-table-simple {
+      display: grid;
+      grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+      font-size: 17px;
+      margin-top: 28px;
+      border-top: 2px solid var(--c-ink);
+    }
+    .spec-table-simple > div {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--c-border-paper);
+    }
+    .spec-table-simple .label {
+      font-weight: 700;
+      color: var(--c-ink);
+    }
+    .preview-canvas {
+      border: 2px solid #17211C;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .preview-bar {
+      height: 34px;
+      border-bottom: 2px solid #17211C;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+      background: #EAECE8;
+    }
+    .preview-screen {
+      padding: 24px;
+      background: #24392F;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pos-screen-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+      background: #FAFAF7;
+      color: #17211C;
+      padding: 18px;
+      border-radius: 10px;
+    }
+    .pos-item-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .pos-item {
+      border: 1px solid #C9CFCB;
+      padding: 10px 8px;
+      border-radius: 6px;
+      text-align: center;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .thumb-slot {
+      aspect-ratio: 16/10;
+      border: 2px solid #17211C;
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #17211C;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .thumb-slot:hover {
+      background: #F2C94C;
+    }
+    @media (max-width: 900px) {
+      .pos-screen-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — Detail Template: Sistem Kasir & Toko Online">
+  <meta property="og:description" content="Detail lengkap template website kasir & toko online UMKM siap pakai dengan pembayaran QRIS Midtrans oleh ATTA NATION.">
+  <meta property="og:image" content="assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — Detail Template: Sistem Kasir & Toko Online">
+  <meta name="twitter:description" content="Detail lengkap template website kasir & toko online UMKM siap pakai dengan pembayaran QRIS Midtrans oleh ATTA NATION.">
+  <link rel="canonical" href="https://attanation.com/template-kasir.html">
+  <meta property="og:url" content="https://attanation.com/template-kasir.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/template-kasir.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/template-kasir.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Langsung ke isi utama</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, ke beranda">
+      <img src="assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Menu utama">
+      <a href="index.html">Beranda</a>
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" class="on" aria-current="page">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="akun.html" class="btn-nav-login">Masuk</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile">
+    <a href="index.html">Beranda</a>
+    <a href="aplikasi.html">Aplikasi</a>
+    <a href="jasa.html" class="on">Jasa</a>
+    <a href="cara-beli.html">Cara beli</a>
+    <a href="tanya-jawab.html">Tanya jawab</a>
+    <a href="akun.html">Masuk</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin di WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Template Details (Paper) -->
+  <section class="paper" style="padding: 64px 32px 110px;">
+    <div class="container">
+      <a href="jasa.html" style="font-size: 16px; color: var(--c-ink); font-weight: 500;">&larr; Kembali ke katalog jasa</a>
+
+      <div style="display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 56px; margin-top: 28px; align-items: start;" class="split">
+        
+        <!-- Left: Previews & Description -->
+        <div>
+          <!-- Browser Frame Preview -->
+          <div class="preview-canvas">
+            <div class="preview-bar">
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="margin-left: 10px; font-size: 12px; color: #4A5750; font-family: monospace;">toko-anda.com/kasir</span>
+            </div>
+
+            <!-- Simulated POS & Online Catalog Layout -->
+            <div class="preview-screen">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
+                <span style="font-weight: 800; font-size: 16px;">WARUNG / TOKO ANDA</span>
+                <span style="background: #F2C94C; color: #17211C; font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 6px;">MODE KASIR AKTIF</span>
+              </div>
+
+              <div class="pos-screen-grid">
+                <!-- Products -->
+                <div>
+                  <div style="font-size: 12px; font-weight: 700; color: #4A5750; margin-bottom: 8px;">KATALOG MENU / PRODUK</div>
+                  <div class="pos-item-grid">
+                    <div class="pos-item" style="border-color: #3A6B52;">Kopi Susu<br><strong style="color: #3A6B52;">Rp18.000</strong></div>
+                    <div class="pos-item">Matcha Latte<br><strong>Rp22.000</strong></div>
+                    <div class="pos-item">Croissant<br><strong>Rp15.000</strong></div>
+                    <div class="pos-item">Toast Cokelat<br><strong>Rp16.000</strong></div>
+                    <div class="pos-item">Ice Tea<br><strong>Rp10.000</strong></div>
+                    <div class="pos-item">Mie Goreng<br><strong>Rp20.000</strong></div>
+                  </div>
+                </div>
+
+                <!-- Receipt Cart -->
+                <div class="pos-cart-col" style="border-left: 1px solid #DCE2E7; padding-left: 14px; display: flex; flex-direction: column;">
+                  <div style="font-size: 12px; font-weight: 700; color: #4A5750; margin-bottom: 8px;">STRUK PESANAN #042</div>
+                  <div style="font-size: 12px; line-height: 1.6; border-bottom: 1px dashed #C9CFCB; padding-bottom: 8px;">
+                    <div>1x Kopi Susu - 18.000</div>
+                    <div>1x Croissant - 15.000</div>
+                  </div>
+                  <div style="margin-top: auto; padding-top: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+                      <span>Total:</span>
+                      <span>Rp33.000</span>
+                    </div>
+                    <div style="background: #17211C; color: #fff; text-align: center; padding: 6px; font-size: 11px; font-weight: 700; border-radius: 4px; margin-top: 8px;">
+                      BAYAR QRIS / TUNAI
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Thumbnail Highlights -->
+          <div class="thumb-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 14px;">
+            <div class="thumb-slot">Katalog Pelanggan</div>
+            <div class="thumb-slot">Kasir & POS Tablet</div>
+            <div class="thumb-slot">Cetak Struk Thermal</div>
+            <div class="thumb-slot">Laporan Omzet Harian</div>
+          </div>
+
+          <!-- Description -->
+          <h2 style="font-size: 30px; margin: 48px 0 14px; font-weight: 800; color: #17211C;">Tentang template ini</h2>
+          <p style="font-size: 18px; line-height: 1.65; color: #3B4842; margin: 0 0 16px;">
+            Sistem web kasir dan katalog online terpadu yang dirancang khusus untuk toko retail, coffee shop, kafe, dan UMKM. Pelanggan dapat melihat katalog menu digital dengan barcode meja, sementara kasir dapat menginput pesanan secara cepat melalui layar HP, tablet, maupun laptop.
+          </p>
+          <p style="font-size: 18px; line-height: 1.65; color: #3B4842; margin: 0;">
+            Pembayaran langsung terintegrasi dengan QRIS dinamis (Midtrans), sehingga transaksi otomatis tercatat lunas tanpa perlu konfirmasi manual. Dilengkapi fitur cetak struk ke printer Bluetooth thermal dan rekapitulasi penjualan harian.
+          </p>
+
+          <h2 style="font-size: 26px; margin: 40px 0 14px; font-weight: 800; color: #17211C;">Alur Kerja Sistem</h2>
+          <ol style="font-size: 17px; line-height: 1.8; color: #3B4842; padding-left: 22px; margin: 0;">
+            <li>Pelanggan scan QR meja &rarr; melihat katalog menu tanpa perlu instal aplikasi.</li>
+            <li>Kasir memilih produk &rarr; memilih metode pembayaran QRIS / Cash / Transfer.</li>
+            <li>Pelanggan scan QRIS &rarr; pembayaran terverifikasi dalam hitungan detik.</li>
+            <li>Struk belanja tercetak otomatis & data penjualan langsung masuk ke pembukuan.</li>
+          </ol>
+        </div>
+
+        <!-- Right: Order Aside -->
+        <aside class="template-aside" style="background: #fff; border: 2px solid #17211C; border-radius: 16px; padding: 32px; position: sticky; top: 32px;">
+          <p style="font-size: 15px; font-weight: 700; color: #3A6B52; margin: 0 0 10px;">Web Bisnis</p>
+          <h1 style="font-size: 36px; line-height: 1.1; letter-spacing: -1px; font-weight: 800; margin: 0; color: #17211C;">
+            Sistem Kasir & Toko Online UMKM
+          </h1>
+          <div style="font-size: 36px; font-weight: 800; margin-top: 20px; color: #17211C; font-variant-numeric: tabular-nums;">
+            Rp1.500.000
+          </div>
+          <p style="font-size: 14.5px; color: #4A5750; margin: 4px 0 20px;">Sekali bayar + setup ke hosting dan domain usahamu.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20memesan%20template%20Sistem%20Kasir%20dan%20Toko%20Online%20(Rp1.500.000)" target="_blank" rel="noopener" class="btn y" style="text-align: center; font-size: 17px;">
+              Pesan template ini
+            </a>
+            <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20bisa%20minta%20video%20demo%20Sistem%20Kasir?" target="_blank" rel="noopener" class="btn o" style="text-align: center; font-size: 16px;">
+              Minta demo langsung via WhatsApp
+            </a>
+          </div>
+
+          <h2 style="font-size: 21px; margin: 36px 0 0; font-weight: 800; padding-bottom: 12px; border-bottom: 2px solid #17211C; color: #17211C;">
+            Yang kamu dapatkan
+          </h2>
+          <ul style="font-size: 16px; line-height: 1.85; padding-left: 20px; margin: 12px 0 0; color: #3B4842;">
+            <li>Full source code Laravel + MySQL bersih & rapi</li>
+            <li>Integrasi Midtrans QRIS & Virtual Account Bank</li>
+            <li>Kustomisasi logo, nama usaha, daftar produk & harga</li>
+            <li>Panduan operasional kasir & video tutorial</li>
+            <li>Bantuan setup ke akun hosting (Hostinger/cPanel) sampai live</li>
+            <li>Garansi perbaikan bug teknis 30 hari</li>
+          </ul>
+
+          <div class="spec-table-simple">
+            <div class="label">Cocok untuk</div>
+            <div>Kafe, Resto, Toko busana, Retail, Bakery, Warmindo</div>
+            <div class="label">Pengerjaan</div>
+            <div>3–5 hari kerja</div>
+            <div class="label">Teknologi</div>
+            <div>PHP 8.2 / Laravel, Tailwind CSS, MySQL, Midtrans API</div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Studio produk teknologi dari Kamal, Bangkalan. Dibangun oleh Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Menu bawah">
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" style="color: var(--c-yellow); font-weight: 700;">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="Tentang dan ketentuan">
+      <a href="tentang.html">Tentang ATTA NATION</a>
+      <a href="akun.html">Akun saya</a>
+      <a href="legal.html">Privasi, syarat, dan refund</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <button type="button" class="lang-btn active" aria-pressed="true">Indonesia</button>
+        <a href="en/services.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">English</a>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

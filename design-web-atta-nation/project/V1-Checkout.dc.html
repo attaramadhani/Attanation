@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>ATTA NATION — Pembayaran</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&amp;display=swap">
+<style>
+body{margin:0;background:#24392F}
+a{color:#17211C}a:hover{color:#000}
+.v1 *{box-sizing:border-box}
+.v1 a:focus-visible,.v1 button:focus-visible,.v1 input:focus-visible,.v1 summary:focus-visible{outline:3px solid #F2C94C;outline-offset:3px}
+.nav a{color:#DDE6E0;text-decoration:none;padding:6px 0;border-bottom:3px solid transparent}
+.nav a:hover{color:#fff}
+.paper{background:#FAFAF7;color:#17211C}
+.fld{display:flex;flex-direction:column;gap:8px;font-size:16px;font-weight:700}
+.fld input{height:54px;border:2px solid #17211C;border-radius:10px;padding:0 14px;font:inherit;font-weight:400;font-size:17px;background:#fff;color:#17211C}
+.opt{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:2px solid #17211C;border-radius:12px;font-size:17px;cursor:pointer;background:#fff}
+.opt input{width:22px;height:22px;margin:2px 0 0;accent-color:#17211C;flex:none}
+.opt small{display:block;font-size:14.5px;color:#4A5750;margin-top:2px}
+.btn{display:inline-block;background:#17211C;color:#FAFAF7;padding:18px 28px;border-radius:12px;font-weight:700;font-size:17px;text-decoration:none;border:0;font-family:inherit;cursor:pointer}
+.btn.y{background:#F2C94C;color:#17211C}
+.btn.o{background:transparent;color:#17211C;border:2px solid #17211C;padding:16px 26px}
+.dash{border:2px dashed #8F9A93;border-radius:12px;display:grid;place-items:center;color:#4A5750;font-size:16px;text-align:center;padding:16px}
+.h1{font-size:64px;line-height:1;letter-spacing:-1.6px;font-weight:800;margin:0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}
+@media (max-width:900px){.two,.split{grid-template-columns:minmax(0,1fr)!important}.h1{font-size:42px}}
+</style>
+</helmet>
+<div class="v1" style="font-family: 'Bricolage Grotesque', sans-serif; color: #F4F6F3; background-color: #24392F; background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 40px 40px">
+
+<header style="max-width: 1240px; margin: 0 auto; padding: 24px 32px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap">
+<a href="Main.dc.html" aria-label="ATTA NATION, ke beranda" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<img src="/_blob/0b2af35522f35052ee8e3eab07a0ac8c" alt="" style="width: 42px; height: 42px">
+<img src="/_blob/0f864ef5da7808a5a5e9b93238ab25fa" alt="ATTA NATION" style="height: 20px; width: auto">
+</a>
+<nav class="nav" aria-label="Menu utama" style="display: flex; gap: 28px; margin-left: auto; font-size: 16px; flex-wrap: wrap">
+<a href="Main.dc.html">Beranda</a>
+<a href="V1-Aplikasi.dc.html">Aplikasi</a>
+<a href="V1-Jasa.dc.html">Jasa</a>
+<a href="V1-CaraBeli.dc.html">Cara beli</a>
+<a href="V1-Tanya.dc.html">Tanya jawab</a>
+</nav>
+<a href="V1-Akun.dc.html" style="color: #F4F6F3; font-size: 16px; font-weight: 700">Masuk</a>
+<a href="https://wa.me/6281235928712" style="background: #F2C94C; color: #17211C; font-weight: 700; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-size: 15px">Chat admin</a>
+</header>
+
+<section class="paper" style="padding: 64px 32px 96px">
+<div class="split" style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 64px; align-items: start">
+<form>
+<a href="V1-DocStudio.dc.html" style="font-size: 16px">Kembali ke DocStudio Pro</a>
+<h1 class="h1" style="margin-top: 18px">Pembayaran</h1>
+
+<h2 style="font-size: 26px; margin: 48px 0 6px; font-weight: 800">Akun kamu</h2>
+<p style="font-size: 16px; color: #3B4842; margin: 0 0 20px">Dipakai untuk mengunduh ulang dan untuk masuk di iPhone. Sudah punya akun? <a href="V1-Akun.dc.html">Masuk</a></p>
+<div class="two" style="gap: 18px">
+<label class="fld">Nama lengkap<input type="text" autocomplete="name"></label>
+<label class="fld">Email<input type="email" autocomplete="email" placeholder="nama@email.com"></label>
+<label class="fld">Kata sandi<input type="password" autocomplete="new-password"><span style="font-weight: 400; font-size: 14.5px; color: #4A5750">Minimal 8 karakter</span></label>
+<label class="fld">Nomor WhatsApp (boleh kosong)<input type="tel" autocomplete="tel" placeholder="08xx"></label>
+</div>
+
+<h2 style="font-size: 26px; margin: 48px 0 20px; font-weight: 800">HP yang kamu pakai</h2>
+<div class="two" style="gap: 14px">
+<label class="opt"><input type="radio" name="hp" checked=""><span>HP Android<small>Aplikasi diunduh lalu dipasang</small></span></label>
+<label class="opt"><input type="radio" name="hp"><span>iPhone<small>Dibuka di Safari, lalu ditambahkan ke layar utama</small></span></label>
+</div>
+
+<h2 style="font-size: 26px; margin: 48px 0 20px; font-weight: 800">Cara bayar</h2>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<label class="opt"><input type="radio" name="bayar" checked=""><span>QRIS<small>Pindai dengan GoPay, OVO, DANA, ShopeePay, atau m-banking</small></span></label>
+<label class="opt"><input type="radio" name="bayar"><span>Transfer bank<small>Lewat nomor virtual account</small></span></label>
+<label class="opt"><input type="radio" name="bayar"><span>E-wallet<small>Bayar langsung dari aplikasi e-wallet</small></span></label>
+</div>
+
+<label style="display: flex; gap: 12px; align-items: flex-start; font-size: 16px; margin: 36px 0 24px; cursor: pointer"><input type="checkbox" style="width: 22px; height: 22px; margin: 1px 0 0; accent-color: #17211C; flex: none"><span>Saya setuju dengan <a href="V1-Legal.dc.html">syarat, kebijakan privasi, dan kebijakan refund</a>.</span></label>
+<a href="V1-Berhasil.dc.html" class="btn" style="font-size: 19px; padding: 20px 34px">Bayar {{harga}}</a>
+</form>
+
+<aside style="border: 2px solid #17211C; border-radius: 16px; padding: 28px; background: #fff">
+<h2 style="font-size: 22px; margin: 0 0 20px; font-weight: 800">Pesanan</h2>
+<div style="display: flex; gap: 18px; align-items: center">
+<div style="width: 84px; aspect-ratio: 390/844; border-radius: 14px; background: #0E0F0F; padding: 3px; flex: none"><img src="/_blob/f6864afe2895ff65bb51a3fd6b0191e4" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 11px; display: block"></div>
+<div><div style="font-size: 21px; font-weight: 800">ATTA DocStudio Pro</div><div style="font-size: 15px; color: #4A5750; margin-top: 4px">Versi 2.5.0, semua fitur Pro</div></div>
+</div>
+<div style="border-top: 1px solid #C9CFCB; margin-top: 24px; padding-top: 18px; display: flex; justify-content: space-between; font-size: 17px"><span>Harga</span><span style="font-variant-numeric: tabular-nums">{{harga}}</span></div>
+<div style="border-top: 2px solid #17211C; margin-top: 18px; padding-top: 18px; display: flex; justify-content: space-between; font-size: 24px; font-weight: 800"><span>Total</span><span style="font-variant-numeric: tabular-nums">{{harga}}</span></div>
+<p style="font-size: 15px; color: #3B4842; line-height: 1.55; margin: 18px 0 0">Sekali bayar. Tidak ada langganan, dan pembaruan versi tidak dipungut biaya lagi.</p>
+</aside>
+</div>
+</section>
+
+<footer style="max-width: 1240px; margin: 0 auto; padding: 56px 32px 64px; display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start">
+<div style="flex: 1 1 320px">
+<div style="display: flex; align-items: center; gap: 12px"><img src="/_blob/0b2af35522f35052ee8e3eab07a0ac8c" alt="" style="width: 36px; height: 36px"><img src="/_blob/0f864ef5da7808a5a5e9b93238ab25fa" alt="ATTA NATION" style="height: 18px; width: auto"></div>
+<p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px">Studio produk teknologi dari Kamal, Bangkalan. Dibangun oleh Attala Alif Ramadhani Tri Hida.</p>
+</div>
+<nav aria-label="Menu bawah" style="display: flex; flex-direction: column; gap: 10px; font-size: 16px">
+<a href="V1-Aplikasi.dc.html" style="color: #F4F6F3">Aplikasi</a>
+<a href="V1-Jasa.dc.html" style="color: #F4F6F3">Jasa</a>
+<a href="V1-CaraBeli.dc.html" style="color: #F4F6F3">Cara beli</a>
+<a href="V1-Tanya.dc.html" style="color: #F4F6F3">Tanya jawab</a>
+</nav>
+<nav aria-label="Tentang dan ketentuan" style="display: flex; flex-direction: column; gap: 10px; font-size: 16px">
+<a href="V1-Tentang.dc.html" style="color: #F4F6F3">Tentang ATTA NATION</a>
+<a href="V1-Akun.dc.html" style="color: #F4F6F3">Akun saya</a>
+<a href="V1-Legal.dc.html" style="color: #F4F6F3">Privasi, syarat, dan refund</a>
+<div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" aria-pressed="true" style="font: inherit; font-size: 14px; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 2px solid #F2C94C; background: #F2C94C; color: #17211C; cursor: pointer">Indonesia</button><button type="button" aria-pressed="false" style="font: inherit; font-size: 14px; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 2px solid #F4F6F3; background: transparent; color: #F4F6F3; cursor: pointer">English</button></div>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 16px">
+<a href="https://wa.me/6281235928712" style="color: #F4F6F3">WhatsApp +62 812-3592-8712</a>
+<a href="mailto:attalaaliframadhanitrihida@gmail.com" style="color: #F4F6F3">attalaaliframadhanitrihida@gmail.com</a>
+<a href="https://github.com/attaramadhani" style="color: #F4F6F3">GitHub</a>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"harga":{"editor":"text","default":"Rp30.000"},"$preview":{"width":1440,"height":2100}}'>
+class Component extends DCLogic {
+renderVals() { return { harga: this.props.harga ?? 'Rp30.000' }; }
+}
+</script>
+</body>
+</html>

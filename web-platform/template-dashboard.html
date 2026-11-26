@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — Detail Template: Dashboard Analisis Omzet & Laba Rugi</title>
+  <meta name="description" content="Dashboard visual analitik bisnis dengan Python Streamlit untuk grafik penjualan harian, perbandingan cabang, dan ekspor laporan Excel.">
+  <link rel="icon" type="image/png" href="assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .spec-table-simple {
+      display: grid;
+      grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+      font-size: 17px;
+      margin-top: 28px;
+      border-top: 2px solid var(--c-ink);
+    }
+    .spec-table-simple > div {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--c-border-paper);
+    }
+    .spec-table-simple .label {
+      font-weight: 700;
+      color: var(--c-ink);
+    }
+    .preview-canvas {
+      border: 2px solid #17211C;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .preview-bar {
+      height: 34px;
+      border-bottom: 2px solid #17211C;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+      background: #EAECE8;
+    }
+    .preview-screen {
+      padding: 24px;
+      background: #24392F;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .dash-metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .dash-metric-card {
+      background: #FAFAF7;
+      color: #17211C;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #17211C;
+    }
+    .dash-chart-mock {
+      background: #FAFAF7;
+      color: #17211C;
+      border-radius: 8px;
+      padding: 16px;
+      height: 160px;
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .chart-bar {
+      flex: 1;
+      background: #24392F;
+      border-radius: 4px 4px 0 0;
+      transition: height .3s;
+    }
+    .chart-bar.highlight {
+      background: #F2C94C;
+    }
+    .thumb-slot {
+      aspect-ratio: 16/10;
+      border: 2px solid #17211C;
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #17211C;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .dash-metric-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — Detail Template: Dashboard Analisis Omzet & Laba Rugi">
+  <meta property="og:description" content="Dashboard visual analitik bisnis dengan Python Streamlit untuk grafik penjualan harian, perbandingan cabang, dan ekspor laporan Excel.">
+  <meta property="og:image" content="assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — Detail Template: Dashboard Analisis Omzet & Laba Rugi">
+  <meta name="twitter:description" content="Dashboard visual analitik bisnis dengan Python Streamlit untuk grafik penjualan harian, perbandingan cabang, dan ekspor laporan Excel.">
+  <link rel="canonical" href="https://attanation.com/template-dashboard.html">
+  <meta property="og:url" content="https://attanation.com/template-dashboard.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/template-dashboard.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/template-dashboard.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Langsung ke isi utama</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, ke beranda">
+      <img src="assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Menu utama">
+      <a href="index.html">Beranda</a>
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" class="on" aria-current="page">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="akun.html" class="btn-nav-login">Masuk</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile">
+    <a href="index.html">Beranda</a>
+    <a href="aplikasi.html">Aplikasi</a>
+    <a href="jasa.html" class="on">Jasa</a>
+    <a href="cara-beli.html">Cara beli</a>
+    <a href="tanya-jawab.html">Tanya jawab</a>
+    <a href="akun.html">Masuk</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin di WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Template Details (Paper) -->
+  <section class="paper" style="padding: 64px 32px 110px;">
+    <div class="container">
+      <a href="jasa.html" style="font-size: 16px; color: var(--c-ink); font-weight: 500;">&larr; Kembali ke katalog jasa</a>
+
+      <div style="display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 56px; margin-top: 28px; align-items: start;" class="split">
+        
+        <div>
+          <div class="preview-canvas">
+            <div class="preview-bar">
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="margin-left: 10px; font-size: 12px; color: #4A5750; font-family: monospace;">analytics.bisnis-anda.com</span>
+            </div>
+
+            <div class="preview-screen">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
+                <span style="font-weight: 800; font-size: 16px;">RINGKASAN EKSEKUTIF OMZET</span>
+                <span style="background: #F2C94C; color: #17211C; font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 6px;">NOVEMBER 2026</span>
+              </div>
+
+              <!-- Metric cards -->
+              <div class="dash-metric-row">
+                <div class="dash-metric-card">
+                  <div style="font-size: 11px; color: #4A5750; font-weight: 700;">TOTAL OMZET</div>
+                  <div style="font-size: 18px; font-weight: 800; color: #17211C; margin-top: 4px;">Rp48.250.000</div>
+                  <div style="font-size: 10px; color: #3A6B52; font-weight: 700; margin-top: 2px;">+18.4% vs bln lalu</div>
+                </div>
+                <div class="dash-metric-card">
+                  <div style="font-size: 11px; color: #4A5750; font-weight: 700;">LABA BERSIH</div>
+                  <div style="font-size: 18px; font-weight: 800; color: #3A6B52; margin-top: 4px;">Rp16.400.000</div>
+                  <div style="font-size: 10px; color: #3A6B52; font-weight: 700; margin-top: 2px;">Margin 34%</div>
+                </div>
+                <div class="dash-metric-card">
+                  <div style="font-size: 11px; color: #4A5750; font-weight: 700;">TRANSAKSI</div>
+                  <div style="font-size: 18px; font-weight: 800; color: #17211C; margin-top: 4px;">1.280 Pesanan</div>
+                  <div style="font-size: 10px; color: #4A5750; margin-top: 2px;">Rata-rata Rp37 rb</div>
+                </div>
+              </div>
+
+              <!-- Chart mock -->
+              <div class="dash-chart-mock">
+                <div class="chart-bar" style="height: 40px;"></div>
+                <div class="chart-bar" style="height: 55px;"></div>
+                <div class="chart-bar" style="height: 70px;"></div>
+                <div class="chart-bar" style="height: 60px;"></div>
+                <div class="chart-bar" style="height: 95px;"></div>
+                <div class="chart-bar highlight" style="height: 125px;"></div>
+                <div class="chart-bar" style="height: 105px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="thumb-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 14px;">
+            <div class="thumb-slot">Grafik Tren Omzet</div>
+            <div class="thumb-slot">Import CSV & Excel</div>
+            <div class="thumb-slot">Analisis Produk Terlaris</div>
+            <div class="thumb-slot">Ekspor PDF Otomatis</div>
+          </div>
+
+          <h2 style="font-size: 30px; margin: 48px 0 14px; font-weight: 800; color: #17211C;">Tentang template ini</h2>
+          <p style="font-size: 18px; line-height: 1.65; color: #3B4842; margin: 0 0 16px;">
+            Hentikan pusing membaca tabel ribuan baris di Excel secara manual. Template dashboard visual ini otomatis mengolah file catatan penjualan dan rekap mutasi bankmu menjadi grafik interaktif, indikator laba kotor vs laba bersih, serta analisis jam sibuk tokomu.
+          </p>
+          <p style="font-size: 18px; line-height: 1.65; color: #3B4842; margin: 0;">
+            Dibangun dengan Python & Streamlit sehingga sangat mudah disesuaikan dengan rumus perhitungan bisnismu sendiri. Bisa diakses privat lewat web peramban dengan proteksi login PIN atau password.
+          </p>
+        </div>
+
+        <aside class="template-aside" style="background: #fff; border: 2px solid #17211C; border-radius: 16px; padding: 32px; position: sticky; top: 32px;">
+          <p style="font-size: 15px; font-weight: 700; color: #3A6B52; margin: 0 0 10px;">Dashboard & Data</p>
+          <h1 style="font-size: 36px; line-height: 1.1; letter-spacing: -1px; font-weight: 800; margin: 0; color: #17211C;">
+            Dashboard Analisis Omzet & Laba Rugi
+          </h1>
+          <div style="font-size: 36px; font-weight: 800; margin-top: 20px; color: #17211C; font-variant-numeric: tabular-nums;">
+            Rp1.200.000
+          </div>
+          <p style="font-size: 14.5px; color: #4A5750; margin: 4px 0 20px;">Termasuk setup Python environment & kustomisasi rumus usahamu.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20memesan%20Dashboard%20Analisis%20Omzet%20(Rp1.200.000)" target="_blank" rel="noopener" class="btn y" style="text-align: center; font-size: 17px;">
+              Pesan template ini
+            </a>
+            <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20bisa%20minta%20demo%20Dashboard%20Data?" target="_blank" rel="noopener" class="btn o" style="text-align: center; font-size: 16px;">
+              Minta demo data via WhatsApp
+            </a>
+          </div>
+
+          <h2 style="font-size: 21px; margin: 36px 0 0; font-weight: 800; padding-bottom: 12px; border-bottom: 2px solid #17211C; color: #17211C;">
+            Yang kamu dapatkan
+          </h2>
+          <ul style="font-size: 16px; line-height: 1.85; padding-left: 20px; margin: 12px 0 0; color: #3B4842;">
+            <li>Script aplikasi Python Streamlit lengkap siap pakai</li>
+            <li>Modul drag-and-drop file Excel / CSV data transaksi</li>
+            <li>Visualisasi grafik interaktif Plotly (zoom in, pan, filter rentang tanggal)</li>
+            <li>Tombol ekspor laporan ringkasan ke PDF satu lembar</li>
+            <li>Panduan instalasi lokal di laptop atau hosting cloud</li>
+          </ul>
+
+          <div class="spec-table-simple">
+            <div class="label">Cocok untuk</div>
+            <div>Owner bisnis, Toko online, Distributor, Usaha kuliner multi-cabang</div>
+            <div class="label">Pengerjaan</div>
+            <div>2–4 hari kerja</div>
+            <div class="label">Teknologi</div>
+            <div>Python 3.11, Streamlit, Pandas, Plotly, OpenPyXL</div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Studio produk teknologi dari Kamal, Bangkalan. Dibangun oleh Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Menu bawah">
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" style="color: var(--c-yellow); font-weight: 700;">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="Tentang dan ketentuan">
+      <a href="tentang.html">Tentang ATTA NATION</a>
+      <a href="akun.html">Akun saya</a>
+      <a href="legal.html">Privasi, syarat, dan refund</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <button type="button" class="lang-btn active" aria-pressed="true">Indonesia</button>
+        <a href="en/services.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">English</a>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

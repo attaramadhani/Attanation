@@ -1,0 +1,4 @@
+# Lindungi file konfigurasi dan skema dari akses langsung
+<FilesMatch "^(config\.php|config\.example\.php|schema\.sql|README\.md)$">
+  Require all denied
+</FilesMatch>

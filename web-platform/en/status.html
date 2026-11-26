@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — Payment Status</title>
+  <meta name="description" content="Order payment and download status for ATTA DocStudio Pro.">
+  <link rel="icon" type="image/png" href="../assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    html.js-enabled .status-panel {
+      display: none;
+    }
+    html.js-enabled .status-panel.active {
+      display: block;
+    }
+    .status-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0;
+      border-top: 2px solid var(--c-ink);
+    }
+    .status-two > div {
+      padding: 32px 40px 8px 0;
+      border-right: 2px solid var(--c-ink);
+    }
+    .status-two > div:last-child {
+      border-right: 0;
+      padding-right: 0;
+      padding-left: 40px;
+    }
+    .status-two ol {
+      font-size: 17px;
+      line-height: 1.75;
+      padding-left: 22px;
+      margin: 24px 0 0;
+      color: var(--c-text-paper);
+    }
+    @media (max-width: 900px) {
+      .status-two {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+      .status-two > div {
+        border-right: 0 !important;
+        border-bottom: 2px solid var(--c-ink);
+        padding: 24px 0 !important;
+      }
+      .status-two > div:last-child {
+        border-bottom: 0;
+      }
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — Payment Status">
+  <meta property="og:description" content="Order payment and download status for ATTA DocStudio Pro.">
+  <meta property="og:image" content="../assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — Payment Status">
+  <meta name="twitter:description" content="Order payment and download status for ATTA DocStudio Pro.">
+  <link rel="canonical" href="https://attanation.com/en/status.html">
+  <meta property="og:url" content="https://attanation.com/en/status.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/status-pembayaran.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/status.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/status-pembayaran.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, home">
+      <img src="../assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="apps.html">Apps</a>
+      <a href="services.html">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="account.html" class="btn-nav-login">Sign in</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="apps.html">Apps</a>
+    <a href="services.html">Services</a>
+    <a href="how-to-buy.html">How to buy</a>
+    <a href="faq.html">FAQ</a>
+    <a href="account.html">Sign in</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin on WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Status Section (Paper) -->
+  <section class="paper" style="padding: 72px 32px 110px;">
+    <div class="container" style="max-width: 1040px;">
+
+      <!-- Optional quick test tabs for preview -->
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px dashed #C9CFCB;">
+        <span style="font-size: 13px; color: #4A5750; align-self: center;">Status simulation:</span>
+        <button type="button" class="tab active" style="height: 32px; padding: 0 12px; font-size: 13px;" data-status-tab="berhasil">Success</button>
+        <button type="button" class="tab" style="height: 32px; padding: 0 12px; font-size: 13px;" data-status-tab="menunggu">Pending</button>
+        <button type="button" class="tab" style="height: 32px; padding: 0 12px; font-size: 13px;" data-status-tab="gagal">Failed</button>
+      </div>
+
+      <!-- State 1: Success -->
+      <div id="status-berhasil" class="status-panel active">
+        <p style="font-size: 17px; font-weight: 700; color: #3A6B52; margin: 0 0 12px;">
+          Order <span class="order-id-display">ATN-20261110-8842</span>
+        </p>
+        <h1 class="h1" style="color: #17211C; font-size: 64px;">Payment successful.</h1>
+        <p style="font-size: 20px; line-height: 1.55; color: #3B4842; margin: 20px 0 48px; max-width: 640px;">
+          DocStudio Pro is now officially yours. Access links have also been dispatched to your email and remain permanently stored in <a href="account.html" style="text-decoration: underline; font-weight: 700;">My Account</a>.
+        </p>
+
+        <div class="status-two">
+          <!-- Android Column -->
+          <div>
+            <h2 style="font-size: 28px; margin: 0 0 16px; font-weight: 800; color: #17211C;">Android Device</h2>
+            <a href="../../pwa-docstudio-pro/?install=android" class="btn app-download-link">Download DocStudio Pro</a>
+            <ol>
+              <li>Open the downloaded installer file.</li>
+              <li>Toggle permission if prompted by Android.</li>
+              <li>Tap Install and launch from your app drawer.</li>
+            </ol>
+          </div>
+
+          <!-- iPhone Column -->
+          <div>
+            <h2 style="font-size: 28px; margin: 0 0 16px; font-weight: 800; color: #17211C;">iPhone</h2>
+            <a href="../../pwa-docstudio-pro/" target="_blank" class="btn" rel="noopener">Launch DocStudio Pro</a>
+            <ol>
+              <li>Open the web app in Safari and sign in with your email.</li>
+              <li>Tap the Share button in Safari.</li>
+              <li>Select Add to Home Screen.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div style="margin-top: 40px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+          <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn o whatsapp-confirm-btn">Confirm Order via WhatsApp</a>
+          <span style="font-size: 17px; color: #17211C;">
+            Need the step-by-step installation guide? <a href="how-to-buy.html" style="text-decoration: underline; font-weight: 700;">View installation instructions</a>
+          </span>
+        </div>
+      </div>
+
+      <!-- State 2: Pending -->
+      <div id="status-menunggu" class="status-panel">
+        <p style="font-size: 17px; font-weight: 700; color: #3A6B52; margin: 0 0 12px;">
+          Order <span class="order-id-display">ATN-20261110-8842</span>
+        </p>
+        <h1 class="h1" style="color: #17211C; font-size: 64px;">Awaiting payment</h1>
+
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 48px; align-items: start;" class="split">
+          <!-- QR / VA Box -->
+          <div class="dash" style="aspect-ratio: 1; max-width: 380px; border-radius: 16px; padding: 24px; background: #fff;">
+            <div style="font-weight: 700; font-size: 18px; margin-bottom: 12px; color: #17211C;">Scan QRIS ATTA NATION</div>
+            <div style="width: 200px; height: 200px; background: #17211C; display: grid; place-items: center; color: #fff; font-size: 12px; padding: 12px; border-radius: 8px;">
+              [QRIS Code Simulator]
+            </div>
+            <div style="font-size: 13px; color: #4A5750; margin-top: 12px;">NMID: ID1020000000000 · ATTA NATION</div>
+          </div>
+
+          <!-- Price & Actions -->
+          <div>
+            <div style="font-size: 17px; color: #3B4842;">Total</div>
+            <div style="font-size: 48px; font-weight: 800; font-variant-numeric: tabular-nums; color: #17211C;">Rp30,000 <span style="font-size: 22px; font-weight: 500; color: #666;">(~$2.00)</span></div>
+            <p style="font-size: 18px; line-height: 1.55; margin: 16px 0 28px; color: #3B4842;">
+              Complete payment before the countdown expires. This screen will automatically update as soon as the gateway confirms receipt.
+            </p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <button type="button" class="btn" data-status-tab="berhasil">Verify payment status</button>
+              <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn o whatsapp-confirm-btn">Confirm via WhatsApp</a>
+              <a href="checkout.html" class="btn o">Change payment method</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- State 3: Failed -->
+      <div id="status-gagal" class="status-panel">
+        <p style="font-size: 17px; font-weight: 700; color: #9B2C2C; margin: 0 0 12px;">
+          Order <span class="order-id-display">ATN-20261110-8842</span>
+        </p>
+        <h1 class="h1" style="color: #17211C; font-size: 64px;">Payment unsuccessful</h1>
+        <p style="font-size: 20px; line-height: 1.55; color: #3B4842; margin: 20px 0 36px; max-width: 640px;">
+          The transaction was cancelled or timed out. Please try again. If funds were debited from your account, message support with your order reference number.
+        </p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <a href="checkout.html" class="btn">Retry payment</a>
+          <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn o">Chat support on WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="../assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Software studio from Kamal, Bangkalan, Indonesia. Built by Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="apps.html">Apps</a>
+      <a href="services.html">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="About and terms">
+      <a href="about.html">About ATTA NATION</a>
+      <a href="account.html">My account</a>
+      <a href="legal.html">Privacy, terms, & refunds</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <a href="../status-pembayaran.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">Indonesia</a>
+        <button type="button" class="lang-btn active" aria-pressed="true">English</button>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

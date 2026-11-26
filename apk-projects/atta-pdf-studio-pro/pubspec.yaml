@@ -1,0 +1,46 @@
+name: atta_pdf_studio_pro
+description: "ATTA PDF Studio Pro — 25+ Alat Manipulasi PDF Offline, OCR, e-Sign & AI Intelligence oleh ATTA NATION."
+publish_to: 'none'
+version: 2.0.0+20
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  file_picker: ^12.1.2
+  path_provider: ^2.1.6
+  path: ^1.9.1
+  syncfusion_flutter_pdf: ^33.2.13
+  pdf: ^3.12.0
+  printing: ^5.14.3
+  image_picker: ^1.2.3
+  share_plus: ^13.3.0
+  intl: ^0.20.3
+  shared_preferences: ^2.5.5
+  google_fonts: ^8.2.1
+  flutter_pdfview: ^1.4.5
+  http: ^1.6.0
+  uuid: ^4.5.1
+  image: ^4.5.4
+  archive: ^4.0.7
+  xml: ^6.5.0
+  google_mlkit_text_recognition: ^0.15.0
+  google_mlkit_document_scanner: ">=0.5.0 <0.6.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+dependency_overrides:
+  path_provider_foundation: 2.4.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/brand/

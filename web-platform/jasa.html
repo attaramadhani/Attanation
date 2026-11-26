@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — Jasa & Katalog Template</title>
+  <meta name="description" content="Layanan pembuatan software mandiri dan katalog template web & aplikasi bisnis siap pakai oleh ATTA NATION.">
+  <link rel="icon" type="image/png" href="assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: 2px solid var(--c-ink);
+    }
+    .svc-grid > div {
+      padding: 28px 28px 28px 0;
+      border-right: 2px solid var(--c-ink);
+    }
+    .svc-grid > div:last-child {
+      border-right: 0;
+      padding-right: 0;
+      padding-left: 28px;
+    }
+    .svc-grid > div:nth-child(2) {
+      padding-left: 28px;
+    }
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+    .template-card {
+      background: #FAFAF7;
+      border: 2px solid #17211C;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .template-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+    .template-browser-bar {
+      height: 30px;
+      border-bottom: 2px solid #17211C;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 12px;
+      background: #EAECE8;
+    }
+    .browser-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 2px solid #17211C;
+    }
+    .template-mock-screen {
+      aspect-ratio: 16/10;
+      margin: 14px;
+      border: 2px solid #17211C;
+      border-radius: 8px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .mock-header {
+      background: #24392F;
+      color: #fff;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .mock-body {
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      background: #FAFBF9;
+    }
+    .mock-line {
+      height: 6px;
+      background: #DCE2E7;
+      border-radius: 3px;
+    }
+    .mock-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: #3A6B52;
+      background: #E4ECE7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    @media (max-width: 1000px) {
+      .template-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+    @media (max-width: 900px) {
+      .svc-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+      .svc-grid > div {
+        border-right: 0 !important;
+        border-bottom: 2px solid var(--c-ink);
+        padding: 24px 0 !important;
+      }
+      .svc-grid > div:last-child {
+        border-bottom: 0;
+      }
+    }
+    @media (max-width: 650px) {
+      .template-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — Jasa & Katalog Template">
+  <meta property="og:description" content="Layanan pembuatan software mandiri dan katalog template web & aplikasi bisnis siap pakai oleh ATTA NATION.">
+  <meta property="og:image" content="assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — Jasa & Katalog Template">
+  <meta name="twitter:description" content="Layanan pembuatan software mandiri dan katalog template web & aplikasi bisnis siap pakai oleh ATTA NATION.">
+  <link rel="canonical" href="https://attanation.com/jasa.html">
+  <meta property="og:url" content="https://attanation.com/jasa.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/jasa.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/jasa.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Langsung ke isi utama</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, ke beranda">
+      <img src="assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Menu utama">
+      <a href="index.html">Beranda</a>
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" class="on" aria-current="page">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="akun.html" class="btn-nav-login">Masuk</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile">
+    <a href="index.html">Beranda</a>
+    <a href="aplikasi.html">Aplikasi</a>
+    <a href="jasa.html" class="on">Jasa</a>
+    <a href="cara-beli.html">Cara beli</a>
+    <a href="tanya-jawab.html">Tanya jawab</a>
+    <a href="akun.html">Masuk</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin di WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Page Header -->
+  <section class="container" style="padding-top: 56px; padding-bottom: 88px;">
+    <h1 class="h1" style="font-size: 76px; max-width: 900px;">Website dan aplikasi untuk usahamu.</h1>
+    <p style="font-size: 21px; line-height: 1.5; color: #C9D6CE; max-width: 620px; margin: 26px 0 0;">
+      Pilih dari template software yang sudah jadi lalu disesuaikan dengan merekmu, atau pesan kustom dari nol. Semua dikerjakan langsung oleh ATTA NATION.
+    </p>
+  </section>
+
+  <!-- Layanan Section (Paper) -->
+  <section class="paper" style="padding: 88px 32px;">
+    <div class="container">
+      <h2 style="font-size: 44px; letter-spacing: -1px; margin: 0 0 36px; font-weight: 800; color: #17211C;">Layanan</h2>
+      <div class="svc-grid">
+        <div>
+          <h3 style="font-size: 25px; margin: 0 0 10px; color: #17211C;">Web bisnis, kasir, dan reservasi</h3>
+          <p style="font-size: 17px; line-height: 1.55; margin: 0; color: #3B4842;">
+            Toko online, POS kasir, sistem reservasi dan booking, dengan pembayaran otomatis QRIS & Bank via Midtrans. Dibangun dengan Laravel & Tailwind CSS.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size: 25px; margin: 0 0 10px; color: #17211C;">Aplikasi Android</h3>
+          <p style="font-size: 17px; line-height: 1.55; margin: 0; color: #3B4842;">
+            Dibangun dengan Flutter. Dapat mengintegrasikan kamera, scan barcode/KTP, offline-first SQLite, dan kecerdasan buatan on-device.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size: 25px; margin: 0 0 10px; color: #17211C;">Dashboard dan otomasi data</h3>
+          <p style="font-size: 17px; line-height: 1.55; margin: 0; color: #3B4842;">
+            Rapikan data penjualan berserakan dan bangun dashboard bisnis interaktif menggunakan Python, Streamlit, PostgreSQL, atau Excel automation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Katalog Template Section (6 Rich Templates with Filter) -->
+  <section style="background: #EEF0EC; color: #17211C; padding: 88px 32px 110px;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px;">
+        <div>
+          <h2 style="font-size: 44px; letter-spacing: -1px; margin: 0 0 10px; font-weight: 800;">Katalog template</h2>
+          <p style="font-size: 18px; color: #3B4842; margin: 0;">Template sistem siap pasang yang langsung disesuaikan dengan merek & datamu.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div role="tablist" aria-label="Kategori template" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" role="tab" class="tab active" aria-selected="true" data-filter="all">Semua (6)</button>
+          <button type="button" role="tab" class="tab" aria-selected="false" data-filter="web">Web Bisnis</button>
+          <button type="button" role="tab" class="tab" aria-selected="false" data-filter="app">Aplikasi HP</button>
+          <button type="button" role="tab" class="tab" aria-selected="false" data-filter="dash">Dashboard & Data</button>
+        </div>
+      </div>
+
+      <!-- 6 Template Cards -->
+      <div class="template-grid" id="templates-container">
+
+        <!-- Template 1: Kasir & Katalog Web -->
+        <article class="template-card" data-cat="web">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>POS & STORE ONLINE</span>
+              <span style="color: #F2C94C;">QRIS AKTIF</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">KASIR & KATALOG</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Kasir Toko & Meja Pelanggan</div>
+              <div class="mock-line" style="width: 85%;"></div>
+              <div class="mock-line" style="width: 65%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Total: Rp85.000</span>
+                <span>LUNAS &check;</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Web Bisnis</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Sistem Kasir & Toko Online UMKM</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Katalog belanja pelanggan responsif di HP, pembayaran QRIS instan Midtrans, dan cetak struk Bluetooth thermal.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.500.000</span>
+              <div style="display: flex; gap: 10px;">
+                <a href="template-kasir.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Detail</a>
+                <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20pesan%20template%20Sistem%20Kasir%20dan%20Toko%20Online" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 2: Reservasi & Booking Online -->
+        <article class="template-card" data-cat="web">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>SISTEM RESERVASI</span>
+              <span style="color: #F2C94C;">SLOT WAKTU</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">KALENDER BOOKING</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Pilih Jadwal & Konfirmasi WA</div>
+              <div class="mock-line" style="width: 90%;"></div>
+              <div class="mock-line" style="width: 70%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Jam 14:00 (Tersedia)</span>
+                <span>DP 50%</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Web Bisnis</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Web Reservasi & Booking Jadwal</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Kalender booking slot otomatis untuk klinik, salon, lapangan olahraga, atau rental kendaraan, terhubung notifikasi WhatsApp.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.800.000</span>
+              <div style="display: flex; gap: 10px;">
+                <a href="template-reservasi.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Detail</a>
+                <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20pesan%20template%20Web%20Reservasi%20Jadwal" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 3: Aplikasi Android Member & Loyalty -->
+        <article class="template-card" data-cat="app">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>ANDROID APP</span>
+              <span style="color: #F2C94C;">FLUTTER</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">MEMBER & POIN</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Kartu Digital & Voucher</div>
+              <div class="mock-line" style="width: 80%;"></div>
+              <div class="mock-line" style="width: 50%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Poin: 1.450 Pts</span>
+                <span>QR Scan</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Aplikasi HP</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Aplikasi Member & Poin Pelanggan</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Aplikasi Android Flutter dengan barcode member digital, riwayat transaksi, katalog reward, dan notifikasi promo ke HP pelanggan.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp2.500.000</span>
+              <div style="display: flex; gap: 10px;">
+                <a href="template-member.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Detail</a>
+                <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20pesan%20Aplikasi%20Member%20Android" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 4: Aplikasi Kurir & Delivery Tracker -->
+        <article class="template-card" data-cat="app">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>KURIR & LOGISTIK</span>
+              <span style="color: #F2C94C;">GPS TRACKING</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">BUKTI PENGIRIMAN</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Foto Kamera & Tanda Tangan</div>
+              <div class="mock-line" style="width: 88%;"></div>
+              <div class="mock-line" style="width: 60%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Paket #4928</span>
+                <span>Terkirim &check;</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Aplikasi HP</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Aplikasi Kurir & Pelacak Antaran</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Aplikasi lapangan kurir toko/laundry untuk mengunggah foto bukti penerimaan barang, tanda tangan di layar, dan rute maps.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp2.800.000</span>
+              <div style="display: flex; gap: 10px;">
+                <a href="template-kurir.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Detail</a>
+                <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20pesan%20Aplikasi%20Kurir%20dan%20Antaran" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 5: Dashboard Analisis Omzet & Laba Rugi -->
+        <article class="template-card" data-cat="dash">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>DASHBOARD DATA</span>
+              <span style="color: #F2C94C;">STREAMLIT / PYTHON</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">GRAFIK OMZET</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Laporan Laba Rugi & Tren</div>
+              <div class="mock-line" style="width: 95%;"></div>
+              <div class="mock-line" style="width: 75%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Omzet: +28%</span>
+                <span>Margin: 34%</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Dashboard & Data</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Dashboard Analisis Omzet & Laba Rugi</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Visualisasi metrik performa penjualan harian, perbandingan cabang, analisis stok lambat laku, dan ekspor PDF/Excel sekali klik.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.200.000</span>
+              <div style="display: flex; gap: 10px;">
+                <a href="template-dashboard.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Detail</a>
+                <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20pesan%20Dashboard%20Analisis%20Omzet" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 6: Otomasi Dokumen & Invoice Faktur -->
+        <article class="template-card" data-cat="dash">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>DOC GENERATOR</span>
+              <span style="color: #F2C94C;">OTOMASI PDF</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">INVOICE & KWITANSI</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Cetak Massal & Watermark</div>
+              <div class="mock-line" style="width: 90%;"></div>
+              <div class="mock-line" style="width: 55%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>150 Faktur / Menit</span>
+                <span>Auto-Email</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Dashboard & Data</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Sistem Otomasi Invoice & Kwitansi PDF</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Generator invoice otomatis dari data Google Sheets/Excel dengan tanda tangan digital ber-QR code dan pengiriman massal via WhatsApp.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.400.000</span>
+              <div style="display: flex; gap: 10px;">
+                <a href="template-invoice.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Detail</a>
+                <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20pesan%20Sistem%20Otomasi%20Invoice%20PDF" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Pesan</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Request Yellow Banner -->
+  <section style="background: #F2C94C; color: #17211C; padding: 88px 32px;">
+    <div class="container" style="display: flex; gap: 40px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <div style="flex: 1 1 520px;">
+        <h2 style="font-size: 46px; letter-spacing: -1px; margin: 0 0 12px; font-weight: 800;">Belum ada yang cocok?</h2>
+        <p style="font-size: 19px; margin: 0; line-height: 1.5; max-width: 600px;">
+          Ceritakan alur bisnis dan kebutuhan usahamu. Kami buatkan proposal solusi teknis dan estimasi biaya transparan dari nol.
+        </p>
+      </div>
+      <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20ingin%20konsultasi%20pembuatan%20software%20kustom" target="_blank" rel="noopener" class="btn" style="background: #17211C; color: #F2C94C; font-size: 17px; padding: 18px 28px;">
+        Konsultasi di WhatsApp
+      </a>
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Studio produk teknologi dari Kamal, Bangkalan. Dibangun oleh Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Menu bawah">
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" style="color: var(--c-yellow); font-weight: 700;">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="Tentang dan ketentuan">
+      <a href="tentang.html">Tentang ATTA NATION</a>
+      <a href="akun.html">Akun saya</a>
+      <a href="legal.html">Privasi, syarat, dan refund</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <button type="button" class="lang-btn active" aria-pressed="true">Indonesia</button>
+        <a href="en/services.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">English</a>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

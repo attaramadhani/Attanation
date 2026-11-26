@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — Detail Template: Sistem Otomasi Invoice & Kwitansi PDF</title>
+  <meta name="description" content="Generator invoice dan kwitansi PDF otomatis dari tabel Excel/Google Sheets dengan tanda tangan QR code dan pengiriman WhatsApp oleh ATTA NATION.">
+  <link rel="icon" type="image/png" href="assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .spec-table-simple {
+      display: grid;
+      grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+      font-size: 17px;
+      margin-top: 28px;
+      border-top: 2px solid var(--c-ink);
+    }
+    .spec-table-simple > div {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--c-border-paper);
+    }
+    .spec-table-simple .label {
+      font-weight: 700;
+      color: var(--c-ink);
+    }
+    .preview-canvas {
+      border: 2px solid #17211C;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .preview-bar {
+      height: 34px;
+      border-bottom: 2px solid #17211C;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+      background: #EAECE8;
+    }
+    .preview-screen {
+      padding: 24px;
+      background: #24392F;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .inv-sheet {
+      background: #FAFAF7;
+      color: #17211C;
+      border-radius: 10px;
+      padding: 18px;
+      border: 1px solid #17211C;
+    }
+    .thumb-slot {
+      aspect-ratio: 16/10;
+      border: 2px solid #17211C;
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #17211C;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — Detail Template: Sistem Otomasi Invoice & Kwitansi PDF">
+  <meta property="og:description" content="Generator invoice dan kwitansi PDF otomatis dari tabel Excel/Google Sheets dengan tanda tangan QR code dan pengiriman WhatsApp oleh ATTA NATION.">
+  <meta property="og:image" content="assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — Detail Template: Sistem Otomasi Invoice & Kwitansi PDF">
+  <meta name="twitter:description" content="Generator invoice dan kwitansi PDF otomatis dari tabel Excel/Google Sheets dengan tanda tangan QR code dan pengiriman WhatsApp oleh ATTA NATION.">
+  <link rel="canonical" href="https://attanation.com/template-invoice.html">
+  <meta property="og:url" content="https://attanation.com/template-invoice.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/template-invoice.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/template-invoice.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Langsung ke isi utama</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, ke beranda">
+      <img src="assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Menu utama">
+      <a href="index.html">Beranda</a>
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" class="on" aria-current="page">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="akun.html" class="btn-nav-login">Masuk</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile">
+    <a href="index.html">Beranda</a>
+    <a href="aplikasi.html">Aplikasi</a>
+    <a href="jasa.html" class="on">Jasa</a>
+    <a href="cara-beli.html">Cara beli</a>
+    <a href="tanya-jawab.html">Tanya jawab</a>
+    <a href="akun.html">Masuk</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin di WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Template Details (Paper) -->
+  <section class="paper" style="padding: 64px 32px 110px;">
+    <div class="container">
+      <a href="jasa.html" style="font-size: 16px; color: var(--c-ink); font-weight: 500;">&larr; Kembali ke katalog jasa</a>
+
+      <div style="display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 56px; margin-top: 28px; align-items: start;" class="split">
+        
+        <div>
+          <div class="preview-canvas">
+            <div class="preview-bar">
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; border: 2px solid #17211C;"></span>
+              <span style="margin-left: 10px; font-size: 12px; color: #4A5750; font-family: monospace;">invoice-engine.usaha-anda.id</span>
+            </div>
+
+            <div class="preview-screen">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
+                <span style="font-weight: 800; font-size: 16px;">GENERATOR FAKTUR & KWITANSI MASSAL</span>
+                <span style="background: #F2C94C; color: #17211C; font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 6px;">150 PDF / MENIT</span>
+              </div>
+
+              <div class="inv-sheet">
+                <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #17211C; padding-bottom: 10px; margin-bottom: 12px;">
+                  <div>
+                    <div style="font-weight: 800; font-size: 14px;">INVOICE #INV-2026-089</div>
+                    <div style="font-size: 12px; color: #4A5750;">Kepada: PT Maju Bersama</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="background: #E4ECE7; color: #3A6B52; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 4px;">LUNAS &bull; TERVERIFIKASI QR</span>
+                  </div>
+                </div>
+                <div style="font-size: 12px; line-height: 1.7; border-bottom: 1px dashed #C9CFCB; padding-bottom: 10px;">
+                  <div style="display: flex; justify-content: space-between;"><span>1. Paket Lisensi Tahunan & Maintenance</span><strong>Rp4.500.000</strong></div>
+                  <div style="display: flex; justify-content: space-between;"><span>2. Setup Server & Migrasi Database</span><strong>Rp1.200.000</strong></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; font-weight: 800; font-size: 14px;">
+                  <span>Total Tagihan (Termasuk PPN)</span>
+                  <span style="color: #3A6B52;">Rp5.700.000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="thumb-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 14px;">
+            <div class="thumb-slot">Impor Tabel Excel</div>
+            <div class="thumb-slot">Kop & Stempel Resmi</div>
+            <div class="thumb-slot">QR Verifikasi Keaslian</div>
+            <div class="thumb-slot">Kirim Email & WA</div>
+          </div>
+
+          <h2 style="font-size: 30px; margin: 48px 0 14px; font-weight: 800; color: #17211C;">Tentang template ini</h2>
+          <p style="font-size: 18px; line-height: 1.65; color: #3B4842; margin: 0 0 16px;">
+            Tidak perlu lagi menyalin satu per satu nama klien dan nominal tagihan ke Microsoft Word. Sistem otomasi dokumen ini mengubah ratusan baris data tagihan dari file Excel atau Google Sheets menjadi dokumen Invoice dan Kwitansi PDF berdesain rapi dalam hitungan detik.
+          </p>
+          <p style="font-size: 18px; line-height: 1.65; color: #3B4842; margin: 0;">
+            Setiap dokumen PDF otomatis dilengkapi kop surat perusahaanmu, perhitungan pajak/diskon otomatis, penyebutan angka terbilang Bahasa Indonesia, stempel tanda tangan digital, serta kode QR unik untuk mencegah pemalsuan kwitansi.
+          </p>
+
+          <h2 style="font-size: 26px; margin: 40px 0 14px; font-weight: 800; color: #17211C;">Alur Kerja Otomasi</h2>
+          <ol style="font-size: 17px; line-height: 1.8; color: #3B4842; padding-left: 22px; margin: 0;">
+            <li>Unggah file Excel daftar tagihan pelanggan atau hubungkan langsung ke Google Sheets.</li>
+            <li>Pilih jenis dokumen (Invoice Penagihan, Kwitansi Lunas, atau Surat Jalan).</li>
+            <li>Klik Generate &rarr; ratusan PDF otomatis terunduh rapi dalam satu folder ZIP.</li>
+            <li>Opsional: kirimkan dokumen PDF langsung ke alamat email atau WhatsApp masing-masing klien.</li>
+          </ol>
+        </div>
+
+        <aside class="template-aside" style="background: #fff; border: 2px solid #17211C; border-radius: 16px; padding: 32px; position: sticky; top: 32px;">
+          <p style="font-size: 15px; font-weight: 700; color: #3A6B52; margin: 0 0 10px;">Dashboard & Data</p>
+          <h1 style="font-size: 36px; line-height: 1.1; letter-spacing: -1px; font-weight: 800; margin: 0; color: #17211C;">
+            Sistem Otomasi Invoice & Kwitansi PDF
+          </h1>
+          <div style="font-size: 36px; font-weight: 800; margin-top: 20px; color: #17211C; font-variant-numeric: tabular-nums;">
+            Rp1.400.000
+          </div>
+          <p style="font-size: 14.5px; color: #4A5750; margin: 4px 0 20px;">Sekali bayar + kustomisasi desain kop surat & stempel usahamu.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20saya%20tertarik%20memesan%20Sistem%20Otomasi%20Invoice%20PDF%20(Rp1.400.000)" target="_blank" rel="noopener" class="btn y" style="text-align: center; font-size: 17px;">
+              Pesan template ini
+            </a>
+            <a href="https://wa.me/6281235928712?text=Halo%20ATTA%20NATION,%20bisa%20minta%20contoh%20hasil%20PDF%20Otomasi%20Invoice?" target="_blank" rel="noopener" class="btn o" style="text-align: center; font-size: 16px;">
+              Minta sampel PDF via WhatsApp
+            </a>
+          </div>
+
+          <h2 style="font-size: 21px; margin: 36px 0 0; font-weight: 800; padding-bottom: 12px; border-bottom: 2px solid #17211C; color: #17211C;">
+            Yang kamu dapatkan
+          </h2>
+          <ul style="font-size: 16px; line-height: 1.85; padding-left: 20px; margin: 12px 0 0; color: #3B4842;">
+            <li>Aplikasi web generator PDF & source code penuh</li>
+            <li>Desain kustom template Invoice, Kwitansi, dan BAST sesuai brand</li>
+            <li>Fungsi konversi angka ke kalimat Terbilang Rupiah otomatis</li>
+            <li>QR Code tanda tangan digital & halaman cek keaslian dokumen</li>
+            <li>Garansi perbaikan bug teknis 30 hari & panduan pemakaian</li>
+          </ul>
+
+          <div class="spec-table-simple">
+            <div class="label">Cocok untuk</div>
+            <div>B2B Supplier, Agensi, Kontraktor, Pengelola Kos/Properti, Lembaga Kursus</div>
+            <div class="label">Pengerjaan</div>
+            <div>2–4 hari kerja</div>
+            <div class="label">Teknologi</div>
+            <div>Python / PHP, HTML-to-PDF Engine, OpenPyXL, SMTP Email</div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Studio produk teknologi dari Kamal, Bangkalan. Dibangun oleh Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Menu bawah">
+      <a href="aplikasi.html">Aplikasi</a>
+      <a href="jasa.html" style="color: var(--c-yellow); font-weight: 700;">Jasa</a>
+      <a href="cara-beli.html">Cara beli</a>
+      <a href="tanya-jawab.html">Tanya jawab</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="Tentang dan ketentuan">
+      <a href="tentang.html">Tentang ATTA NATION</a>
+      <a href="akun.html">Akun saya</a>
+      <a href="legal.html">Privasi, syarat, dan refund</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <button type="button" class="lang-btn active" aria-pressed="true">Indonesia</button>
+        <a href="en/services.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">English</a>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — My Account</title>
+  <meta name="description" content="Sign in to your ATTA NATION account to re-download ATTA DocStudio Pro and manage your profile.">
+  <link rel="icon" type="image/png" href="../assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .profile-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 180px) minmax(0, 1fr) auto;
+      font-size: 18px;
+    }
+    .profile-grid > div {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--c-border-paper);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    @media (max-width: 700px) {
+      .profile-grid {
+        grid-template-columns: minmax(0, 1fr);
+        font-size: 16px;
+      }
+      .profile-grid > div {
+        padding: 10px 0;
+      }
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — My Account">
+  <meta property="og:description" content="Sign in to your ATTA NATION account to re-download ATTA DocStudio Pro and manage your profile.">
+  <meta property="og:image" content="../assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — My Account">
+  <meta name="twitter:description" content="Sign in to your ATTA NATION account to re-download ATTA DocStudio Pro and manage your profile.">
+  <link rel="canonical" href="https://attanation.com/en/account.html">
+  <meta property="og:url" content="https://attanation.com/en/account.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/akun.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/account.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/akun.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, home">
+      <img src="../assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="apps.html">Apps</a>
+      <a href="services.html">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="account.html" class="btn-nav-login" style="color: var(--c-yellow);">Sign in</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="apps.html">Apps</a>
+    <a href="services.html">Services</a>
+    <a href="how-to-buy.html">How to buy</a>
+    <a href="faq.html">FAQ</a>
+    <a href="account.html" class="on">Sign in</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin on WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Account / Auth Section (Paper) -->
+  <section class="paper" style="padding: 72px 32px 110px;">
+    <div class="container" style="max-width: 1040px;">
+
+      <!-- View 1: Login Form (Logged Out State) -->
+      <div id="account-login-view" style="max-width: 460px;">
+        <h1 class="h1" style="font-size: 64px; color: #17211C;">Sign in</h1>
+        <p style="font-size: 18px; line-height: 1.55; color: #3B4842; margin: 16px 0 36px;">
+          Sign in to access and re-download your purchased applications anytime.
+        </p>
+
+        <form id="login-form" style="display: flex; flex-direction: column; gap: 18px;">
+          <label class="fld">
+            Email address
+            <input type="email" id="login-email" autocomplete="email" placeholder="name@email.com" required>
+          </label>
+          <label class="fld">
+            Password
+            <input type="password" id="login-pass" autocomplete="current-password" required>
+          </label>
+          <button type="submit" class="btn" style="margin-top: 8px;">Sign in</button>
+        </form>
+
+        <p style="font-size: 16px; margin: 28px 0 0; line-height: 1.6; color: #17211C;">
+          Forgot your password? <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" style="text-decoration: underline; font-weight: 700;">Contact admin via WhatsApp</a>
+        </p>
+        <p style="font-size: 16px; margin: 8px 0 0; line-height: 1.6; color: #17211C;">
+          Don't have an account yet? Your account is created automatically upon purchase. <a href="apps.html" style="text-decoration: underline; font-weight: 700;">Explore apps</a>
+        </p>
+      </div>
+
+      <!-- View 2: Account Dashboard (Logged In State) -->
+      <div id="account-dash-view" style="display: none;">
+        <h1 class="h1" style="font-size: 64px; color: #17211C;">My Account</h1>
+
+        <!-- Purchases Section -->
+        <h2 style="font-size: 28px; margin: 56px 0 0; font-weight: 800; padding-bottom: 16px; border-bottom: 2px solid #17211C; color: #17211C;">
+          Purchased Software
+        </h2>
+
+        <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap; padding: 26px 0; border-bottom: 1px solid #C9CFCB;">
+          <div style="width: 72px; aspect-ratio: 390/844; border-radius: 12px; background: #0E0F0F; padding: 3px; flex-shrink: 0;">
+            <img src="../assets/images/ds-vault-v2.jpg" alt="ATTA DocStudio Pro app preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 9px; display: block;">
+          </div>
+          <div style="flex: 1 1 260px;">
+            <div style="font-size: 23px; font-weight: 800; color: #17211C;">ATTA DocStudio Pro</div>
+            <div style="font-size: 16px; color: #4A5750; margin-top: 4px;">
+              Version 2.5.0 · Lifetime Personal License (<span id="dash-order-date">Today</span>)
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="../../pwa-docstudio-pro/?install=android" class="btn app-download-link">Download for Android</a>
+            <a href="../../pwa-docstudio-pro/" target="_blank" class="btn o" rel="noopener">Launch on iPhone</a>
+          </div>
+        </div>
+
+        <!-- Profile Section -->
+        <h2 style="font-size: 28px; margin: 64px 0 0; font-weight: 800; padding-bottom: 16px; border-bottom: 2px solid #17211C; color: #17211C;">
+          Profile
+        </h2>
+
+        <div class="profile-grid">
+          <div style="font-weight: 700; color: #17211C;">Name</div>
+          <div id="dash-user-name" style="color: #3B4842;">Attala Alif Ramadhani</div>
+          <div>
+            <button type="button" id="btn-edit-name" style="font: inherit; font-weight: 700; background: none; border: 0; text-decoration: underline; cursor: pointer; color: #17211C;">
+              Edit
+            </button>
+          </div>
+
+          <div style="font-weight: 700; color: #17211C;">Email</div>
+          <div id="dash-user-email" style="color: #3B4842;">buyer@example.com</div>
+          <div></div>
+        </div>
+
+        <!-- Account Actions -->
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 36px;">
+          <button type="button" id="btn-logout" class="btn o">Sign out</button>
+          <button type="button" id="btn-delete-account" class="btn o o-danger">Delete account</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="../assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Software studio from Kamal, Bangkalan, Indonesia. Built by Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="apps.html">Apps</a>
+      <a href="services.html">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="About and terms">
+      <a href="about.html">About ATTA NATION</a>
+      <a href="account.html" style="color: var(--c-yellow); font-weight: 700;">My account</a>
+      <a href="legal.html">Privacy, terms, & refunds</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <a href="../akun.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">Indonesia</a>
+        <button type="button" class="lang-btn active" aria-pressed="true">English</button>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

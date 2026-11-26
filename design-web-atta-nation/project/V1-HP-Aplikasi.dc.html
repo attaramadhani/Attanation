@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>ATTA NATION — Katalog aplikasi di HP</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&amp;display=swap">
+<style>
+body{margin:0;background:#24392F}
+a{color:#17211C}a:hover{color:#000}
+.m *{box-sizing:border-box}
+.m a:focus-visible,.m button:focus-visible,.m summary:focus-visible{outline:3px solid #F2C94C;outline-offset:3px}
+.ph{aspect-ratio:390/844;border-radius:30px;background:#0E0F0F;padding:6px;box-shadow:0 18px 30px rgba(0,0,0,.35)}
+.ph img{width:100%;height:100%;object-fit:cover;border-radius:24px;display:block}
+.btn{display:block;text-align:center;padding:16px 20px;border-radius:12px;font-weight:700;font-size:17px;text-decoration:none}
+.menu a{display:block;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.2);color:#F4F6F3;text-decoration:none;font-size:22px;font-weight:700}
+details{border-bottom:1px solid #C9CFCB;padding:16px 0}
+summary{font-size:19px;font-weight:800;cursor:pointer}
+details ul{margin:10px 0 0;padding-left:20px;font-size:16px;line-height:1.75;color:#3B4842}
+</style>
+</helmet>
+<div class="m" style="width: 390px; min-height: 2250px; overflow: hidden; font-family: 'Bricolage Grotesque', sans-serif; color: #F4F6F3; background-color: #24392F; background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 32px 32px">
+<header style="padding: 16px 20px; display: flex; align-items: center; gap: 10px">
+<a href="V1-HP-Beranda.dc.html" aria-label="ATTA NATION, ke beranda" style="display: flex; align-items: center; gap: 10px; text-decoration: none"><img src="/_blob/0b2af35522f35052ee8e3eab07a0ac8c" alt="" style="width: 36px; height: 36px"><img src="/_blob/0f864ef5da7808a5a5e9b93238ab25fa" alt="ATTA NATION" style="height: 15px; width: auto"></a>
+<button type="button" aria-label="{{menuLabel}}" aria-expanded="{{openStr}}" onClick="{{toggle}}" style="margin-left: auto; width: 48px; height: 48px; border-radius: 12px; border: 2px solid #F4F6F3; background: transparent; color: #F4F6F3; display: grid; place-items: center; cursor: pointer">
+<sc-if value="{{closed}}" hint-placeholder-val="{{true}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></sc-if>
+<sc-if value="{{open}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+</button>
+</header>
+<sc-if value="{{open}}" hint-placeholder-val="{{false}}">
+<nav class="menu" aria-label="Menu utama" style="padding: 4px 20px 28px">
+<a href="V1-HP-Beranda.dc.html">Beranda</a>
+<a href="V1-HP-Aplikasi.dc.html">Aplikasi</a>
+<a href="V1-Jasa.dc.html">Jasa</a>
+<a href="V1-CaraBeli.dc.html">Cara beli</a>
+<a href="V1-Tanya.dc.html">Tanya jawab</a>
+<a href="V1-Akun.dc.html">Masuk</a>
+<a href="https://wa.me/6281235928712" class="btn" style="background: #F2C94C; color: #17211C; border: 0; margin-top: 20px; font-size: 17px; padding: 16px">Chat admin</a>
+</nav>
+</sc-if>
+<section style="padding: 16px 20px 36px">
+<h1 style="font-size: 42px; line-height: 1; letter-spacing: -1px; font-weight: 800; margin: 0">Katalog aplikasi</h1>
+<p style="font-size: 17px; line-height: 1.5; color: #C9D6CE; margin: 14px 0 0">Aplikasi HP buatan ATTA NATION. Bayar sekali per aplikasi.</p>
+</section>
+
+<section style="background: #FAFAF7; color: #17211C; padding: 36px 20px 44px">
+<div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13.5px; font-weight: 700"><span style="padding: 4px 10px; border-radius: 999px; border: 2px solid #17211C">HP Android</span><span style="padding: 4px 10px; border-radius: 999px; border: 2px solid #17211C">iPhone</span><span style="padding: 4px 10px; border-radius: 999px; border: 2px solid #3A6B52; color: #3A6B52">Versi 2.5.0</span></div>
+<h2 style="font-size: 32px; margin: 0; font-weight: 800; letter-spacing: -.6px">ATTA DocStudio Pro</h2>
+<p style="font-size: 16.5px; line-height: 1.55; color: #3B4842; margin: 10px 0 20px">Pemindai dokumen dan alat PDF dalam satu aplikasi.</p>
+<div style="border-radius: 16px; padding: 28px 16px 0; height: 300px; overflow: hidden; display: flex; gap: 14px; justify-content: center; background-color: #24392F; background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 32px 32px">
+<div class="ph" style="width: 150px; height: 325px"><img src="/_blob/f6864afe2895ff65bb51a3fd6b0191e4" alt="Daftar dokumen DocStudio Pro"></div>
+<div class="ph" style="width: 150px; height: 325px; margin-top: 30px"><img src="/_blob/74b8b9aa02882804108d57f055e3031c" alt="Layar pindai DocStudio Pro"></div>
+</div>
+<div style="display: flex; align-items: baseline; gap: 10px; margin: 22px 0 14px"><span style="font-size: 32px; font-weight: 800; font-variant-numeric: tabular-nums">{{harga}}</span><span style="font-size: 15px; color: #4A5750">sekali bayar</span></div>
+<a href="V1-Checkout.dc.html" class="btn" style="background: #17211C; color: #FAFAF7">Beli</a>
+<a href="V1-DocStudio.dc.html" class="btn" style="border: 2px solid #17211C; margin-top: 10px; padding: 14px 20px">Lihat halaman produk</a>
+<div style="margin-top: 26px; border-top: 2px solid #17211C">
+<details open=""><summary>Pindai</summary><ul><li>Kamera langsung, ada senter</li><li>Banyak halaman jadi satu PDF A4</li><li>Filter Tajam, Hitam putih, Abu-abu, Asli</li><li>KTP depan-belakang jadi satu A4</li><li>Luruskan foto yang miring</li></ul></details>
+<details><summary>Alat PDF</summary><ul><li>Gabung PDF dan foto</li><li>Kecilkan sampai pas batas unggah</li><li>Watermark dan tanda tangan</li><li>Pisah, hapus, susun, putar halaman</li><li>Word, Excel, TXT ke PDF dan sebaliknya</li><li>Sensor bagian rahasia</li></ul></details>
+<details><summary>Keamanan</summary><ul><li>Kunci aplikasi dengan PIN</li><li>Buka pakai sidik jari atau wajah</li><li>Kunci berkas tertentu (AES-256)</li><li>Dokumen tidak diunggah ke server</li></ul></details>
+<details><summary>Lainnya</summary><ul><li>Cadangan ZIP dan pulihkan</li><li>Mode gelap</li><li>Bahasa Indonesia dan Inggris</li><li>Ringkas dokumen dengan AI</li></ul></details>
+</div>
+</section>
+
+<section style="background: #EEF0EC; color: #4A5750; padding: 36px 20px 44px">
+<h2 style="font-size: 28px; margin: 0; font-weight: 800">[Nama aplikasi berikutnya]</h2>
+<p style="font-size: 16.5px; margin: 8px 0 18px">[Deskripsi singkat]</p>
+<div style="border: 2px dashed #8F9A93; border-radius: 16px; height: 200px; display: grid; place-items: center; font-size: 16px">Dua layar HP</div>
+</section>
+<footer style="padding: 36px 20px 44px; border-top: 1px solid rgba(255,255,255,.2)">
+<div style="display: flex; align-items: center; gap: 10px"><img src="/_blob/0b2af35522f35052ee8e3eab07a0ac8c" alt="" style="width: 32px; height: 32px"><img src="/_blob/0f864ef5da7808a5a5e9b93238ab25fa" alt="ATTA NATION" style="height: 14px; width: auto"></div>
+<p style="font-size: 14.5px; color: #C9D6CE; line-height: 1.6; margin: 14px 0 20px">Studio produk teknologi dari Kamal, Bangkalan.</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; font-size: 16px">
+<a href="V1-Tentang.dc.html" style="color: #F4F6F3">Tentang</a><a href="V1-Akun.dc.html" style="color: #F4F6F3">Akun saya</a>
+<a href="V1-Legal.dc.html" style="color: #F4F6F3">Privasi dan syarat</a><a href="https://wa.me/6281235928712" style="color: #F4F6F3">WhatsApp</a>
+<a href="mailto:attalaaliframadhanitrihida@gmail.com" style="color: #F4F6F3">Email</a><a href="https://github.com/attaramadhani" style="color: #F4F6F3">GitHub</a>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"harga":{"editor":"text","default":"Rp30.000"},"$preview":{"width":390,"height":2250}}'>
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { open: false }; }
+renderVals() {
+return { harga: this.props.harga ?? 'Rp30.000', open: !!this.state.open, closed: !this.state.open, openStr: this.state.open ? 'true' : 'false', menuLabel: this.state.open ? 'Tutup menu' : 'Buka menu', toggle: () => this.setState({ open: !this.state.open }) };
+}
+}
+</script>
+</body>
+</html>

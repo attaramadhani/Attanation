@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#DCE2E7" />
+  <meta name="description" content="ATTA DocStudio Pro oleh ATTA NATION. Pemindai dokumen dan alat PDF di HP." />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="DocStudio Pro" />
+  <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" />
+
+  <script>
+    // Pasang tema sebelum halaman tampil agar tidak berkedip
+    try {
+      var t = localStorage.getItem('atta_theme') || 'system';
+      var dark = t === 'dark' || (t === 'system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', dark ? '#12161B' : '#DCE2E7');
+    } catch (e) {}
+  </script>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png" />
+  <title>ATTA DocStudio Pro</title>
+
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+
+  <!-- Layar pembuka: tampil sampai penyimpanan siap -->
+  <div id="splashScreen" class="splash" role="status" aria-live="polite">
+    <svg class="splash-logo" viewBox="0 0 100 100" aria-hidden="true">
+      <defs><mask id="splashMask" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120"><rect x="-10" y="-10" width="120" height="120" fill="#fff"></rect><path d="M15.28,76.03 L55.42,6.00 L65.66,6.00 L88.72,76.03 L77.62,76.03 L61.39,28.20 L48.58,52.12 L48.58,76.03 Z" fill="#000" stroke="#000" stroke-width="9"></path></mask></defs>
+      <circle cx="50" cy="52" r="38" fill="none" stroke="currentColor" stroke-width="8" mask="url(#splashMask)"></circle>
+      <polygon points="15.28,76.03 55.42,6.00 65.66,6.00 88.72,76.03 77.62,76.03 61.39,28.20 48.58,52.12 48.58,76.03" fill="currentColor"></polygon>
+      <circle cx="61.39" cy="64.07" r="6.83" fill="currentColor"></circle>
+    </svg>
+    <p class="splash-name">DocStudio</p>
+    <div class="splash-bar" aria-hidden="true"><span></span></div>
+    <span class="sr-only">Membuka aplikasi</span>
+    <p class="splash-foot">ATTA NATION</p>
+  </div>
+
+  <!-- Layar kunci aplikasi multi-opsi (PIN / Pola 3x3 / Kata sandi / Biometrik) -->
+  <div id="appLockScreen" class="app-lock is-hidden" role="dialog" aria-modal="true" aria-labelledby="appLockTitle">
+    <svg class="splash-logo small" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+    <h1 class="app-lock-title" id="appLockTitle">Masukkan PIN</h1>
+    <div class="pin-dots" id="appLockDots" aria-hidden="true"></div>
+    <p class="app-lock-msg" id="appLockMsg" role="alert"></p>
+    <button type="button" class="btn-out is-hidden" id="appLockBioBtn" onclick="AttaLock.biometricUnlock()">
+      <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12a5 5 0 0 1 .3-1.7M7 15v-1M17 17c-.4 1.3-1 2.4-1.8 3.3M12 17c0 1.6-.4 3-1.1 4.2M4.5 9A8.5 8.5 0 0 1 20 9.5M4 13c0 2.6.6 4.6 1.6 6.3"></path></svg>
+      Pakai Face Key atau sidik jari
+    </button>
+    <button type="button" class="btn-text ink is-hidden" id="appLockSwitchKeyBtn" onclick="AttaLock.toggleActiveLockSlot()">Pakai kunci kedua</button>
+    <div class="keypad" id="appLockKeypad">
+      <button type="button" onclick="appLockKey('1')">1</button><button type="button" onclick="appLockKey('2')">2</button><button type="button" onclick="appLockKey('3')">3</button>
+      <button type="button" onclick="appLockKey('4')">4</button><button type="button" onclick="appLockKey('5')">5</button><button type="button" onclick="appLockKey('6')">6</button>
+      <button type="button" onclick="appLockKey('7')">7</button><button type="button" onclick="appLockKey('8')">8</button><button type="button" onclick="appLockKey('9')">9</button>
+      <button type="button" class="keypad-text" onclick="openForgotPinSheet()">Lupa kunci</button>
+      <button type="button" onclick="appLockKey('0')">0</button>
+      <button type="button" class="keypad-text" aria-label="Hapus angka" onclick="appLockKey('back')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 5H9l-6 7 6 7h12zM18 9l-6 6M12 9l6 6"></path></svg>
+      </button>
+    </div>
+    <div id="appLockPatternWrap" class="pattern-wrap is-hidden">
+      <canvas id="appLockPatternCanvas" class="pattern-canvas" width="260" height="260" aria-label="Pola kunci 3x3"></canvas>
+      <button type="button" class="btn-text ink" onclick="openForgotPinSheet()">Lupa kunci</button>
+    </div>
+    <div id="appLockPasswordWrap" class="password-lock-wrap is-hidden">
+      <div class="pass-input-row">
+        <input type="password" id="appLockPasswordInput" class="input-field" placeholder="Masukkan kata sandi" autocomplete="off" onkeydown="if(event.key==='Enter')AttaLock.submitPasswordUnlock()" />
+        <button type="button" class="btn-text pass-eye-btn" onclick="togglePasswordVisibility('appLockPasswordInput', this)">Lihat</button>
+      </div>
+      <button type="button" id="appLockPasswordBtn" class="btn-ink full" onclick="AttaLock.submitPasswordUnlock()">Buka</button>
+      <button type="button" class="btn-text ink" onclick="openForgotPinSheet()">Lupa kunci</button>
+    </div>
+  </div>
+
+  <main class="app-shell" id="appShell">
+
+    <!-- ====================================================================
+         6.1 LAYAR 1: DOKUMEN (Tab Default)
+         ==================================================================== -->
+    <section id="view-vault" class="tab-view active" aria-label="Dokumen">
+      <header class="screen-head">
+        <div class="head-row" id="vaultHeaderDefault">
+          <h1 class="screen-title">Dokumen</h1>
+          <div class="head-actions">
+          <button type="button" class="icon-btn" aria-label="Cari dokumen" onclick="openVaultSearch()">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="20" y1="20" x2="16.2" y2="16.2"></line>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn" aria-label="Pengaturan" onclick="switchTab('settings')">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path>
+            </svg>
+          </button>
+          </div>
+        </div>
+
+        <div class="search-bar is-hidden" id="vaultSearchBar">
+          <label for="vaultSearchInput" class="sr-only">Cari dokumen</label>
+          <input
+            type="search"
+            id="vaultSearchInput"
+            class="input-field"
+            placeholder="Cari nama berkas"
+            oninput="renderFileVault()"
+          />
+          <button type="button" class="btn-text ink" onclick="closeVaultSearch()">Tutup</button>
+        </div>
+
+        <p class="screen-lead" id="vaultLeadText">Memuat berkas di HP ini.</p>
+      </header>
+
+      <!-- Tumpukan 3 Berkas Terbaru (.stack) -->
+      <div class="stack-region" id="vaultStackRegion"></div>
+
+      <!-- Tab Teks Kategori (.tabs) -->
+      <div class="tabs" role="tablist" aria-label="Kategori dokumen">
+        <button type="button" role="tab" aria-selected="true" aria-controls="vaultListContainer" class="tab-btn" data-cat="all" onclick="filterVaultByCategory('all', this)">Semua</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="vaultListContainer" class="tab-btn" data-cat="scan" onclick="filterVaultByCategory('scan', this)">Scan</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="vaultListContainer" class="tab-btn" data-cat="pdf" onclick="filterVaultByCategory('pdf', this)">PDF</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="vaultListContainer" class="tab-btn" data-cat="export" onclick="filterVaultByCategory('export', this)">Konversi</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="vaultListContainer" class="tab-btn" data-cat="signed" onclick="filterVaultByCategory('signed', this)">Tanda tangan</button>
+      </div>
+
+      <div id="vaultToolOriginPill" class="vault-origin-pill is-hidden">
+        <span id="vaultToolOriginLabel">Hasil fitur alat</span>
+        <button type="button" class="btn-text" onclick="clearVaultToolOriginFilter()">Lihat semua</button>
+      </div>
+
+      <!-- Daftar Berkas di Atas Meja (.vault-list) -->
+      <div id="vaultListContainer" class="vault-list" role="region" aria-live="polite"></div>
+    </section>
+
+    <!-- ====================================================================
+         6.2 LAYAR 2: PINDAI TAHAP 1 (Hanya Kamera Bersih)
+         ==================================================================== -->
+    <section id="view-scanner" class="tab-view" aria-label="Pindai dokumen">
+      <div class="viewfinder vf-full">
+        <div id="vfFlashEffect" class="vf-flash-effect" aria-hidden="true"></div>
+        <div class="vf-top">
+          <button type="button" class="vf-round-btn" aria-label="Tutup pemindai" onclick="closeScannerView()">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <span class="vf-page-title" id="scannerPageTitle" aria-live="polite">Halaman 1</span>
+          <button type="button" class="vf-round-btn" id="scannerFlashBtn" aria-label="Lampu kilat" onclick="toggleScannerFlash()">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </button>
+        </div>
+
+        <div class="vf-stage">
+          <video id="scannerVideo" class="vf-video is-hidden" playsinline muted autoplay aria-label="Pratinjau kamera"></video>
+          <canvas id="scannerEdgeOverlay" class="vf-edge-overlay is-hidden" aria-hidden="true"></canvas>
+          <div id="scannerGuide" class="vf-guide is-hidden" aria-hidden="true"></div>
+          <div id="scannerFallback" class="vf-fallback is-hidden">
+            <p class="vf-fallback-msg">Kamera langsung tidak tersedia di perangkat ini.</p>
+            <button type="button" class="btn-ink" onclick="openNativeCameraCapture()">Buka kamera HP</button>
+            <button type="button" class="vf-fallback-link" onclick="triggerGalleryPicker()">Pilih dari galeri</button>
+          </div>
+          <button type="button" id="scannerMlKitBtn" class="vf-smart-pill is-hidden" onclick="launchAndroidMlKitScanner()">Pindai Cerdas Otomatis</button>
+        </div>
+
+        <div class="vf-mode-strip" id="scannerModeStrip" role="radiogroup" aria-label="Mode pindai dokumen">
+          <button type="button" class="vf-mode-pill is-active" data-scan-mode="single" role="radio" aria-checked="true" onclick="selectScannerMode('single', this)">1 Halaman</button>
+          <button type="button" class="vf-mode-pill" data-scan-mode="batch" role="radio" aria-checked="false" onclick="selectScannerMode('batch', this)">Banyak Halaman</button>
+          <button type="button" class="vf-mode-pill" data-scan-mode="idcard" role="radio" aria-checked="false" onclick="selectScannerMode('idcard', this)">KTP A4</button>
+        </div>
+      </div>
+
+      <div class="shutter-bar shutter-minimal">
+        <button type="button" class="page-tray-btn" aria-label="Tambah foto dari galeri" onclick="triggerGalleryPicker()">
+          <span class="tray-sheet back"></span>
+          <span class="tray-sheet front">
+            <img id="scannerTrayThumb" class="tray-thumb is-hidden" alt="" />
+            <svg class="tray-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v10M7 12h10"></path></svg>
+          </span>
+          <span class="tray-badge is-hidden" id="scannerTrayCount">0</span>
+        </button>
+
+        <button type="button" id="scannerShutterBtn" class="shutter-btn" aria-label="Pindai halaman" onclick="triggerCameraShutter()">
+          <span class="shutter-core"></span>
+        </button>
+
+        <button type="button" id="scannerNextBtn" class="shutter-done" onclick="finishScannerSession()">Tutup</button>
+      </div>
+
+      <label for="cameraInput" class="sr-only">Ambil foto dokumen dari kamera</label>
+      <input
+        type="file"
+        id="cameraInput"
+        class="sr-only"
+        accept="image/*"
+        capture="environment"
+        onchange="handleCameraOrGalleryInput(this)"
+      />
+
+      <label for="galleryInput" class="sr-only">Pilih berkas dari galeri</label>
+      <input
+        type="file"
+        id="galleryInput"
+        class="sr-only"
+        accept="image/*,application/pdf"
+        multiple
+        onchange="handleCameraOrGalleryInput(this)"
+      />
+    </section>
+
+    <!-- ====================================================================
+         6.3 LAYAR 3: ALAT PDF (Terstruktur dengan Tab Kategori Alat & Riwayat)
+         ==================================================================== -->
+    <section id="view-tools" class="tab-view" aria-label="Alat PDF">
+      <header class="screen-head">
+        <div class="head-row">
+          <h1 class="screen-title">Alat PDF</h1>
+          <button type="button" class="btn-text" onclick="openToolHistoryHubSheet()">Riwayat alat</button>
+        </div>
+        <p class="screen-lead">Diproses di HP. Tidak ada yang diunggah.</p>
+      </header>
+
+      <!-- Sub-tab Kategori Alat PDF agar Layar Tetap Ringkas dan Proporsional -->
+      <div class="tabs tools-tabs" role="tablist" aria-label="Kelompok alat PDF">
+        <button type="button" role="tab" id="tab-btn-utama" aria-selected="true" aria-controls="tools-sub-utama" class="tab-btn" onclick="switchToolsSubtab('utama', this)">Utama</button>
+        <button type="button" role="tab" id="tab-btn-halaman" aria-selected="false" aria-controls="tools-sub-halaman" class="tab-btn" onclick="switchToolsSubtab('halaman', this)">Halaman</button>
+        <button type="button" role="tab" id="tab-btn-konversi" aria-selected="false" aria-controls="tools-sub-konversi" class="tab-btn" onclick="switchToolsSubtab('konversi', this)">Konversi</button>
+        <button type="button" role="tab" id="tab-btn-analisis" aria-selected="false" aria-controls="tools-sub-analisis" class="tab-btn" onclick="switchToolsSubtab('analisis', this)">Keamanan dan AI</button>
+      </div>
+
+      <div class="tools-wrap">
+
+        <!-- ================================================================
+             SUB-TAB 1: UTAMA (Persis 100% Mockup Versi 3+ Kertas dan Tinta)
+             ================================================================ -->
+        <div id="tools-sub-utama" class="tool-subview active" role="tabpanel" aria-labelledby="tab-btn-utama">
+          <!-- Panel Besar: Gabung PDF dan foto -->
+          <div class="tool tool-featured">
+            <div class="tool-diagram-merge" aria-hidden="true">
+              <div class="mini-sheet s-left">
+                <span class="sheet-line w-75"></span>
+                <span class="sheet-line w-90"></span>
+                <span class="sheet-line w-60"></span>
+              </div>
+              <div class="mini-sheet s-right">
+                <span class="micro-head">SURAT</span>
+                <span class="sheet-line ink w-70"></span>
+                <span class="sheet-line w-90"></span>
+                <span class="sheet-line w-80"></span>
+                <span class="sheet-line w-65"></span>
+              </div>
+            </div>
+            <div class="tool-copy">
+              <h2>Gabung PDF dan foto</h2>
+              <p>Pilih beberapa berkas, atur urutannya, jadikan satu PDF.</p>
+              <button type="button" class="btn-ink" onclick="openMergeSheet()">Pilih berkas</button>
+              <label for="mergePdfInput" class="sr-only">Pilih berkas untuk digabung</label>
+              <input
+                type="file"
+                id="mergePdfInput"
+                class="sr-only"
+                accept="application/pdf,image/*"
+                multiple
+                onchange="handleMergePdfsTool(this)"
+              />
+            </div>
+          </div>
+
+          <!-- 2 Panel Kecil Berdampingan: Kecilkan ukuran & Beri watermark -->
+          <div class="tool-pair">
+            <button type="button" class="tool tool-small" onclick="openCompressTargetSheet()">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="sheet-line ink w-75"></span>
+                  <span class="sheet-line w-90"></span>
+                  <span class="sheet-line w-65"></span>
+                </span>
+                <svg class="diagram-arrow" viewBox="0 0 24 24">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+                <span class="mini-sheet sz-sm">
+                  <span class="sheet-line ink w-75"></span>
+                  <span class="sheet-line w-85"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Kecilkan ukuran</h3>
+                <p id="compressTargetSub">Untuk batas unggah</p>
+              </span>
+            </button>
+
+            <button type="button" class="tool tool-small" onclick="openWatermarkSheet()">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-wm">
+                  <span class="sheet-line w-80"></span>
+                  <span class="wm-stamp">SALINAN</span>
+                  <span class="sheet-line w-70"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Beri watermark</h3>
+                <p>Teks miring tiap halaman</p>
+              </span>
+            </button>
+          </div>
+
+          <!-- 5.14 Slip Tanda Tangan -->
+          <div class="sig-section">
+            <div class="head-row">
+              <h2 class="section-heading">Tanda tangan</h2>
+              <button type="button" class="btn-text" onclick="openStampSignToPdfSheet()">Tempel ke PDF</button>
+            </div>
+            <div class="sig-slip">
+              <canvas id="sigCanvas" class="sig-canvas" width="680" height="300"></canvas>
+              <div class="sig-guide-line"></div>
+              <span class="sig-guide-hint">Gores dengan jari atau stylus</span>
+            </div>
+            <div class="sig-tools-row">
+              <div class="sig-color-palette" id="sigColorPalette" role="radiogroup" aria-label="Warna tinta tanda tangan">
+                <button type="button" class="sig-color-dot is-active" data-color="#2445C9" style="--dot-color:#2445C9;" title="Tinta biru" aria-label="Tinta biru" role="radio" aria-checked="true" onclick="selectSigColor('#2445C9', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#17202B" style="--dot-color:#17202B;" title="Tinta hitam" aria-label="Tinta hitam" role="radio" aria-checked="false" onclick="selectSigColor('#17202B', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#16308F" style="--dot-color:#16308F;" title="Tinta biru tua" aria-label="Tinta biru tua" role="radio" aria-checked="false" onclick="selectSigColor('#16308F', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#B42318" style="--dot-color:#B42318;" title="Tinta merah" aria-label="Tinta merah" role="radio" aria-checked="false" onclick="selectSigColor('#B42318', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#0F766E" style="--dot-color:#0F766E;" title="Tinta hijau" aria-label="Tinta hijau" role="radio" aria-checked="false" onclick="selectSigColor('#0F766E', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#6D28D9" style="--dot-color:#6D28D9;" title="Tinta ungu" aria-label="Tinta ungu" role="radio" aria-checked="false" onclick="selectSigColor('#6D28D9', this)"></button>
+                <button type="button" class="sig-color-custom-wrap" id="sigCustomColorBtn" title="Pilih warna lain" aria-label="Pilih warna kustom" onclick="openCustomColorSheet('draw', this)">
+                  <span class="sig-color-picker-swatch" id="sigCustomColorSwatch"></span>
+                </button>
+              </div>
+              <div class="sig-stroke-ctrl">
+                <label for="sigStrokeWidthSlider" class="sig-stroke-label"><span data-i18n="Tebal">Tebal</span>: <span id="sigStrokeVal">2.6 px</span></label>
+                <input type="range" id="sigStrokeWidthSlider" min="1" max="12" step="0.2" value="2.6" oninput="onSigStrokeWidthChange(this.value)" aria-label="Ketebalan goresan tanda tangan" />
+              </div>
+            </div>
+            <div class="sig-actions">
+              <button type="button" class="btn-text ink" onclick="clearSignatureCanvas()">Hapus</button>
+              <button type="button" class="btn-ink" onclick="saveSignatureToVault()">Simpan tanda tangan</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             SUB-TAB 2: HALAMAN (Split, Susun/Putar, Nomor Halaman, Crop, Hapus, KTP A4)
+             ================================================================ -->
+        <div id="tools-sub-halaman" class="tool-subview" role="tabpanel" aria-labelledby="tab-btn-halaman">
+          <div class="tool tool-featured">
+            <div class="tool-diagram-merge" aria-hidden="true">
+              <div class="mini-sheet s-left">
+                <span class="micro-head">HAL 1</span>
+                <span class="sheet-line w-85"></span>
+                <span class="sheet-line w-70"></span>
+              </div>
+              <div class="mini-sheet s-right">
+                <span class="micro-head">HAL 2</span>
+                <span class="sheet-line ink w-75"></span>
+                <span class="sheet-line w-90"></span>
+                <span class="sheet-line w-65"></span>
+              </div>
+            </div>
+            <div class="tool-copy">
+              <h2>Pisahkan halaman PDF</h2>
+              <p>Ekstrak rentang halaman tertentu (mis. 1-2, 4) menjadi dokumen PDF terpisah.</p>
+              <button type="button" class="btn-ink" onclick="openPageToolSheet('split')">Pilih halaman</button>
+            </div>
+          </div>
+
+          <div class="tool-pair">
+            <button type="button" class="tool tool-small" onclick="openPageToolSheet('organize')">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="sheet-line ink w-70"></span>
+                  <span class="sheet-line w-90"></span>
+                  <span class="sheet-line w-60"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Susun dan putar</h3>
+                <p>Ubah urutan atau putar 90, 180, 270 derajat</p>
+              </span>
+            </button>
+
+            <button type="button" class="tool tool-small" onclick="openPageToolSheet('remove')">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="sheet-line w-80"></span>
+                  <span class="sheet-line w-50"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Hapus halaman</h3>
+                <p>Buang halaman yang tidak diperlukan</p>
+              </span>
+            </button>
+          </div>
+
+          <div class="tool-pair">
+            <button type="button" class="tool tool-small" onclick="openPageToolSheet('pagenum')">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="sheet-line w-85"></span>
+                  <span class="sheet-line w-75"></span>
+                  <span class="page-num-dot">1 / 3</span>
+                </span>
+              </span>
+              <span>
+                <h3>Nomor halaman</h3>
+                <p>Sisipkan nomor di atas atau bawah</p>
+              </span>
+            </button>
+
+            <button type="button" class="tool tool-small" onclick="openPageToolSheet('crop')">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-sm">
+                  <span class="sheet-line ink w-80"></span>
+                  <span class="sheet-line w-90"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Potong margin</h3>
+                <p>Rapikan tepi kosong dokumen PDF</p>
+              </span>
+            </button>
+          </div>
+
+          <div class="tool tool-featured">
+            <div class="tool-diagram-merge" aria-hidden="true">
+              <div class="mini-sheet ktp-a4-diagram">
+                <span class="ktp-mini-card">
+                  <span class="sheet-line ink w-70"></span>
+                  <span class="sheet-line w-85"></span>
+                </span>
+                <span class="ktp-mini-card">
+                  <span class="sheet-line ink w-60"></span>
+                  <span class="sheet-line w-80"></span>
+                </span>
+              </div>
+            </div>
+            <div class="tool-copy">
+              <h2>KTP depan dan belakang ke 1 lembar A4</h2>
+              <p>Susun 2 foto kartu identitas proporsional di halaman A4.</p>
+              <button type="button" class="btn-ink" onclick="openIdCardStitchSheet()">Susun 2 foto kartu</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             SUB-TAB 3: KONVERSI (Word/Excel/CSV ke PDF, PDF ke Word/CSV/MD, Perspektif 4 Sudut)
+             ================================================================ -->
+        <div id="tools-sub-konversi" class="tool-subview" role="tabpanel" aria-labelledby="tab-btn-konversi">
+          <div class="tool tool-featured">
+            <div class="tool-diagram-merge" aria-hidden="true">
+              <div class="mini-sheet s-left">
+                <span class="micro-head">DOCX</span>
+                <span class="sheet-line w-85"></span>
+                <span class="sheet-line w-75"></span>
+              </div>
+              <div class="mini-sheet s-right">
+                <span class="micro-head">PDF</span>
+                <span class="sheet-line ink w-75"></span>
+                <span class="sheet-line w-90"></span>
+                <span class="sheet-line w-65"></span>
+              </div>
+            </div>
+            <div class="tool-copy">
+              <h2>Word, Excel, CSV, TXT ke PDF</h2>
+              <p>Ubah dokumen .docx, lembar kerja .xlsx, tabel .csv, atau teks .txt menjadi PDF A4.</p>
+              <button type="button" class="btn-ink" onclick="triggerOfficeToPdfPicker()">Pilih dokumen</button>
+            </div>
+          </div>
+
+          <div class="tool-pair">
+            <button type="button" class="tool tool-small" onclick="openPdfExportFormatSheet()">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="micro-head">PDF</span>
+                  <span class="sheet-line w-85"></span>
+                </span>
+                <svg class="diagram-arrow" viewBox="0 0 24 24">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+                <span class="mini-sheet sz-lg">
+                  <span class="micro-head">DOC</span>
+                  <span class="sheet-line ink w-80"></span>
+                </span>
+              </span>
+              <span>
+                <h3>PDF ke Word atau CSV</h3>
+                <p>Ekstrak isi ke .docx, .csv, .md, .txt</p>
+              </span>
+            </button>
+
+            <button type="button" class="tool tool-small" onclick="triggerPerspectiveCropPicker()">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg corner-frame">
+                  <span class="corner-dot tl"></span>
+                  <span class="corner-dot tr"></span>
+                  <span class="corner-dot bl"></span>
+                  <span class="corner-dot br"></span>
+                  <span class="sheet-line ink w-70"></span>
+                  <span class="sheet-line w-90"></span>
+                  <span class="sheet-line w-75"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Luruskan 4 sudut</h3>
+                <p>Ratakan foto miring jadi persegi A4</p>
+              </span>
+            </button>
+          </div>
+
+          <div class="tool-pair">
+            <button type="button" class="tool tool-small" onclick="openPhotoToPdfSheet()">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="micro-head">FOTO</span>
+                  <span class="sheet-line w-85"></span>
+                  <span class="sheet-line w-70"></span>
+                </span>
+                <svg class="diagram-arrow" viewBox="0 0 24 24">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+                <span class="mini-sheet sz-lg">
+                  <span class="micro-head">PDF</span>
+                  <span class="sheet-line ink w-80"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Foto ke PDF</h3>
+                <p>Ubah foto galeri atau kamera jadi PDF rapi</p>
+              </span>
+            </button>
+
+            <button type="button" class="tool tool-small" onclick="openPhotoToWordSheet()">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="micro-head">FOTO</span>
+                  <span class="sheet-line w-85"></span>
+                  <span class="sheet-line w-70"></span>
+                </span>
+                <svg class="diagram-arrow" viewBox="0 0 24 24">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+                <span class="mini-sheet sz-lg">
+                  <span class="micro-head">DOC</span>
+                  <span class="sheet-line ink w-80"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Foto ke Word</h3>
+                <p>Jadikan foto dokumen Word (.docx)</p>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             SUB-TAB 4: KEAMANAN & AI (Analisis/OCR, Redact, Bandingkan, Perbaiki, Kunci PIN)
+             ================================================================ -->
+        <div id="tools-sub-analisis" class="tool-subview" role="tabpanel" aria-labelledby="tab-btn-analisis">
+          <div class="tool tool-featured">
+            <div class="tool-diagram-merge" aria-hidden="true">
+              <div class="mini-sheet s-left">
+                <span class="sheet-line w-80"></span>
+                <span class="sheet-line w-70"></span>
+              </div>
+              <div class="mini-sheet s-right">
+                <span class="micro-head">RINGKASAN</span>
+                <span class="sheet-line ink w-85"></span>
+                <span class="sheet-line w-90"></span>
+                <span class="sheet-line w-65"></span>
+              </div>
+            </div>
+            <div class="tool-copy">
+              <h2>Analisis dan ringkasan</h2>
+              <p>Ambil nominal Rupiah, tanggal, dan nomor HP dari PDF berteks, lalu ringkas isinya.</p>
+              <button type="button" class="btn-ink" onclick="openAnalyzeDocSheet()">Analisis dokumen</button>
+            </div>
+          </div>
+
+          <div class="tool-pair">
+            <button type="button" class="tool tool-small" onclick="openPageToolSheet('redact')">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="sheet-line w-80"></span>
+                  <span class="redact-bar"></span>
+                  <span class="sheet-line w-70"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Samarkan info</h3>
+                <p>Tutup NIK atau nomor rekening</p>
+              </span>
+            </button>
+
+            <button type="button" class="tool tool-small" onclick="openComparePdfSheet()">
+              <span class="tool-diagram-small" aria-hidden="true">
+                <span class="mini-sheet sz-lg">
+                  <span class="sheet-line ink w-75"></span>
+                  <span class="sheet-line w-85"></span>
+                </span>
+                <span class="mini-sheet sz-lg">
+                  <span class="sheet-line ink w-75"></span>
+                  <span class="sheet-line w-60"></span>
+                </span>
+              </span>
+              <span>
+                <h3>Bandingkan 2 PDF</h3>
+                <p>Lihat selisih halaman dan teks</p>
+              </span>
+            </button>
+          </div>
+
+          <div class="tool tool-featured">
+            <div class="tool-diagram-merge" aria-hidden="true">
+              <div class="mini-sheet s-left">
+                <span class="micro-head">RUSAK</span>
+                <span class="sheet-line w-75"></span>
+                <span class="sheet-line w-50"></span>
+              </div>
+              <div class="mini-sheet s-right">
+                <span class="micro-head">PULIH</span>
+                <svg class="repair-check-line" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span class="sheet-line ink w-80"></span>
+              </div>
+            </div>
+            <div class="tool-copy">
+              <h2>Perbaiki struktur PDF</h2>
+              <p>Bangun ulang berkas PDF yang korup atau sulit dibuka.</p>
+              <button type="button" class="btn-ink" onclick="openRepairPdfSheet()">Pilih berkas PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input tersembunyi untuk alat-alat PDF -->
+        <label for="compressTargetInput" class="sr-only">Pilih berkas untuk dikecilkan ukurannya</label>
+        <input
+          type="file"
+          id="compressTargetInput"
+          class="sr-only"
+          accept="image/*,application/pdf"
+          onchange="handleCompressToTargetTool(this)"
+        />
+
+        <label for="watermarkPdfInput" class="sr-only">Pilih PDF untuk diberi watermark</label>
+        <input
+          type="file"
+          id="watermarkPdfInput"
+          class="sr-only"
+          accept="application/pdf"
+          onchange="handleWatermarkPdfTool(this)"
+        />
+
+        <label for="officeToPdfInput" class="sr-only">Pilih dokumen Word, Excel, CSV, atau TXT</label>
+        <input
+          type="file"
+          id="officeToPdfInput"
+          class="sr-only"
+          accept=".docx,.xlsx,.csv,.txt"
+          onchange="handleOfficeToPdfInput(this)"
+        />
+
+        <label for="repairPdfInput" class="sr-only">Pilih PDF untuk diperbaiki</label>
+        <input
+          type="file"
+          id="repairPdfInput"
+          class="sr-only"
+          accept="application/pdf"
+          onchange="handleRepairPdfInput(this)"
+        />
+
+        <label for="perspectiveCropInput" class="sr-only">Pilih foto dokumen untuk diluruskan</label>
+        <input
+          type="file"
+          id="perspectiveCropInput"
+          class="sr-only"
+          accept="image/*"
+          onchange="handlePerspectiveCropInput(this)"
+        />
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         6.4 LAYAR 4: CADANGAN (Persis 100% Mockup Versi 3+ Kertas dan Tinta)
+         ==================================================================== -->
+    <section id="view-backup" class="tab-view" aria-label="Cadangan">
+      <header class="screen-head">
+        <div class="head-row">
+          <h1 class="screen-title">Cadangan</h1>
+          <button type="button" class="icon-btn" aria-label="Pengaturan" onclick="switchTab('settings')">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="backup-wrap">
+        <div class="storage-Readout" id="storageUsedText">0,0 MB</div>
+        <p class="screen-lead" id="storageCountText">0 berkas tersimpan di HP ini. Belum pernah dicadangkan.</p>
+
+        <!-- Elemen kontrak DOM tersembunyi -->
+        <div id="storageBarFill" class="sr-only"></div>
+        <span id="persistStatusBadge" class="sr-only"></span>
+
+        <div class="backup-actions">
+          <button type="button" class="btn-ink full" onclick="triggerExportBackupZip(false)">Cadangkan semua ke ZIP</button>
+          <button type="button" class="btn-out full" onclick="triggerExportBackupZip(true)">Bagikan file cadangan ZIP</button>
+          <button type="button" class="btn-out full" onclick="triggerRestorePicker()">Pulihkan dari cadangan</button>
+          <label for="restoreArchiveInput" class="sr-only">Pilih file cadangan ZIP atau JSON</label>
+          <input
+            type="file"
+            id="restoreArchiveInput"
+            class="sr-only"
+            accept=".zip,.json"
+            onchange="triggerImportRestoreFile(this)"
+          />
+        </div>
+
+        <p class="backup-note">Simpan file ZIP-nya di Google Drive atau laptop, lalu pulihkan saat ganti HP.</p>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LAYAR PENGATURAN (dibuka dari ikon roda gigi)
+         ==================================================================== -->
+    <section id="view-settings" class="tab-view" aria-label="Pengaturan">
+      <header class="screen-head">
+        <div class="head-row head-row-back">
+          <button type="button" class="icon-btn" aria-label="Kembali" onclick="closeSettingsView()">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+          </button>
+          <h1 class="screen-title">Pengaturan</h1>
+        </div>
+      </header>
+
+      <div class="settings-wrap">
+        <h2 class="section-heading">Akun</h2>
+        <div id="accountLoggedOut">
+          <div class="setting-row border-bottom">
+            <span><span class="setting-title">Belum masuk</span><span class="setting-sub">Akun tidak wajib. Dokumen tetap tersimpan di HP ini.</span></span>
+            <div class="row-actions">
+              <button type="button" class="btn-text" onclick="openAccountSheet('login')">Masuk</button>
+              <button type="button" class="btn-text" onclick="openAccountSheet('register')">Daftar</button>
+            </div>
+          </div>
+        </div>
+        <div id="accountLoggedIn" class="is-hidden">
+          <div class="setting-row">
+            <span class="account-id">
+              <span class="account-avatar" id="accountAvatar" aria-hidden="true">A</span>
+              <span><span class="setting-title" id="accountName">Nama</span><span class="setting-sub" id="accountEmail">email</span></span>
+            </span>
+            <button type="button" class="btn-text" onclick="openAccountNameSheet()">Ubah nama</button>
+          </div>
+          <div class="setting-row">
+            <span class="setting-title">Keluar dari akun</span>
+            <button type="button" class="btn-text" onclick="logoutAccount()">Keluar</button>
+          </div>
+          <div class="setting-row border-bottom">
+            <span><span class="setting-title">Hapus akun</span><span class="setting-sub">Dokumen di HP ini tidak ikut terhapus</span></span>
+            <button type="button" class="btn-text danger" onclick="openAccountDeleteSheet()">Hapus</button>
+          </div>
+        </div>
+
+        <h2 class="section-heading">Tampilan</h2>
+        <div class="setting-row">
+          <span class="setting-title" id="themeLabel">Tema</span>
+          <div class="seg" role="radiogroup" aria-labelledby="themeLabel">
+            <button type="button" role="radio" data-theme-choice="light" onclick="setThemePreference('light')">Terang</button>
+            <button type="button" role="radio" data-theme-choice="dark" onclick="setThemePreference('dark')">Gelap</button>
+            <button type="button" role="radio" data-theme-choice="system" onclick="setThemePreference('system')">Ikuti HP</button>
+          </div>
+        </div>
+
+        <div class="setting-row border-bottom">
+          <span class="setting-title" id="langLabel">Bahasa</span>
+          <div class="seg" role="radiogroup" aria-labelledby="langLabel">
+            <button type="button" role="radio" data-lang-choice="id" onclick="setLanguage('id')" lang="id">Indonesia</button>
+            <button type="button" role="radio" data-lang-choice="en" onclick="setLanguage('en')" lang="en">English</button>
+          </div>
+        </div>
+
+        <h2 class="section-heading">Pindai</h2>
+        <label class="setting-row" for="prefScanFilter">
+          <span class="setting-title">Filter bawaan</span>
+          <select id="prefScanFilter" class="setting-select" onchange="saveScanPreferences()">
+            <option value="magic">Warna Ajaib</option>
+            <option value="noshadow">Tanpa Bayang</option>
+            <option value="enhance">Tingkatkan</option>
+            <option value="lighten">Pencerah</option>
+            <option value="bw">Hitam Putih</option>
+            <option value="gray">Abu-Abu</option>
+            <option value="original">Asli</option>
+          </select>
+        </label>
+        <label class="setting-row" for="prefScanQuality">
+          <span class="setting-title">Ukuran hasil</span>
+          <select id="prefScanQuality" class="setting-select" onchange="saveScanPreferences()">
+            <option value="0.78">Seimbang</option>
+            <option value="0.58">Ekstra hemat</option>
+            <option value="0.90">Kualitas penuh</option>
+          </select>
+        </label>
+        <label class="setting-row border-bottom" for="prefScanPdf">
+          <span><span class="setting-title">Langsung jadi PDF A4</span><span class="setting-sub">Kalau mati, tiap halaman disimpan sebagai foto</span></span>
+          <input type="checkbox" id="prefScanPdf" class="check-input" onchange="saveScanPreferences()" />
+        </label>
+
+        <h2 class="section-heading">Keamanan</h2>
+        <label class="setting-row" for="prefAppLock">
+          <span><span class="setting-title">Kunci aplikasi</span><span class="setting-sub">PIN, Pola 3x3, atau Kata Sandi setiap kali aplikasi dibuka</span></span>
+          <input type="checkbox" id="prefAppLock" class="check-input" onchange="toggleAppLockSetting(this)" />
+        </label>
+        <div class="setting-row is-hidden" id="appLockMethodRow">
+          <span><span class="setting-title">Metode kunci utama</span><span class="setting-sub" id="appLockMethodValue">PIN Angka</span></span>
+          <button type="button" class="btn-text" onclick="openAppPinSetup('create')">Ganti kunci</button>
+        </div>
+        <label class="setting-row is-hidden" for="prefAppLockBio" id="appLockBioRow">
+          <span><span class="setting-title">Kunci kedua: Face Key / Sidik Jari</span><span class="setting-sub" id="appLockBioStatus">Pakai pemindai wajah atau sidik jari HP sebagai kunci tambahan</span></span>
+          <input type="checkbox" id="prefAppLockBio" class="check-input" onchange="toggleBiometricUnlock(this)" />
+        </label>
+        <div class="setting-row is-hidden" id="appLockSecondMethodRow">
+          <span><span class="setting-title">Kunci kedua: PIN / Pola / Sandi</span><span class="setting-sub" id="appLockSecondValue">Belum diatur</span></span>
+          <div class="setting-inline-btns">
+            <button type="button" class="btn-text" id="appLockSecondBtn" onclick="openAppPinSetup('second')">Tambah</button>
+            <button type="button" class="btn-text danger is-hidden" id="appLockSecondClearBtn" onclick="removeSecondAppLock()">Hapus</button>
+          </div>
+        </div>
+        <div class="setting-row is-hidden" id="appLockRecoveryRow">
+          <span><span class="setting-title">Pemulihan saat lupa kunci</span><span class="setting-sub" id="appLockRecoveryStatus">Belum diatur — disarankan isi agar data tetap aman</span></span>
+          <button type="button" class="btn-text" onclick="openRecoverySetupSheet()">Atur</button>
+        </div>
+        <label class="setting-row border-bottom is-hidden" for="prefAppLockDelay" id="appLockDelayRow">
+          <span class="setting-title">Kunci lagi setelah ditinggal</span>
+          <select id="prefAppLockDelay" class="setting-select" onchange="saveAppLockDelay(this.value)">
+            <option value="0">Langsung</option>
+            <option value="30000">30 detik</option>
+            <option value="60000">1 menit</option>
+            <option value="300000">5 menit</option>
+            <option value="900000">15 menit</option>
+          </select>
+        </label>
+
+        <h2 class="section-heading">Gemini (pilihan)</h2>
+        <div class="setting-row">
+          <span><span class="setting-title">Kunci API Gemini</span><span class="setting-sub" id="geminiKeyStatus">Belum diisi. Analisis tetap jalan di HP.</span></span>
+          <button type="button" class="btn-text danger is-hidden" id="geminiKeyClearBtn" onclick="clearGeminiKey()">Hapus</button>
+        </div>
+        <p class="setting-note">Isi kuncinya di layar Analisis dokumen. Bila diisi, teks dokumen yang dianalisis dikirim ke Google.</p>
+
+        <h2 class="section-heading">Penyimpanan</h2>
+        <div class="setting-row">
+          <span><span class="setting-title" id="settingsStorageTitle">0 berkas</span><span class="setting-sub" id="persistStatusLabel">Siap dipakai offline</span></span>
+        </div>
+        <div class="setting-row border-bottom">
+          <span><span class="setting-title">Hapus semua data</span><span class="setting-sub">Semua dokumen dan pengaturan di HP ini</span></span>
+          <button type="button" class="btn-text danger" onclick="openWipeDataSheet()">Hapus</button>
+        </div>
+
+        <h2 class="section-heading">Tentang</h2>
+        <div class="setting-row">
+          <span><span class="setting-title" id="appVersionRowTitle">Versi</span><span class="setting-sub">ATTA DocStudio Pro dari ATTA NATION</span></span>
+          <button type="button" class="btn-text" onclick="checkServerVersionAndUpdate()">Cek update</button>
+        </div>
+        <div class="setting-row" id="installAppRow">
+          <span class="setting-title">Pasang di layar utama</span>
+          <div>
+            <button type="button" id="nativeInstallBtn" class="btn-text is-hidden" onclick="triggerAndroidInstall()">Pasang</button>
+            <button type="button" id="guideInstallBtn" class="btn-text" onclick="openInstallGuideModal()">Pasang</button>
+          </div>
+        </div>
+        <a class="setting-row setting-link" id="contactWhatsappLink" href="https://wa.me/6281235928712" target="_blank" rel="noopener" onclick="AttaLock.skipNext()">
+          <span><span class="setting-title">Hubungi lewat WhatsApp</span><span class="setting-sub">+62 812-3592-8712</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </a>
+        <a class="setting-row setting-link" id="contactEmailLink" href="mailto:attalaaliframadhanitrihida@gmail.com" onclick="AttaLock.skipNext()">
+          <span><span class="setting-title">Kirim email</span><span class="setting-sub">attalaaliframadhanitrihida@gmail.com</span></span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </a>
+        <button type="button" class="setting-row setting-link" onclick="openInfoSheet('privacySheet')">
+          <span class="setting-title">Privasi</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <button type="button" class="setting-row setting-link border-bottom" onclick="openInfoSheet('licensesSheet')">
+          <span class="setting-title">Lisensi pihak ketiga</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <p class="setting-note">Semua fitur sudah termasuk dalam pembelianmu.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       5.8 BILAH NAVIGASI BAWAH (.nav)
+       Grid 1fr 1fr 1fr 1.5fr: Dokumen, Alat PDF, Cadangan, [Pindai]
+       ==================================================================== -->
+  <nav class="nav" id="bottomNav" aria-label="Navigasi utama">
+    <div class="nav-inner">
+      <button type="button" class="bnav-btn active" data-tab="vault" onclick="switchTab('vault')">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="8" y1="13" x2="16" y2="13"></line>
+          <line x1="8" y1="17" x2="13" y2="17"></line>
+        </svg>
+        <span>Dokumen</span>
+      </button>
+
+      <button type="button" class="bnav-btn" data-tab="tools" onclick="switchTab('tools')">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="8" y="2" width="12" height="16" rx="2"></rect>
+          <path d="M4 6v14a2 2 0 0 0 2 2h10"></path>
+        </svg>
+        <span>Alat PDF</span>
+      </button>
+
+      <button type="button" class="bnav-btn" data-tab="backup" onclick="switchTab('backup')">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        <span>Cadangan</span>
+      </button>
+
+      <button type="button" class="bnav-scan bnav-btn" data-tab="scanner" onclick="switchTab('scanner')">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+          <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+          <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+          <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+        </svg>
+        <span>Pindai</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ====================================================================
+       5.18 LEMBAR BAWAH (BOTTOM SHEETS & MODALS)
+       ==================================================================== -->
+
+  <!-- 1. Lembar Aksi Berkas -->
+  <div id="fileActionSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="fileActionSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="fileActionSheetTitle">Nama berkas</h2>
+      <p class="sheet-desc" id="fileActionSheetMeta">PDF, 1 halaman</p>
+      <div class="sheet-list">
+        <button type="button" class="sheet-action" onclick="handleSheetPreview()">Lihat</button>
+        <button type="button" class="sheet-action" onclick="handleSheetSaveToFiles()">Simpan ke Files</button>
+        <button type="button" class="sheet-action" onclick="handleSheetShare()">Bagikan</button>
+        <button type="button" class="sheet-action" onclick="handleSheetAnalyze()">Analisis dan ekstrak teks</button>
+        <button type="button" class="sheet-action" onclick="handleSheetStampSignature()">Tempel tanda tangan</button>
+        <button type="button" class="sheet-action" id="sheetPinAction" onclick="openPinLockSheet()">Kunci dengan PIN</button>
+        <button type="button" class="sheet-action" onclick="openRenameSheet()">Ganti nama</button>
+        <button type="button" class="sheet-action danger" onclick="handleSheetDelete()">Hapus</button>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-out full" onclick="closeFileActionSheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Lembar Ganti Nama Berkas -->
+  <div id="renameSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="renameSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="renameSheetTitle">Ganti nama berkas</h2>
+      <p class="sheet-desc">Gunakan nama yang mudah dicari saat melamar atau mendaftar.</p>
+      <label for="renameInput" class="sr-only">Nama berkas baru</label>
+      <input type="text" id="renameInput" class="input-field" placeholder="Nama berkas" onkeydown="if(event.key==='Enter')confirmRenameItem()" />
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="confirmRenameItem()">Simpan nama</button>
+        <button type="button" class="btn-out full" onclick="closeRenameSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Lembar Pratinjau Berkas -->
+  <div id="previewSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="previewSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="previewSheetTitle">Pratinjau</h2>
+      <p class="sheet-desc" id="previewSheetMeta"></p>
+      <div class="preview-box" id="previewBoxContainer"></div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" id="previewSaveBtn">Simpan ke Files</button>
+        <button type="button" class="btn-out full" onclick="closePreviewSheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Lembar Mode Pindai -->
+  <div id="scanModeSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="scanModeSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="scanModeSheetTitle">Mode pindai</h2>
+      <p class="sheet-desc">Pilih cara pemindaian sesuai jenis dokumen fisik.</p>
+      <div class="sheet-list">
+        <button type="button" class="sheet-action" onclick="chooseScanMode('standard', 'Mode dokumen')">
+          <span>Dokumen A4</span>
+          <span class="setting-val">Surat, ijazah, kwitansi</span>
+        </button>
+        <button type="button" class="sheet-action" onclick="chooseScanMode('idcard', 'Mode KTP depan dan belakang')">
+          <span>Kartu KTP depan-belakang</span>
+          <span class="setting-val">2 foto jadi 1 lembar A4</span>
+        </button>
+        <button type="button" class="sheet-action" onclick="chooseScanMode('perspective', 'Mode atur 4 sudut')">
+          <span>Potong 4 sudut dan luruskan</span>
+          <span class="setting-val">Koreksi perspektif miring</span>
+        </button>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-out full" onclick="closeScanModeSheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Lembar Pilihan Ukuran Hasil Pindai -->
+  <div id="qualitySheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="qualitySheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="qualitySheetTitle">Ukuran hasil pindai</h2>
+      <p class="sheet-desc">Pilih ukuran berkas yang sesuai dengan kebutuhan unggah.</p>
+      <div class="sheet-list">
+        <button type="button" class="sheet-action" onclick="chooseScannerQuality('0.78', 'Seimbang, sekitar 180 KB per halaman')">
+          <span>Seimbang</span>
+          <span class="setting-val">sekitar 180 KB per halaman</span>
+        </button>
+        <button type="button" class="sheet-action" onclick="chooseScannerQuality('0.58', 'Ekstra hemat, sekitar 95 KB per halaman')">
+          <span>Ekstra hemat</span>
+          <span class="setting-val">sekitar 95 KB per halaman</span>
+        </button>
+        <button type="button" class="sheet-action" onclick="chooseScannerQuality('0.90', 'Kualitas penuh, sekitar 420 KB per halaman')">
+          <span>Kualitas penuh</span>
+          <span class="setting-val">sekitar 420 KB per halaman</span>
+        </button>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-out full" onclick="closeQualitySheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Lembar Gabung PDF dan Foto (Bisa Pilih dari Dokumen di HP atau Penyimpanan) -->
+  <div id="mergeSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="mergeSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="mergeSheetTitle">Gabung PDF dan foto</h2>
+      <p class="sheet-desc">Ketuk berkas sesuai urutan yang kamu mau. Nomor menunjukkan urutan halaman di PDF hasil.</p>
+      <div class="merge-list" id="mergeVaultList"></div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" id="mergeSelectedBtn" onclick="mergeSelectedVaultItems()" disabled>Pilih minimal 2 berkas</button>
+        <button type="button" class="btn-out full" onclick="triggerMergeInput()">Pilih dari penyimpanan HP</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('merge')">Lihat riwayat hasil (<span data-tool-count="merge">0</span>)</button>
+        <button type="button" class="btn-text ink" onclick="closeMergeSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Lembar Pilihan Target "Kecilkan ukuran" (200 KB / 500 KB / 1 MB) -->
+  <div id="compressTargetSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="compressTargetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="compressTargetTitle">Kecilkan ukuran berkas</h2>
+      <p class="sheet-desc">Pilih batas ukuran portal pendaftaran, lalu pilih berkasnya.</p>
+      <div class="sheet-list">
+        <button type="button" class="sheet-action" onclick="selectCompressLimit(200)">
+          <span>Maksimal 200 KB</span>
+          <span class="setting-val">Portal CPNS dan beasiswa</span>
+        </button>
+        <button type="button" class="sheet-action" onclick="selectCompressLimit(500)">
+          <span>Maksimal 500 KB</span>
+          <span class="setting-val">Lamaran kerja dan kampus</span>
+        </button>
+        <button type="button" class="sheet-action" onclick="selectCompressLimit(1024)">
+          <span>Maksimal 1 MB</span>
+          <span class="setting-val">Arsip dokumen jelas</span>
+        </button>
+      </div>
+      <div class="vault-picker-wrap">
+        <span class="sheet-label">Atau langsung kecilkan berkas di Dokumen HP ini:</span>
+        <div class="vault-picker-list" id="compressVaultPickerList"></div>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="triggerCompressFileInput()">Pilih berkas dari penyimpanan HP</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('compress')">Lihat riwayat hasil (<span data-tool-count="compress">0</span>)</button>
+        <button type="button" class="btn-out full" onclick="closeCompressTargetSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Lembar Input Teks Watermark -->
+  <div id="watermarkSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="watermarkSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="watermarkSheetTitle">Beri watermark pada PDF</h2>
+      <p class="sheet-desc">Teks akan dicetak miring di setiap halaman PDF agar dokumen tidak disalahgunakan.</p>
+      <div class="sheet-form-group">
+        <label for="watermarkTextInput" class="sheet-label">Teks watermark</label>
+        <input type="text" id="watermarkTextInput" class="input-field" placeholder="Mis. SALINAN VERIFIKASI" onkeydown="if(event.key==='Enter')confirmWatermarkTextAndPick()" />
+      </div>
+      <div class="vault-picker-wrap">
+        <span class="sheet-label">Pilih dari Dokumen di HP ini:</span>
+        <div class="vault-picker-list" id="watermarkVaultPickerList"></div>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="confirmWatermarkTextAndPick()">Pilih PDF dari penyimpanan HP</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('watermark')">Lihat riwayat hasil (<span data-tool-count="watermark">0</span>)</button>
+        <button type="button" class="btn-out full" onclick="closeWatermarkSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Lembar Alat Halaman PDF (Split, Remove, Organize/Rotate, Page Numbers, Crop, Redact) -->
+  <div id="pageToolSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="pageToolSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="pageToolSheetTitle">Atur halaman PDF</h2>
+      <p class="sheet-desc" id="pageToolSheetDesc">Atur opsi pemrosesan lalu pilih berkas PDF.</p>
+
+      <div class="sheet-form-group" id="pageToolInputGroup">
+        <label for="pageToolParamInput" class="sheet-label" id="pageToolParamLabel">Rentang atau nomor halaman</label>
+        <input type="text" id="pageToolParamInput" class="input-field" placeholder="Mis. 1-2, 4" />
+      </div>
+
+      <div class="sheet-form-group is-hidden" id="pageToolSelectGroup">
+        <label for="pageToolSelectInput" class="sheet-label" id="pageToolSelectLabel">Pilihan pengaturan</label>
+        <select id="pageToolSelectInput" class="input-field">
+          <option value="90">Putar 90 derajat searah jarum jam</option>
+          <option value="180">Putar 180 derajat</option>
+          <option value="270">Putar 270 derajat</option>
+          <option value="0">Tanpa rotasi (hanya ubah urutan)</option>
+        </select>
+      </div>
+
+      <p class="sheet-hint is-hidden" id="pageToolFileInfo" aria-live="polite"></p>
+
+      <div class="vault-picker-wrap">
+        <span class="sheet-label">Pilih langsung dari Dokumen di HP ini:</span>
+        <div class="vault-picker-list" id="pageToolVaultPickerList"></div>
+      </div>
+
+      <label for="pageToolFileInput" class="sr-only">Pilih berkas PDF untuk diproses</label>
+      <input type="file" id="pageToolFileInput" class="sr-only" accept="application/pdf" onchange="handlePageToolFileInput(this)" />
+
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" id="pageToolExecuteBtn" onclick="triggerPageToolFilePicker()">Pilih PDF dari penyimpanan HP</button>
+        <button type="button" class="btn-text tool-history-footer-btn" id="pageToolHistoryBtn" onclick="openHistoryFromActivePageTool()">Lihat riwayat hasil (<span id="pageToolHistoryCount">0</span>)</button>
+        <button type="button" class="btn-out full" onclick="closePageToolSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Lembar: masuk / daftar akun -->
+  <div id="accountSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="accountSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="accountSheetTitle">Masuk</h2>
+      <p class="sheet-desc" id="accountSheetDesc">Masuk untuk menampilkan profilmu di aplikasi. Dokumen tidak dikirim ke server.</p>
+      <form id="accountForm" onsubmit="submitAccountForm(event)" novalidate>
+        <div class="sheet-form-group" id="accountNameGroup">
+          <label for="accountNameInput" class="sheet-label">Nama</label>
+          <input type="text" id="accountNameInput" class="input-field" autocomplete="name" maxlength="80" />
+        </div>
+        <div class="sheet-form-group">
+          <label for="accountEmailInput" class="sheet-label">Email</label>
+          <input type="email" id="accountEmailInput" class="input-field" autocomplete="email" inputmode="email" />
+        </div>
+        <div class="sheet-form-group">
+          <label for="accountPasswordInput" class="sheet-label">Kata sandi</label>
+          <input type="password" id="accountPasswordInput" class="input-field" autocomplete="current-password" />
+        </div>
+        <div class="sheet-form-group" id="accountPassword2Group">
+          <label for="accountPassword2Input" class="sheet-label">Ulangi kata sandi</label>
+          <input type="password" id="accountPassword2Input" class="input-field" autocomplete="new-password" />
+        </div>
+        <p class="pin-error is-hidden" id="accountFormError" role="alert"></p>
+        <div class="sheet-buttons">
+          <button type="submit" class="btn-ink full" id="accountSubmitBtn">Masuk</button>
+          <button type="button" class="btn-text ink" id="accountSwitchBtn" onclick="switchAccountMode()">Belum punya akun? Daftar</button>
+          <button type="button" class="btn-text ink" id="accountForgotBtn" onclick="openAccountForgot()">Lupa kata sandi?</button>
+          <button type="button" class="btn-out full" onclick="closeAccountSheet()">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lembar: ubah nama akun -->
+  <div id="accountNameSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="accountNameSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="accountNameSheetTitle">Ubah nama</h2>
+      <div class="sheet-form-group">
+        <label for="accountNewNameInput" class="sheet-label">Nama</label>
+        <input type="text" id="accountNewNameInput" class="input-field" autocomplete="name" maxlength="80" onkeydown="if(event.key==='Enter')saveAccountName()" />
+      </div>
+      <p class="pin-error is-hidden" id="accountNameError" role="alert"></p>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" id="accountNameSaveBtn" onclick="saveAccountName()">Simpan nama</button>
+        <button type="button" class="btn-out full" onclick="closeInfoSheet('accountNameSheet')">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar: hapus akun -->
+  <div id="accountDeleteSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="accountDeleteTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="accountDeleteTitle">Hapus akun?</h2>
+      <p class="sheet-desc">Nama dan email akan dihapus dari server ATTA NATION. Dokumen di HP ini tetap ada.</p>
+      <div class="sheet-form-group">
+        <label for="accountDeletePassword" class="sheet-label">Kata sandi</label>
+        <input type="password" id="accountDeletePassword" class="input-field" autocomplete="current-password" onkeydown="if(event.key==='Enter')confirmAccountDelete()" />
+      </div>
+      <p class="pin-error is-hidden" id="accountDeleteError" role="alert"></p>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-danger full" id="accountDeleteBtn" onclick="confirmAccountDelete()">Hapus akun</button>
+        <button type="button" class="btn-out full" onclick="closeInfoSheet('accountDeleteSheet')">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar: atur kunci aplikasi (PIN, Pola 3x3, atau Kata sandi) -->
+  <div id="appPinSetupSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="appPinSetupTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="appPinSetupTitle">Buat kunci aplikasi</h2>
+      <p class="sheet-desc" id="appPinSetupDesc">Kunci diminta setiap kali aplikasi dibuka. Kalau lupa, satu-satunya cara masuk adalah menghapus semua data.</p>
+
+      <div class="sheet-form-group" id="appLockMethodRowSetup">
+        <span class="sheet-label">Pilih jenis kunci</span>
+        <div class="seg lock-method-seg" id="appLockMethodSeg" role="radiogroup" aria-label="Jenis kunci aplikasi">
+          <button type="button" role="radio" aria-checked="true" data-lock-method="pin" onclick="selectAppLockMethod('pin')">PIN</button>
+          <button type="button" role="radio" aria-checked="false" data-lock-method="pattern" onclick="selectAppLockMethod('pattern')">Pola 3x3</button>
+          <button type="button" role="radio" aria-checked="false" data-lock-method="password" onclick="selectAppLockMethod('password')">Kata sandi</button>
+        </div>
+      </div>
+
+      <div id="appLockSetupPinGroup">
+        <div class="sheet-form-group">
+          <label for="appPinNew" class="sheet-label">PIN (4 sampai 8 angka)</label>
+          <input type="password" id="appPinNew" class="input-field" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" onkeydown="if(event.key==='Enter')confirmAppPinSetup()" />
+        </div>
+        <div class="sheet-form-group" id="appPinConfirmGroup">
+          <label for="appPinConfirm" class="sheet-label">Ulangi PIN</label>
+          <input type="password" id="appPinConfirm" class="input-field" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" onkeydown="if(event.key==='Enter')confirmAppPinSetup()" />
+        </div>
+      </div>
+
+      <div id="appLockSetupPatternGroup" class="pattern-wrap is-hidden">
+        <p class="sheet-hint" id="patternSetupHint">Hubungkan minimal 4 titik untuk membuat pola.</p>
+        <canvas id="patternSetupCanvas" class="pattern-canvas" width="248" height="248" aria-label="Kanvas buat pola 3x3"></canvas>
+      </div>
+
+      <div id="appLockSetupPasswordGroup" class="is-hidden">
+        <div class="sheet-form-group">
+          <label for="appPasswordNew" class="sheet-label">Kata sandi (minimal 4 karakter)</label>
+          <div class="pass-input-row">
+            <input type="password" id="appPasswordNew" class="input-field" autocomplete="off" onkeydown="if(event.key==='Enter')confirmAppPinSetup()" />
+            <button type="button" class="btn-text pass-eye-btn" onclick="togglePasswordVisibility('appPasswordNew', this)">Lihat</button>
+          </div>
+        </div>
+        <div class="sheet-form-group" id="appPassConfirmGroup">
+          <label for="appPasswordConfirm" class="sheet-label">Ulangi kata sandi</label>
+          <input type="password" id="appPasswordConfirm" class="input-field" autocomplete="off" onkeydown="if(event.key==='Enter')confirmAppPinSetup()" />
+        </div>
+      </div>
+
+      <p class="pin-error is-hidden" id="appPinSetupError" role="alert"></p>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" id="appPinSetupBtn" onclick="confirmAppPinSetup()">Simpan kunci</button>
+        <button type="button" class="btn-out full" onclick="cancelAppPinSetup()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar: atur pertanyaan keamanan & kode pemulihan kunci aplikasi -->
+  <div id="recoverySetupSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="recoverySetupTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <h2 class="sheet-title" id="recoverySetupTitle">Pemulihan saat lupa kunci</h2>
+        <p class="sheet-desc">Atur pertanyaan keamanan dan simpan kode darurat ini. Keduanya memulihkan kunci aplikasi tanpa menghapus satu pun dokumen.</p>
+
+        <div class="sheet-form-group">
+          <label for="recoveryQuestionSelect" class="sheet-label">Pertanyaan keamanan</label>
+          <select id="recoveryQuestionSelect" class="input-field">
+            <option value="Apa nama sekolah dasar pertamamu?">Apa nama sekolah dasar pertamamu?</option>
+            <option value="Apa nama hewan peliharaan pertamamu?">Apa nama hewan peliharaan pertamamu?</option>
+            <option value="Di kota mana kamu lahir?">Di kota mana kamu lahir?</option>
+            <option value="Apa nama panggilan masa kecilmu?">Apa nama panggilan masa kecilmu?</option>
+          </select>
+        </div>
+
+        <div class="sheet-form-group">
+          <label for="recoveryAnswerInput" class="sheet-label">Jawaban (minimal 2 huruf)</label>
+          <input type="text" id="recoveryAnswerInput" class="input-field" placeholder="Tulis jawabanmu" autocomplete="off" />
+        </div>
+
+        <div class="sheet-form-group">
+          <span class="sheet-label">Kode pemulihan darurat</span>
+          <div class="pass-input-row">
+            <input type="text" id="recoveryCodeDisplay" class="input-field recovery-code-box" readonly data-no-i18n />
+            <button type="button" class="btn-out" onclick="copyGeneratedRecoveryCode()">Salin</button>
+          </div>
+          <p class="sheet-hint">Catat atau salin kode di atas ke tempat aman agar selalu bisa membuka aplikasi bila lupa kunci.</p>
+        </div>
+
+        <p class="pin-error is-hidden" id="recoverySetupError" role="alert"></p>
+        <div class="sheet-buttons">
+          <button type="button" class="btn-ink full" onclick="confirmRecoverySetup()">Simpan pemulihan</button>
+          <button type="button" class="btn-out full" onclick="closeRecoverySetupSheet()">Nanti saja</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar: pilihan pemulihan saat lupa kunci aplikasi (Opsi 1-4) -->
+  <div id="forgotLockSheet" class="sheet-backdrop over-lock" role="dialog" aria-modal="true" aria-labelledby="forgotLockTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <h2 class="sheet-title" id="forgotLockTitle">Pulihkan kunci aplikasi</h2>
+        <p class="sheet-desc">Pilih salah satu cara di bawah untuk membuat kunci baru tanpa menghapus dokumen di HP ini.</p>
+
+        <div class="recovery-card" id="forgotDeviceCard">
+          <strong class="recovery-card-title">1. Face Key, sidik jari, atau kunci layar HP</strong>
+          <p class="sheet-hint">Verifikasi kepemilikan perangkat lewat kunci layar / biometrik HP.</p>
+          <button type="button" class="btn-ink full" id="forgotOptDeviceBtn" onclick="recoverViaDeviceOrBiometric()">Verifikasi lewat perangkat</button>
+        </div>
+
+        <div class="recovery-card is-hidden" id="forgotQuestionCard">
+          <strong class="recovery-card-title">2. Jawab pertanyaan keamanan</strong>
+          <p class="sheet-hint" id="forgotQuestionLabel">Pertanyaan</p>
+          <input type="text" id="forgotQuestionAnswer" class="input-field" placeholder="Masukkan jawaban" autocomplete="off" onkeydown="if(event.key==='Enter')recoverViaSecurityQuestion()" />
+          <button type="button" class="btn-out full" onclick="recoverViaSecurityQuestion()">Verifikasi jawaban</button>
+        </div>
+
+        <div class="recovery-card is-hidden" id="forgotCodeCard">
+          <strong class="recovery-card-title">3. Masukkan kode pemulihan darurat</strong>
+          <input type="text" id="forgotRecoveryCodeInput" class="input-field recovery-code-box" placeholder="Contoh: ATTA-XXXX-XXXX" autocapitalize="characters" autocomplete="off" onkeydown="if(event.key==='Enter')recoverViaRecoveryCode()" />
+          <button type="button" class="btn-out full" onclick="recoverViaRecoveryCode()">Pakai kode pemulihan</button>
+        </div>
+
+        <div class="recovery-card is-hidden" id="forgotAccountCard">
+          <strong class="recovery-card-title">4. Verifikasi akun ATTA</strong>
+          <p class="sheet-hint" id="forgotAccountEmailLabel" data-no-i18n></p>
+          <input type="password" id="forgotAccountPassInput" class="input-field" placeholder="Masukkan kata sandi akun ATTA" autocomplete="off" onkeydown="if(event.key==='Enter')recoverViaAttaAccount()" />
+          <button type="button" class="btn-out full" id="forgotAccountBtn" onclick="recoverViaAttaAccount()">Verifikasi akun ATTA</button>
+        </div>
+
+        <p class="pin-error is-hidden" id="forgotLockError" role="alert"></p>
+
+        <div class="sheet-buttons" style="margin-top: 14px;">
+          <button type="button" class="btn-danger full" onclick="openWipeFromForgotSheet()">Opsi terakhir: hapus semua data</button>
+          <button type="button" class="btn-out full" onclick="closeForgotLockSheet()">Kembali</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar: konfirmasi hapus semua data -->
+  <div id="wipeDataSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="wipeDataTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="wipeDataTitle">Hapus semua data?</h2>
+      <p class="sheet-desc" id="wipeDataDesc">Semua dokumen, tanda tangan, dan pengaturan di HP ini akan hilang dan tidak bisa dikembalikan. Cadangkan dulu kalau masih perlu.</p>
+      <div class="sheet-form-group">
+        <label for="wipeConfirmInput" class="sheet-label">Ketik HAPUS untuk melanjutkan</label>
+        <input type="text" id="wipeConfirmInput" class="input-field" autocomplete="off" autocapitalize="characters" oninput="syncWipeButton()" onkeydown="if(event.key==='Enter'&&!document.getElementById('wipeConfirmBtn').disabled)confirmWipeAllData()" />
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-danger full" id="wipeConfirmBtn" onclick="confirmWipeAllData()" disabled>Hapus semua data</button>
+        <button type="button" class="btn-out full" onclick="closeWipeDataSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar: privasi -->
+  <div id="privacySheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="privacyTitle">Privasi</h2>
+      <div class="info-text">
+        <p>Dokumen, foto, dan tanda tanganmu disimpan di penyimpanan browser HP ini. Aplikasi tidak menyimpan berkas di server mana pun.</p>
+        <p>Pemindaian, gabung PDF, kecilkan ukuran, watermark, samarkan info, dan kunci PIN semuanya diproses di HP.</p>
+        <p>Satu pengecualian: kalau kamu mengisi kunci API Gemini, teks dokumen yang kamu analisis dikirim ke Google untuk diproses.</p>
+        <p>Kalau kamu membuat akun, nama, email, dan kata sandi (dalam bentuk acak) disimpan di server ATTA NATION. Dokumen tidak pernah dikirim ke server itu. Akun bisa dihapus kapan saja dari Pengaturan.</p>
+        <p>Selain itu, aplikasi menghubungi internet hanya untuk memeriksa versi terbaru. Tidak ada iklan dan tidak ada pelacakan.</p>
+        <p>Menghapus data browser atau aplikasi akan menghapus dokumenmu. Cadangkan ke ZIP secara berkala.</p>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-out full" onclick="closeInfoSheet('privacySheet')">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar: lisensi pihak ketiga -->
+  <div id="licensesSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="licensesTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="licensesTitle">Lisensi pihak ketiga</h2>
+      <div class="info-text">
+        <p><strong>PDF.js</strong>, Mozilla Foundation. Apache License 2.0.</p>
+        <p><strong>pdf-lib</strong>, Andrew Dillon. MIT License.</p>
+        <p><strong>JSZip</strong>, Stuart Knightley dan kontributor. MIT License atau GPLv3, dipakai di bawah MIT.</p>
+        <p><strong>Dexie.js</strong>, David Fahlander. Apache License 2.0.</p>
+        <p><strong>Schibsted Grotesk</strong>, Schibsted. SIL Open Font License 1.1.</p>
+        <p><strong>Liberation Sans</strong> dan font standar PDF.js. SIL Open Font License 1.1 dan lisensi Foxit (lihat folder js/vendor/pdfjs).</p>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-out full" onclick="closeInfoSheet('licensesSheet')">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lembar Editor Samarkan Info -->
+  <div id="redactEditorSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="redactEditorTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <h2 class="sheet-title" id="redactEditorTitle">Tandai bagian yang ditutup</h2>
+        <p class="sheet-desc">Geser jari di atas halaman untuk menutup NIK, nomor rekening, atau info lain. Hasilnya disimpan sebagai salinan baru.</p>
+        <div class="studio-toolbar-row">
+          <div class="seg" id="redactModeSeg" role="radiogroup" aria-label="Mode sentuh halaman">
+            <button type="button" role="radio" aria-checked="true" data-redact-mode="draw" onclick="setRedactTouchMode('draw')">Tandai hitam</button>
+            <button type="button" role="radio" aria-checked="false" data-redact-mode="pan" onclick="setRedactTouchMode('pan')">Geser halaman</button>
+          </div>
+          <div class="studio-zoom-group" aria-label="Perbesar halaman">
+            <button type="button" class="studio-mini-btn is-active" id="redactFitBtn" onclick="fitRedactViewport()">Fit</button>
+            <button type="button" class="studio-mini-btn" aria-label="Perkecil" onclick="stepRedactZoom(-0.35)">-</button>
+            <span class="studio-zoom-badge" id="redactZoomLabel">Fit</span>
+            <button type="button" class="studio-mini-btn" aria-label="Perbesar" onclick="stepRedactZoom(0.35)">+</button>
+          </div>
+        </div>
+        <div class="redact-stage" id="redactStage">
+          <canvas id="redactCanvas" class="redact-canvas" aria-label="Halaman PDF. Geser untuk menutup bagian rahasia."></canvas>
+        </div>
+        <div class="studio-pager-row">
+          <button type="button" class="studio-step-btn" id="redactPrevBtn" onclick="changeRedactPage(-1)" aria-label="Halaman sebelumnya">Sebelum</button>
+          <span class="redact-page-label" id="redactPageLabel" aria-live="polite">Halaman 1 dari 1</span>
+          <button type="button" class="studio-step-btn" id="redactNextBtn" onclick="changeRedactPage(1)" aria-label="Halaman berikutnya">Lanjut</button>
+        </div>
+        <button type="button" class="btn-text" id="redactUndoBtn" onclick="undoRedactBox()">Hapus kotak terakhir</button>
+        <p class="sheet-hint">Setiap halaman disimpan sebagai gambar, jadi teks di PDF hasil tidak bisa disalin lagi.</p>
+        <div class="sheet-buttons">
+          <button type="button" class="btn-ink full" id="redactSaveBtn" onclick="saveRedactedPdf()" disabled>Simpan versi tersamarkan</button>
+          <button type="button" class="btn-out full" onclick="closeRedactEditor()">Batal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Lembar KTP Depan & Belakang ke 1 Lembar A4 -->
+  <div id="idCardStitchSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="idCardStitchTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="idCardStitchTitle">KTP depan dan belakang ke 1 lembar A4</h2>
+      <p class="sheet-desc">Pilih 2 foto kartu identitas (sisi depan dan sisi belakang). Keduanya akan disusun otomatis di tengah halaman A4.</p>
+      <label for="idCardFilesInput" class="sr-only">Pilih foto sisi depan dan belakang kartu</label>
+      <input type="file" id="idCardFilesInput" class="sr-only" accept="image/*" multiple onchange="handleIdCardStitchInput(this)" />
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="triggerIdCardFilesPicker()">Pilih 2 foto kartu</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('idcard')">Lihat riwayat hasil (<span data-tool-count="idcard">0</span>)</button>
+        <button type="button" class="btn-out full" onclick="closeIdCardStitchSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Lembar Interaktif 4 Sudut Perspektif & Rotasi (Adaptasi SmartScanner CropScreen) -->
+  <div id="cropPerspectiveSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="cropPerspectiveTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <div class="crop-head-row">
+          <div>
+            <h2 class="sheet-title" id="cropPerspectiveTitle" style="margin-bottom:4px;">Luruskan perspektif 4 sudut</h2>
+            <p class="sheet-desc" style="margin-bottom:0;">Geser sudut atau sisi kertas; kaca pembesar aktif otomatis saat ditarik.</p>
+          </div>
+          <span class="crop-paper-badge is-hidden" id="cropPaperBadge">A4</span>
+        </div>
+
+        <div class="crop-stage-box" id="cropStageBox">
+          <div class="crop-stage-inner">
+            <canvas id="cropInteractiveCanvas" class="crop-canvas" width="360" height="460" aria-label="Pratinjau dokumen. Geser titik biru ke 4 sudut kertas."></canvas>
+            <canvas id="cropLoupeCanvas" class="crop-loupe-canvas is-hidden" width="112" height="112" aria-hidden="true"></canvas>
+          </div>
+        </div>
+
+        <div class="crop-studio-bar">
+          <button type="button" class="crop-tool-btn" onclick="rotateCropPreview(90)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+            <span>Putar 90°</span>
+          </button>
+          <button type="button" class="crop-tool-btn" onclick="autoDetectCropCorners()">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V5h4M16 5h4v4M20 15v4h-4M8 19H4v-4"/><path d="M9 12h6M12 9v6"/></svg>
+            <span>Auto sudut</span>
+          </button>
+          <button type="button" class="crop-tool-btn" onclick="resetCropCorners()">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+            <span>Semua</span>
+          </button>
+        </div>
+
+        <label class="consent-row crop-auto-paper-row" for="cropAutoPaperCheck">
+          <input type="checkbox" id="cropAutoPaperCheck" class="check-input" checked onchange="onCropAutoPaperToggle(this.checked)" />
+          <span>Sesuaikan proporsi ukuran kertas otomatis (A4, F4, Kartu ID)</span>
+        </label>
+
+        <div class="sheet-buttons">
+          <button type="button" class="btn-ink full" id="cropApplySaveBtn" onclick="applyPerspectiveCropAndSave()">Luruskan dan simpan</button>
+          <button type="button" class="btn-out full" onclick="closeCropPerspectiveSheet()">Batal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. Lembar Tempel Tanda Tangan ke PDF (Dengan Fit Halaman Penuh, Zoom/Pan, & Tata Letak Cepat) -->
+  <div id="stampSignSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="stampSignTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <h2 class="sheet-title" id="stampSignTitle">Tempel tanda tangan ke PDF</h2>
+
+        <div id="stampSourceStep">
+          <p class="sheet-desc">Pilih tanda tangan yang ingin dipakai, lalu pilih dokumen PDF tujuannya.</p>
+          <div class="sheet-form-group" id="stampSavedSigsWrap">
+            <span class="sheet-label">Pilih tanda tangan (kanvas atau tersimpan):</span>
+            <div class="saved-sigs-strip" id="stampSavedSigsStrip"></div>
+          </div>
+          <div class="vault-picker-wrap">
+            <span class="sheet-label">Pilih PDF dari Dokumen di HP ini:</span>
+            <div class="vault-picker-list" id="stampVaultPickerList"></div>
+          </div>
+          <label for="stampPdfFileInput" class="sr-only">Pilih berkas PDF yang akan ditandatangani</label>
+          <input type="file" id="stampPdfFileInput" class="sr-only" accept="application/pdf" onchange="handleStampSignPdfInput(this)" />
+          <div class="sheet-buttons">
+            <button type="button" class="btn-ink full" onclick="confirmStampSignTarget()">Pilih PDF dari penyimpanan HP</button>
+            <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('sign')">Lihat riwayat hasil (<span data-tool-count="sign">0</span>)</button>
+            <button type="button" class="btn-out full" onclick="closeStampSignToPdfSheet()">Batal</button>
+          </div>
+        </div>
+
+        <div id="stampPlacementStep" class="is-hidden">
+          <p class="sheet-desc">Seluruh halaman tampil utuh. Geser tanda tangan atau perbesar halaman untuk menata letaknya.</p>
+
+          <div class="studio-toolbar-row">
+            <div class="seg" id="stampTouchModeSeg" role="radiogroup" aria-label="Mode sentuh editor">
+              <button type="button" role="radio" aria-checked="true" data-stamp-mode="sig" onclick="setStampTouchMode('sig')">Atur TTD</button>
+              <button type="button" role="radio" aria-checked="false" data-stamp-mode="pan" onclick="setStampTouchMode('pan')">Geser halaman</button>
+            </div>
+            <div class="studio-zoom-group" aria-label="Perbesar dokumen PDF">
+              <button type="button" class="studio-mini-btn is-active" id="stampFitBtn" onclick="fitStampViewport()">Fit</button>
+              <button type="button" class="studio-mini-btn" aria-label="Perkecil" onclick="stepStampZoom(-0.35)">-</button>
+              <span class="studio-zoom-badge" id="stampZoomLabel">Fit</span>
+              <button type="button" class="studio-mini-btn" aria-label="Perbesar" onclick="stepStampZoom(0.35)">+</button>
+            </div>
+          </div>
+
+          <div class="stamp-stage-wrap" id="stampStageWrap">
+            <div id="stampPreviewStage" class="stamp-stage">
+              <canvas id="stampPreviewCanvas" width="320" height="440" aria-label="Halaman PDF untuk menempatkan tanda tangan"></canvas>
+              <div id="stampDragBox" class="stamp-drag-box">
+                <img id="stampDragImg" alt="" />
+                <span id="stampResizeHandle" class="stamp-resize-dot" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="studio-pager-row">
+            <button type="button" class="studio-step-btn" id="stampPrevPageBtn" onclick="changeStampPreviewPage(-1)">Sebelum</button>
+            <span class="redact-page-label" id="stampPageLabel" aria-live="polite">Halaman 1 dari 1</span>
+            <button type="button" class="studio-step-btn" id="stampNextPageBtn" onclick="changeStampPreviewPage(1)">Lanjut</button>
+          </div>
+
+          <div class="studio-action-grid">
+            <button type="button" class="studio-pill-btn" id="stampRotatePageBtn" onclick="rotateStampPreviewPage(90)">Putar dokumen 90°</button>
+            <button type="button" class="studio-pill-btn" id="stampRotateSigBtn" onclick="rotateStampSignature90()">Putar TTD 90°</button>
+            <button type="button" class="studio-pill-btn" onclick="alignStampQuickPreset('bottom-right')">Kanan bawah</button>
+            <button type="button" class="studio-pill-btn" onclick="alignStampQuickPreset('center')">Tengah</button>
+          </div>
+
+          <div class="studio-ctrl-card">
+            <div class="studio-ctrl-head">
+              <label for="stampSizeSlider" class="sheet-label" style="margin:0;">Ukuran tanda tangan</label>
+              <span class="studio-val-pill" id="stampSizeValBadge">30%</span>
+            </div>
+            <input type="range" id="stampSizeSlider" min="12" max="62" value="30" oninput="updateStampSizeFromSlider(this.value)" />
+
+            <div class="studio-ctrl-sub">
+              <span class="sheet-label">Warna tanda tangan</span>
+              <div class="sig-color-palette" id="stampColorPalette" role="radiogroup" aria-label="Warna tanda tangan stempel">
+                <button type="button" class="sig-color-dot is-active" data-color="#2445C9" style="--dot-color:#2445C9;" title="Tinta biru" aria-label="Tinta biru" role="radio" aria-checked="true" onclick="changeStampSignatureColor('#2445C9', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#17202B" style="--dot-color:#17202B;" title="Tinta hitam" aria-label="Tinta hitam" role="radio" aria-checked="false" onclick="changeStampSignatureColor('#17202B', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#16308F" style="--dot-color:#16308F;" title="Tinta biru tua" aria-label="Tinta biru tua" role="radio" aria-checked="false" onclick="changeStampSignatureColor('#16308F', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#B42318" style="--dot-color:#B42318;" title="Tinta merah" aria-label="Tinta merah" role="radio" aria-checked="false" onclick="changeStampSignatureColor('#B42318', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#0F766E" style="--dot-color:#0F766E;" title="Tinta hijau" aria-label="Tinta hijau" role="radio" aria-checked="false" onclick="changeStampSignatureColor('#0F766E', this)"></button>
+                <button type="button" class="sig-color-dot" data-color="#6D28D9" style="--dot-color:#6D28D9;" title="Tinta ungu" aria-label="Tinta ungu" role="radio" aria-checked="false" onclick="changeStampSignatureColor('#6D28D9', this)"></button>
+                <button type="button" class="sig-color-custom-wrap" id="stampCustomColorBtn" title="Pilih warna lain" aria-label="Pilih warna kustom" onclick="openCustomColorSheet('stamp', this)">
+                  <span class="sig-color-picker-swatch" id="stampCustomColorSwatch"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <label class="consent-row" for="stampAllPagesCheck">
+            <input type="checkbox" id="stampAllPagesCheck" class="check-input" />
+            <span>Tempel di posisi yang sama pada semua halaman PDF</span>
+          </label>
+          <div class="sheet-buttons" style="margin-top: 12px;">
+            <button type="button" class="btn-ink full" id="stampApplySaveBtn" onclick="commitInteractiveSignatureStamp()">Tempel dan simpan PDF</button>
+            <button type="button" class="btn-out full" onclick="backToStampSourceStep()">Ganti berkas PDF</button>
+            <button type="button" class="btn-text ink" onclick="closeStampSignToPdfSheet()">Batal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. Lembar Ekspor PDF ke Word / CSV / Markdown -->
+  <div id="pdfExportFormatSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="pdfExportFormatTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="pdfExportFormatTitle">Konversi PDF ke dokumen lain</h2>
+      <p class="sheet-desc">Pilih format keluaran, lalu ketuk dokumen di bawah atau pilih dari penyimpanan HP.</p>
+      <div class="sheet-form-group">
+        <label for="exportFormatSelect" class="sheet-label">Format hasil konversi</label>
+        <select id="exportFormatSelect" class="input-field" onchange="syncExportFormatSelect(this)">
+          <option value="doc" selected>Word (.docx), bisa diedit</option>
+          <option value="csv">CSV, dibuka di Excel</option>
+          <option value="md">Markdown (.md)</option>
+          <option value="txt">Teks biasa (.txt)</option>
+          <option value="jpg">Gambar halaman (.jpg)</option>
+        </select>
+      </div>
+      <div class="vault-picker-wrap">
+        <span class="sheet-label">Pilih langsung dari Dokumen di HP ini:</span>
+        <div class="vault-picker-list" id="exportVaultPickerList"></div>
+      </div>
+      <label for="pdfExportFileInput" class="sr-only">Pilih berkas PDF untuk dikonversi</label>
+      <input type="file" id="pdfExportFileInput" class="sr-only" accept="application/pdf" onchange="handlePdfExportFileInput(this)" />
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="triggerPdfExportFileInput()">Pilih PDF dari penyimpanan HP</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('pdf_export')">Lihat riwayat hasil (<span data-tool-count="pdf_export">0</span>)</button>
+        <button type="button" class="btn-out full" onclick="closePdfExportFormatSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. Lembar Perbaiki Struktur PDF -->
+  <div id="repairPdfSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="repairPdfTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="repairPdfTitle">Perbaiki struktur PDF</h2>
+      <p class="sheet-desc">Bangun ulang tabel referensi dan halaman PDF agar dapat dibuka kembali dengan normal.</p>
+      <div class="vault-picker-wrap">
+        <span class="sheet-label">Pilih dari Dokumen di HP ini:</span>
+        <div class="vault-picker-list" id="repairVaultPickerList"></div>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="triggerRepairPdfPicker()">Pilih PDF dari penyimpanan HP</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('repair')">Lihat riwayat hasil (<span data-tool-count="repair">0</span>)</button>
+        <button type="button" class="btn-out full" onclick="closeRepairPdfSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. Lembar Bandingkan Dua Dokumen PDF -->
+  <div id="comparePdfSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="comparePdfTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="comparePdfTitle">Bandingkan dua dokumen PDF</h2>
+      <p class="sheet-desc">Bandingkan jumlah halaman, ukuran berkas, dan selisih baris teks.</p>
+      <div class="analysis-output is-hidden" id="compareResultOutput"></div>
+      <label for="comparePdfFilesInput" class="sr-only">Pilih 2 berkas PDF untuk dibandingkan</label>
+      <input type="file" id="comparePdfFilesInput" class="sr-only" accept="application/pdf" multiple onchange="handleComparePdfInput(this)" />
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full is-hidden" id="saveCompareReportBtn" onclick="saveCompareReportToVault()">Simpan laporan perbandingan ke Dokumen</button>
+        <button type="button" class="btn-ink full" onclick="compareLatestTwoVaultPdfs()">Bandingkan 2 dokumen terbaru di HP ini</button>
+        <button type="button" class="btn-out full" onclick="triggerComparePdfPicker()">Pilih 2 berkas PDF dari penyimpanan</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('compare')">Lihat riwayat hasil (<span data-tool-count="compare">0</span>)</button>
+        <button type="button" class="btn-text ink" onclick="closeComparePdfSheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. Lembar Analisis, OCR, Ringkasan & Terjemahan Dokumen -->
+  <div id="analyzeDocSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="analyzeDocTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="analyzeDocTitle">Analisis dan ringkasan dokumen</h2>
+      <p class="sheet-desc" id="analyzeDocSub">Membaca teks dari PDF, Office, maupun foto hasil pindai (OCR offline di APK Android).</p>
+
+      <div class="sheet-form-group">
+        <label for="analyzeModeSelect" class="sheet-label">Mode hasil</label>
+        <select id="analyzeModeSelect" class="input-field">
+          <option value="summarize" selected>Ringkasan dan deteksi entitas (Lokal / Gemini)</option>
+          <option value="markdown">Ubah ke struktur Markdown</option>
+          <option value="translate">Terjemahkan ke Bahasa Inggris (dengan API Key)</option>
+        </select>
+      </div>
+
+      <div class="sheet-form-group">
+        <label for="geminiApiKeyInput" class="sheet-label">Kunci API Gemini (opsional, kosongkan untuk mode offline)</label>
+        <input type="password" id="geminiApiKeyInput" class="input-field" placeholder="Kosongkan untuk analisis lokal di HP" autocomplete="off" aria-describedby="geminiPrivacyNote" />
+        <p class="sheet-hint" id="geminiPrivacyNote">Bila kunci diisi, isi teks dokumen dikirim ke server Google untuk diproses. Kosongkan kalau dokumennya rahasia.</p>
+        <label class="consent-row" for="geminiConsentCheckbox">
+          <input type="checkbox" id="geminiConsentCheckbox" class="check-input" />
+          <span>Saya setuju mengirim teks dokumen ini ke Google Gemini saat kunci API diisi</span>
+        </label>
+      </div>
+
+      <div class="vault-picker-wrap">
+        <span class="sheet-label">Ketuk dokumen di HP ini untuk langsung dianalisis:</span>
+        <div class="vault-picker-list" id="analyzeVaultPickerList"></div>
+      </div>
+
+      <p class="sheet-hint is-hidden" id="analyzeModeBadge" aria-live="polite"></p>
+      <div class="analysis-output is-hidden" id="analyzeResultOutput"></div>
+
+      <label for="analyzeFileInput" class="sr-only">Pilih berkas PDF, foto, atau teks untuk dianalisis</label>
+      <input type="file" id="analyzeFileInput" class="sr-only" accept="application/pdf,image/*,.txt,.csv,.docx,.xlsx,.md" onchange="handleAnalyzeFileInput(this)" />
+
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="triggerAnalyzeFilePicker()">Pilih berkas dari penyimpanan HP</button>
+        <button type="button" class="btn-out full is-hidden" id="saveAnalysisBtn" onclick="saveAnalysisResultToVault()">Simpan hasil ke Dokumen</button>
+        <button type="button" class="btn-out full is-hidden" id="copyAnalysisBtn" onclick="copyAnalysisResultText()">Salin hasil teks</button>
+        <button type="button" class="btn-text tool-history-footer-btn" onclick="openToolHistorySheet('analyze')">Lihat riwayat hasil (<span data-tool-count="analyze">0</span>)</button>
+        <button type="button" class="btn-out full" onclick="closeAnalyzeDocSheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. Lembar Kunci Berkas dengan PIN -->
+  <div id="pinLockSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="pinLockTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="pinLockTitle">Kunci dengan PIN</h2>
+      <p class="sheet-desc" id="pinLockDesc">Masukkan PIN untuk berkas ini.</p>
+      <div class="sheet-form-group">
+        <label for="pinCodeInput" class="sheet-label">PIN (4 sampai 8 angka)</label>
+        <input type="password" id="pinCodeInput" class="input-field" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" onkeydown="if(event.key==='Enter')confirmPinLockAction()" />
+      </div>
+      <div class="sheet-form-group" id="pinConfirmGroup">
+        <label for="pinCodeConfirmInput" class="sheet-label">Ulangi PIN</label>
+        <input type="password" id="pinCodeConfirmInput" class="input-field" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" onkeydown="if(event.key==='Enter')confirmPinLockAction()" />
+      </div>
+      <p class="pin-error is-hidden" id="pinErrorText" role="alert"></p>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" id="pinConfirmBtn" onclick="confirmPinLockAction()">Kunci berkas</button>
+        <button type="button" class="btn-out full" onclick="closePinLockSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 18. Lembar Panduan Pasang di Layar Utama (#installGuideModal) -->
+  <div id="installGuideModal" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="installGuideTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="installGuideTitle">Pasang di layar utama</h2>
+      <p class="sheet-desc">Buka aplikasi langsung dari layar utama HP seperti aplikasi biasa, tetap berjalan tanpa sinyal.</p>
+      <div class="guide-list">
+        <div class="guide-item">
+          <strong>iPhone dan iPad (Safari)</strong>
+          <p>Ketuk ikon Bagikan di bagian bawah Safari, pilih Tambah ke Layar Utama, lalu ketuk Tambah.</p>
+        </div>
+        <div class="guide-item">
+          <strong>Android (Chrome)</strong>
+          <p>Ketuk menu titik tiga di pojok kanan atas Chrome, lalu pilih Tambahkan ke layar utama atau Instal aplikasi.</p>
+        </div>
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="closeInstallGuideModal()">Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 19. Lembar Pembaruan Aplikasi (#updatePopup) -->
+  <div id="updatePopup" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="updatePopupTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="updatePopupTitle">Versi <span id="updateVersionBadge">baru</span> tersedia</h2>
+      <p class="sheet-desc" id="updateChangelogText">Pembaruan siap dipasang. Seluruh dokumen di HP ini tetap aman.</p>
+      <div class="sheet-buttons">
+        <button type="button" id="updateSwApplyBtn" class="btn-ink full" onclick="applyServiceWorkerUpdateNow()">Perbarui sekarang</button>
+        <a id="updateApkDirectBtn" href="#" target="_blank" rel="noopener" class="btn-out full is-hidden">Unduh installer APK</a>
+        <button type="button" class="btn-text ink" onclick="dismissUpdatePopup()">Nanti saja</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 20. Lembar Tinjau, 7 Filter & Multi-Format Pindai (Tahap 2) -->
+  <div id="scanReviewSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="scanReviewTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <div class="scan-review-head">
+          <h2 class="sheet-title" id="scanReviewTitle" style="margin:0;">Atur hasil pindai</h2>
+          <button type="button" class="btn-text ink" onclick="closeScanReviewToCamera()">Tambah foto</button>
+        </div>
+        <p class="sheet-desc" id="scanReviewMeta">Halaman 1 dari 1</p>
+
+        <div class="scan-review-stage" onclick="openScanFullPreview()" role="button" tabindex="0" aria-label="Ketuk untuk lihat pratinjau penuh">
+          <img id="scanReviewPreviewImg" class="scan-review-img" alt="Pratinjau halaman pindai" />
+          <span class="scan-stage-zoom-hint">Ketuk untuk perbesar</span>
+        </div>
+
+        <div class="scan-page-tools">
+          <button type="button" class="chip-btn chip-btn-primary" id="scanFullPreviewBtn" onclick="openScanFullPreview()">Lihat pratinjau penuh</button>
+          <button type="button" class="chip-btn" onclick="openCropForActiveScanPage()">Potong 4 sudut</button>
+          <button type="button" class="chip-btn" onclick="rotateActiveScanPage(90)">Putar 90 derajat</button>
+          <button type="button" class="chip-btn" onclick="moveActiveScanPage(-1)">Geser kiri</button>
+          <button type="button" class="chip-btn" onclick="moveActiveScanPage(1)">Geser kanan</button>
+          <button type="button" class="chip-btn danger" onclick="deleteActiveScanPage()">Hapus halaman</button>
+        </div>
+
+        <div class="scan-thumbs-strip" id="scanReviewPageStrip"></div>
+
+        <div class="sheet-form-group">
+          <span class="sheet-label">Filter dokumen (7 pilihan)</span>
+          <div class="scan-filter-strip" id="scanReviewFilterStrip"></div>
+          <label class="consent-row" for="scanApplyFilterAllCheck">
+            <input type="checkbox" id="scanApplyFilterAllCheck" class="check-input" checked />
+            <span>Terapkan filter ini ke semua halaman</span>
+          </label>
+        </div>
+
+        <div class="sheet-form-group">
+          <label for="scanOutputFormatSelect" class="sheet-label">Jadikan hasil foto sebagai</label>
+          <select id="scanOutputFormatSelect" class="input-field" onchange="onScanOutputFormatChange(this.value)">
+            <option value="pdf" selected>Dokumen PDF</option>
+            <option value="jpg">Gambar JPG</option>
+            <option value="png">Gambar PNG (lossless)</option>
+            <option value="docx_photo">Dokumen Word (.docx bergambar)</option>
+            <option value="docx_ocr">Dokumen Word (.docx teks OCR)</option>
+            <option value="txt_ocr">Teks Biasa (.txt OCR)</option>
+            <option value="md_ocr">Markdown (.md OCR)</option>
+            <option value="idcard_a4">KTP Depan-Belakang 1 Lembar A4</option>
+          </select>
+        </div>
+
+        <div id="scanPdfOptionsWrap">
+          <div class="sheet-form-group">
+            <label for="scanPaperSizeSelect" class="sheet-label">Ukuran kertas PDF</label>
+            <select id="scanPaperSizeSelect" class="input-field">
+              <option value="a4" selected>A4</option>
+              <option value="fit">Sesuai ukuran foto</option>
+              <option value="letter">Letter</option>
+            </select>
+          </div>
+          <label class="consent-row" for="scanSearchableOcrCheck" id="scanSearchableOcrRow">
+            <input type="checkbox" id="scanSearchableOcrCheck" class="check-input" />
+            <span>PDF bisa dicari dan disalin teksnya (OCR)</span>
+          </label>
+        </div>
+
+        <div class="sheet-form-group" id="scanQualityWrap" style="margin-top: 10px;">
+          <label for="scanQualitySelect" class="sheet-label">Ukuran dan kualitas gambar</label>
+          <select id="scanQualitySelect" class="input-field">
+            <option value="0.78" selected>Seimbang, sekitar 180 KB per halaman</option>
+            <option value="0.58">Ekstra hemat, sekitar 95 KB per halaman</option>
+            <option value="0.90">Kualitas penuh, sekitar 420 KB per halaman</option>
+          </select>
+        </div>
+
+        <div class="sheet-form-group">
+          <label for="scanOutputNameInput" class="sheet-label">Nama berkas</label>
+          <input type="text" id="scanOutputNameInput" class="input-field" placeholder="Nama berkas hasil pindai" />
+        </div>
+
+        <div class="sheet-buttons">
+          <button type="button" class="btn-ink full" id="scanCommitSaveBtn" onclick="commitScanReviewSession()">Simpan hasil</button>
+          <button type="button" class="btn-out full" onclick="closeScanReviewSheet()">Kembali ke kamera</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 21. Lembar Hasil Pasca-Alat PDF (Menu Lihat, Edit Lanjutan & Riwayat Khusus) -->
+  <div id="toolResultSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="toolResultTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <span class="tool-result-badge" id="toolResultOriginBadge">Tersimpan di: Alat PDF</span>
+        <h2 class="sheet-title" id="toolResultTitle">Hasil selesai diproses</h2>
+
+        <div class="tool-result-preview">
+          <div class="tool-result-thumb" id="toolResultThumbBox">PDF</div>
+          <div class="tool-result-info">
+            <div class="tool-result-name" id="toolResultFileName">Dokumen</div>
+            <div class="tool-result-meta" id="toolResultMetaLine">Tersimpan di perangkat</div>
+          </div>
+        </div>
+
+        <div class="tool-action-grid">
+          <button type="button" class="btn-out full" onclick="handleToolResultPreview()">Lihat penuh</button>
+          <button type="button" class="btn-out full" onclick="handleToolResultRename()">Ganti nama</button>
+          <button type="button" class="btn-ink full" onclick="handleToolResultSavePhone(false)">Simpan ke HP</button>
+          <button type="button" class="btn-out full" onclick="handleToolResultSavePhone(true)">Bagikan</button>
+        </div>
+
+        <div class="sheet-form-group" id="toolResultNextWrap">
+          <span class="sheet-label">Edit lanjutan pada berkas ini:</span>
+          <div class="tool-next-chips" id="toolResultNextChips"></div>
+        </div>
+
+        <div class="sheet-buttons">
+          <button type="button" class="btn-out full" id="toolResultOpenHistoryBtn" onclick="openToolResultHistory()">Lihat semua hasil fitur ini</button>
+          <button type="button" class="btn-text ink" onclick="closeToolResultSheet()">Selesai</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 22. Lembar Hub Riwayat per Fitur Alat -->
+  <div id="toolHistoryHubSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="toolHistoryHubTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="toolHistoryHubTitle">Penyimpanan per fitur alat</h2>
+      <p class="sheet-desc">Pilih fitur alat untuk melihat semua berkas hasil prosesnya secara terpisah.</p>
+      <div class="tool-hub-grid" id="toolHistoryHubList"></div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-out full" onclick="closeToolHistoryHubSheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 23. Lembar Daftar Berkas Milik Satu Fitur Alat -->
+  <div id="toolHistorySheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="toolHistoryTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="toolHistoryTitle">Hasil fitur alat</h2>
+      <p class="sheet-desc" id="toolHistoryDesc">Berkas tersimpan khusus dari fitur ini.</p>
+      <div class="tool-hub-grid" id="toolHistoryFileList"></div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" id="toolHistoryFilterVaultBtn" onclick="openToolOriginInVault()">Buka di layar Dokumen</button>
+        <button type="button" class="btn-out full" onclick="closeToolHistorySheet()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 24. Lembar Pratinjau Penuh Hasil Edit Scan (R2: Zoom & Pan Resolusi Tinggi) -->
+  <div id="scanFullPreviewSheet" class="sheet-backdrop scan-full-backdrop" role="dialog" aria-modal="true" aria-labelledby="scanFullPreviewTitle">
+    <div class="scan-full-shell">
+      <div class="scan-full-topbar">
+        <div>
+          <h2 class="scan-full-title" id="scanFullPreviewTitle">Pratinjau penuh</h2>
+          <p class="scan-full-meta" id="scanFullPreviewMeta">Halaman 1 dari 1</p>
+        </div>
+        <div class="scan-full-zoom-controls">
+          <button type="button" class="scan-full-icon-btn" id="scanFullZoomOutBtn" aria-label="Perkecil" onclick="stepScanFullZoom(-0.5)">-</button>
+          <span class="scan-full-zoom-badge" id="scanFullZoomLabel">100%</span>
+          <button type="button" class="scan-full-icon-btn" id="scanFullZoomInBtn" aria-label="Perbesar" onclick="stepScanFullZoom(0.5)">+</button>
+          <button type="button" class="scan-full-icon-btn" id="scanFullZoomResetBtn" onclick="resetScanFullPreviewTransform()">1:1</button>
+          <button type="button" class="btn-out scan-full-close-btn" onclick="closeScanFullPreview()">Tutup</button>
+        </div>
+      </div>
+
+      <div class="scan-full-stage" id="scanFullPreviewStage">
+        <div class="scan-full-canvas-wrap" id="scanFullCanvasWrap">
+          <img id="scanFullPreviewImg" class="scan-full-img" alt="Pratinjau resolusi penuh hasil pindai" draggable="false" />
+        </div>
+      </div>
+
+      <div class="scan-full-bottombar">
+        <div class="scan-full-nav-row">
+          <button type="button" class="btn-out" id="scanFullPrevBtn" onclick="stepScanFullPage(-1)">Sebelum</button>
+          <input type="range" id="scanFullZoomSlider" min="100" max="300" step="10" value="100" aria-label="Tingkat perbesaran" oninput="setScanFullZoomPercent(this.value)" />
+          <button type="button" class="btn-out" id="scanFullNextBtn" onclick="stepScanFullPage(1)">Lanjut</button>
+        </div>
+        <div class="scan-full-quick-row">
+          <button type="button" class="chip-btn" onclick="openCropFromFullPreview()">Potong 4 sudut</button>
+          <button type="button" class="chip-btn" onclick="rotateFromFullPreview()">Putar 90 derajat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 25. Lembar Konversi Foto ke PDF / Word (R4) -->
+  <div id="photoConvertSheet" class="sheet-backdrop" role="dialog" aria-modal="true" aria-labelledby="photoConvertTitle">
+    <div class="bottom-sheet sheet-tall">
+      <div class="sheet-handle"></div>
+      <div class="sheet-scroll-body">
+        <h2 class="sheet-title" id="photoConvertTitle">Foto ke PDF</h2>
+        <p class="sheet-desc" id="photoConvertDesc">Pilih satu atau beberapa foto dari galeri maupun dokumen tersimpan, atur urutannya, lalu konversi secara offline.</p>
+
+        <div class="sheet-form-group">
+          <label for="photoConvertModeSelect" class="sheet-label">Mode konversi</label>
+          <select id="photoConvertModeSelect" class="input-field" onchange="setPhotoConvertMode(this.value)">
+            <option value="pdf" selected>Foto ke PDF (.pdf)</option>
+            <option value="docx">Foto ke Word (.docx)</option>
+          </select>
+        </div>
+
+        <div class="sheet-buttons" style="margin-bottom: 10px;">
+          <button type="button" class="btn-out full" onclick="triggerPhotoConvertPicker()">Tambah foto dari galeri HP</button>
+          <label for="photoConvertFileInput" class="sr-only">Pilih foto dari galeri untuk dikonversi</label>
+          <input type="file" id="photoConvertFileInput" class="sr-only" accept="image/*" multiple onchange="handlePhotoConvertFilesSelected(this)" />
+        </div>
+
+        <div class="vault-picker-wrap">
+          <span class="sheet-label">Atau tambah dari Dokumen tersimpan:</span>
+          <div class="vault-picker-list" id="photoConvertVaultList"></div>
+        </div>
+
+        <div class="sheet-form-group" style="margin-top: 10px;">
+          <span class="sheet-label">Daftar foto terpilih (<span id="photoConvertCountBadge">0</span>)</span>
+          <div class="vault-picker-list" id="photoConvertQueueList"></div>
+        </div>
+
+        <div id="photoConvertPdfOptions">
+          <div class="sheet-form-group">
+            <label for="photoConvertPageSizeSelect" class="sheet-label">Ukuran dan orientasi kertas PDF</label>
+            <select id="photoConvertPageSizeSelect" class="input-field">
+              <option value="auto" selected>Otomatis sesuai rasio foto (A4 Potret / Lanskap)</option>
+              <option value="a4">A4 Potret standar</option>
+              <option value="letter">Letter standar</option>
+              <option value="fit">Sesuai dimensi asli foto</option>
+            </select>
+          </div>
+          <label class="consent-row" for="photoConvertOcrCheck">
+            <input type="checkbox" id="photoConvertOcrCheck" class="check-input" />
+            <span>Tambahkan lapisan teks OCR agar PDF bisa disalin</span>
+          </label>
+        </div>
+
+        <div id="photoConvertWordOptions" class="is-hidden">
+          <div class="sheet-form-group">
+            <label for="photoConvertWordTypeSelect" class="sheet-label">Format isi Word (.docx)</label>
+            <select id="photoConvertWordTypeSelect" class="input-field">
+              <option value="photo" selected>Layout gambar bersih dalam dokumen Word</option>
+              <option value="ocr">Teks hasil OCR yang bisa langsung diedit</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sheet-form-group" style="margin-top: 10px;">
+          <label for="photoConvertNameInput" class="sheet-label">Nama berkas hasil</label>
+          <input type="text" id="photoConvertNameInput" class="input-field" placeholder="Nama berkas hasil konversi" />
+        </div>
+
+        <div class="sheet-buttons">
+          <button type="button" class="btn-ink full" id="photoConvertCommitBtn" onclick="commitPhotoConvert()">Proses dan simpan hasil</button>
+          <button type="button" class="btn-text tool-history-footer-btn" id="photoConvertHistoryBtn" onclick="openPhotoConvertHistory()">Lihat riwayat hasil (<span id="photoConvertHistoryCount">0</span>)</button>
+          <button type="button" class="btn-out full" onclick="closePhotoConvertSheet()">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 26. Lembar Pemilih Warna Kustom In-App (Pengganti Color Dialog Native) -->
+  <div id="customColorSheet" class="sheet-backdrop over-lock" role="dialog" aria-modal="true" aria-labelledby="customColorTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 class="sheet-title" id="customColorTitle">Pilih warna tinta</h2>
+      <p class="sheet-desc">Pilih palet siap pakai atau atur warna tinta tanda tangan sesuai keinginan.</p>
+      <div class="custom-color-grid" id="customColorPresets"></div>
+      <div class="custom-color-sliders">
+        <div class="sheet-form-group" style="margin-bottom:8px;">
+          <label for="customHueSlider" class="sheet-label">Corak warna (Hue)</label>
+          <input type="range" id="customHueSlider" class="custom-hue-slider" min="0" max="360" value="226" oninput="updateCustomColorFromSliders()" />
+        </div>
+        <div class="sheet-form-group" style="margin-bottom:8px;">
+          <label for="customLightSlider" class="sheet-label">Kecerahan tinta</label>
+          <input type="range" id="customLightSlider" min="10" max="75" value="42" oninput="updateCustomColorFromSliders()" />
+        </div>
+      </div>
+      <div class="custom-color-preview-row">
+        <span class="custom-color-chip" id="customColorPreviewChip"></span>
+        <span class="custom-color-preview-label">Warna yang dipilih</span>
+        <input type="text" id="customColorHexInput" class="input-field custom-hex-input" maxlength="7" value="#2445C9" aria-label="Kode warna hex" oninput="updateCustomColorFromHex(this.value)" />
+      </div>
+      <div class="sheet-buttons">
+        <button type="button" class="btn-ink full" onclick="confirmCustomColorSheet()">Terapkan warna</button>
+        <button type="button" class="btn-out full" onclick="closeCustomColorSheet()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.17 Toast Notification -->
+  <div id="appToast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Library Offline Lokal -->
+  <script src="./js/vendor/dexie.min.js"></script>
+  <script src="./js/vendor/jszip.min.js"></script>
+  <script src="./js/vendor/pdf-lib.min.js"></script>
+
+  <!-- Mesin Penyimpanan, Mesin Alat PDF/Scanner & Logika Aplikasi -->
+  <script type="module" src="./js/pdf-loader.mjs"></script>
+  <script src="./js/pdf-render.js"></script>
+  <script src="./js/db.js"></script>
+  <script src="./js/tools-engine.js"></script>
+  <script src="./js/config.js"></script>
+  <script src="./js/i18n.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/settings.js"></script>
+  <script src="./js/account.js"></script>
+</body>
+</html>

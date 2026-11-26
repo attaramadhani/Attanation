@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — Services & Software Templates</title>
+  <meta name="description" content="Custom software engineering and production-ready business web & mobile templates by ATTA NATION.">
+  <link rel="icon" type="image/png" href="../assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      border-top: 2px solid var(--c-ink);
+    }
+    .svc-grid > div {
+      padding: 28px 28px 28px 0;
+      border-right: 2px solid var(--c-ink);
+    }
+    .svc-grid > div:last-child {
+      border-right: 0;
+      padding-right: 0;
+      padding-left: 28px;
+    }
+    .svc-grid > div:nth-child(2) {
+      padding-left: 28px;
+    }
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+    .template-card {
+      background: #FAFAF7;
+      border: 2px solid #17211C;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .template-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+    .template-browser-bar {
+      height: 30px;
+      border-bottom: 2px solid #17211C;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 12px;
+      background: #EAECE8;
+    }
+    .browser-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 2px solid #17211C;
+    }
+    .template-mock-screen {
+      aspect-ratio: 16/10;
+      margin: 14px;
+      border: 2px solid #17211C;
+      border-radius: 8px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .mock-header {
+      background: #24392F;
+      color: #fff;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .mock-body {
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      background: #FAFBF9;
+    }
+    .mock-line {
+      height: 6px;
+      background: #DCE2E7;
+      border-radius: 3px;
+    }
+    .mock-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: #3A6B52;
+      background: #E4ECE7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    @media (max-width: 1000px) {
+      .template-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+    @media (max-width: 900px) {
+      .svc-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+      .svc-grid > div {
+        border-right: 0 !important;
+        border-bottom: 2px solid var(--c-ink);
+        padding: 24px 0 !important;
+      }
+      .svc-grid > div:last-child {
+        border-bottom: 0;
+      }
+    }
+    @media (max-width: 650px) {
+      .template-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — Services & Software Templates">
+  <meta property="og:description" content="Custom software engineering and production-ready business web & mobile templates by ATTA NATION.">
+  <meta property="og:image" content="../assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — Services & Software Templates">
+  <meta name="twitter:description" content="Custom software engineering and production-ready business web & mobile templates by ATTA NATION.">
+  <link rel="canonical" href="https://attanation.com/en/services.html">
+  <meta property="og:url" content="https://attanation.com/en/services.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/jasa.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/services.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/jasa.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, home">
+      <img src="../assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="apps.html">Apps</a>
+      <a href="services.html" class="on" aria-current="page">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="account.html" class="btn-nav-login">Sign in</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="apps.html">Apps</a>
+    <a href="services.html" class="on">Services</a>
+    <a href="how-to-buy.html">How to buy</a>
+    <a href="faq.html">FAQ</a>
+    <a href="account.html">Sign in</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin on WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Page Header -->
+  <section class="container" style="padding-top: 56px; padding-bottom: 88px;">
+    <h1 class="h1" style="font-size: 76px; max-width: 900px;">Websites and software for your business.</h1>
+    <p style="font-size: 21px; line-height: 1.5; color: #C9D6CE; max-width: 620px; margin: 26px 0 0;">
+      Choose from battle-tested production templates customized to your brand, or commission bespoke software from scratch. Engineered with care by ATTA NATION.
+    </p>
+  </section>
+
+  <!-- Services Section (Paper) -->
+  <section class="paper" style="padding: 88px 32px;">
+    <div class="container">
+      <h2 style="font-size: 44px; letter-spacing: -1px; margin: 0 0 36px; font-weight: 800; color: #17211C;">Services</h2>
+      <div class="svc-grid">
+        <div>
+          <h3 style="font-size: 25px; margin: 0 0 10px; color: #17211C;">Business Web, POS & Booking</h3>
+          <p style="font-size: 17px; line-height: 1.55; margin: 0; color: #3B4842;">
+            E-commerce storefronts, point-of-sale systems, appointment booking calendars with automatic payment gateway integration (Midtrans / Stripe). Built with Laravel & Tailwind CSS.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size: 25px; margin: 0 0 10px; color: #17211C;">Android & Cross-Platform Apps</h3>
+          <p style="font-size: 17px; line-height: 1.55; margin: 0; color: #3B4842;">
+            Built with Flutter. Supporting barcode / QR scanning, on-device SQLite storage, Bluetooth thermal receipt printers, and offline synchronization.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size: 25px; margin: 0 0 10px; color: #17211C;">Dashboards & Data Automation</h3>
+          <p style="font-size: 17px; line-height: 1.55; margin: 0; color: #3B4842;">
+            Organize fragmented sales data and build clear analytical dashboards with Python, Streamlit, PostgreSQL, and automated PDF report pipelines.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Template Catalog Section (6 Rich Templates with Filter) -->
+  <section style="background: #EEF0EC; color: #17211C; padding: 88px 32px 110px;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px;">
+        <div>
+          <h2 style="font-size: 44px; letter-spacing: -1px; margin: 0 0 10px; font-weight: 800;">Template catalog</h2>
+          <p style="font-size: 18px; color: #3B4842; margin: 0;">Ready-to-deploy software templates tailored to your brand & data within days.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div role="tablist" aria-label="Template categories" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" role="tab" class="tab active" aria-selected="true" data-filter="all">All (6)</button>
+          <button type="button" role="tab" class="tab" aria-selected="false" data-filter="web">Web Systems</button>
+          <button type="button" role="tab" class="tab" aria-selected="false" data-filter="app">Mobile Apps</button>
+          <button type="button" role="tab" class="tab" aria-selected="false" data-filter="dash">Dashboards & Data</button>
+        </div>
+      </div>
+
+      <!-- 6 Template Cards -->
+      <div class="template-grid" id="templates-container">
+
+        <!-- Template 1: POS & Store Online -->
+        <article class="template-card" data-cat="web">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>POS & STORE ONLINE</span>
+              <span style="color: #F2C94C;">QRIS ACTIVE</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">POS & STORE</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Store Checkout & Table Order</div>
+              <div class="mock-line" style="width: 85%;"></div>
+              <div class="mock-line" style="width: 65%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Total: Rp85.000</span>
+                <span>PAID &check;</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Web Systems</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">POS Cashier & Online Storefront</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Mobile-responsive customer catalog, instant QRIS/Card gateway, and 58mm Bluetooth receipt printing.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.500.000 <span style="font-size: 14px; font-weight: 500; color: #666;">(~$98)</span></span>
+              <div style="display: flex; gap: 10px;">
+                <a href="../template-kasir.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Details</a>
+                <a href="https://wa.me/6281235928712?text=Hello%20ATTA%20NATION,%20I'm%20interested%20in%20the%20POS%20and%20Store%20template" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Order</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 2: Booking Calendar -->
+        <article class="template-card" data-cat="web">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>RESERVATION SYSTEM</span>
+              <span style="color: #F2C94C;">TIME SLOTS</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">BOOKING CALENDAR</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Select Schedule & Confirm</div>
+              <div class="mock-line" style="width: 90%;"></div>
+              <div class="mock-line" style="width: 70%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>2:00 PM (Available)</span>
+                <span>Deposit 50%</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Web Systems</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Online Booking & Appointment System</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Automated booking slots for clinics, salons, sports facilities, or equipment rentals with instant WhatsApp notifications.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.800.000 <span style="font-size: 14px; font-weight: 500; color: #666;">(~$118)</span></span>
+              <div style="display: flex; gap: 10px;">
+                <a href="../template-reservasi.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Details</a>
+                <a href="https://wa.me/6281235928712?text=Hello%20ATTA%20NATION,%20I'm%20interested%20in%20the%20Booking%20template" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Order</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 3: Loyalty & Member App -->
+        <article class="template-card" data-cat="app">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>ANDROID APP</span>
+              <span style="color: #F2C94C;">FLUTTER</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">MEMBERSHIP & POINTS</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Digital Card & Vouchers</div>
+              <div class="mock-line" style="width: 80%;"></div>
+              <div class="mock-line" style="width: 50%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Points: 1,450 Pts</span>
+                <span>QR Scan</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Mobile Apps</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Customer Loyalty & Rewards App</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Flutter mobile app featuring digital barcode cards, transaction logs, rewards redeem catalog, and push marketing promos.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp2.500.000 <span style="font-size: 14px; font-weight: 500; color: #666;">(~$162)</span></span>
+              <div style="display: flex; gap: 10px;">
+                <a href="../template-member.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Details</a>
+                <a href="https://wa.me/6281235928712?text=Hello%20ATTA%20NATION,%20I'm%20interested%20in%20the%20Loyalty%20App%20template" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Order</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 4: Delivery Tracker -->
+        <article class="template-card" data-cat="app">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>COURIER & LOGISTICS</span>
+              <span style="color: #F2C94C;">GPS TRACKING</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">PROOF OF DELIVERY</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Camera Photo & Signature</div>
+              <div class="mock-line" style="width: 88%;"></div>
+              <div class="mock-line" style="width: 60%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Package #4928</span>
+                <span>Delivered &check;</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Mobile Apps</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Courier Field & Proof of Delivery App</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Field app for couriers and store deliveries with recipient photo capture, on-screen signing, and map routing.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp2.800.000 <span style="font-size: 14px; font-weight: 500; color: #666;">(~$182)</span></span>
+              <div style="display: flex; gap: 10px;">
+                <a href="../template-kurir.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Details</a>
+                <a href="https://wa.me/6281235928712?text=Hello%20ATTA%20NATION,%20I'm%20interested%20in%20the%20Courier%20template" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Order</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 5: Revenue & P&L Dashboard -->
+        <article class="template-card" data-cat="dash">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>DATA DASHBOARD</span>
+              <span style="color: #F2C94C;">STREAMLIT / PYTHON</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">REVENUE CHARTS</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Profit & Loss Trend Analysis</div>
+              <div class="mock-line" style="width: 95%;"></div>
+              <div class="mock-line" style="width: 75%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>Revenue: +28%</span>
+                <span>Margin: 34%</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Dashboards & Data</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Revenue & P&L Analytical Dashboard</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Daily sales metrics visualization, branch performance comparison, slow-moving inventory alerts, and 1-click Excel export.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.200.000 <span style="font-size: 14px; font-weight: 500; color: #666;">(~$78)</span></span>
+              <div style="display: flex; gap: 10px;">
+                <a href="../template-dashboard.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Details</a>
+                <a href="https://wa.me/6281235928712?text=Hello%20ATTA%20NATION,%20I'm%20interested%20in%20the%20Dashboard%20template" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Order</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Template 6: Invoice Automation -->
+        <article class="template-card" data-cat="dash">
+          <div class="template-browser-bar">
+            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          </div>
+          <div class="template-mock-screen">
+            <div class="mock-header">
+              <span>DOC GENERATOR</span>
+              <span style="color: #F2C94C;">PDF AUTOMATION</span>
+            </div>
+            <div class="mock-body">
+              <span class="mock-tag">INVOICES & RECEIPTS</span>
+              <div style="font-weight: 800; font-size: 13px; color: #17211C;">Batch Print & Watermarks</div>
+              <div class="mock-line" style="width: 90%;"></div>
+              <div class="mock-line" style="width: 55%;"></div>
+              <div style="margin-top: 4px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3A6B52;">
+                <span>150 Invoices / Min</span>
+                <span>Auto-Email</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 4px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <span style="font-size: 14px; font-weight: 700; color: #3A6B52;">Dashboards & Data</span>
+            <h3 style="font-size: 22px; margin: 0; font-weight: 800;">Automated Invoice & Receipt PDF Generator</h3>
+            <p style="font-size: 16px; color: #3B4842; margin: 0; line-height: 1.5;">
+              Batch PDF generator from spreadsheets with QR verification, digital signing, and bulk WhatsApp delivery integration.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px;">
+              <span style="font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;">Rp1.400.000 <span style="font-size: 14px; font-weight: 500; color: #666;">(~$91)</span></span>
+              <div style="display: flex; gap: 10px;">
+                <a href="../template-invoice.html" style="border: 2px solid #17211C; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; color: #17211C;">Details</a>
+                <a href="https://wa.me/6281235928712?text=Hello%20ATTA%20NATION,%20I'm%20interested%20in%20the%20Invoice%20template" target="_blank" rel="noopener" style="background: #17211C; color: #FAFAF7; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none;">Order</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Request Yellow Banner -->
+  <section style="background: #F2C94C; color: #17211C; padding: 88px 32px;">
+    <div class="container" style="display: flex; gap: 40px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <div style="flex: 1 1 520px;">
+        <h2 style="font-size: 46px; letter-spacing: -1px; margin: 0 0 12px; font-weight: 800;">Looking for something bespoke?</h2>
+        <p style="font-size: 19px; margin: 0; line-height: 1.5; max-width: 600px;">
+          Tell us your workflow and exact operational requirements. We will engineer a custom technical solution with upfront, transparent cost estimates.
+        </p>
+      </div>
+      <a href="https://wa.me/6281235928712?text=Hello%20ATTA%20NATION,%20I'd%20like%20to%20discuss%20a%20custom%20software%20project" target="_blank" rel="noopener" class="btn" style="background: #17211C; color: #F2C94C; font-size: 17px; padding: 18px 28px;">
+        Chat on WhatsApp
+      </a>
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="../assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Software studio from Kamal, Bangkalan, Indonesia. Built by Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="apps.html">Apps</a>
+      <a href="services.html" style="color: var(--c-yellow); font-weight: 700;">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="About and terms">
+      <a href="about.html">About ATTA NATION</a>
+      <a href="account.html">My account</a>
+      <a href="legal.html">Privacy, terms, & refunds</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <a href="../jasa.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">Indonesia</a>
+        <button type="button" class="lang-btn active" aria-pressed="true">English</button>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

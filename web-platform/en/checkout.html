@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ATTA NATION — Checkout</title>
+  <meta name="description" content="Checkout for ATTA DocStudio Pro. One-time payment of Rp30,000 (~$2.00 USD) via QRIS, Bank Transfer, or Cards.">
+  <link rel="icon" type="image/png" href="../assets/brand/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/brand/favicon/favicon-180.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+    }
+    .form-two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 900px) {
+      .checkout-grid, .form-two-col {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 32px;
+      }
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ATTA NATION">
+  <meta property="og:title" content="ATTA NATION — Checkout">
+  <meta property="og:description" content="Checkout for ATTA DocStudio Pro. One-time payment of Rp30,000 (~$2.00 USD) via QRIS, Bank Transfer, or Cards.">
+  <meta property="og:image" content="../assets/images/ds-vault-v2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTA NATION — Checkout">
+  <meta name="twitter:description" content="Checkout for ATTA DocStudio Pro. One-time payment of Rp30,000 (~$2.00 USD) via QRIS, Bank Transfer, or Cards.">
+  <link rel="canonical" href="https://attanation.com/en/checkout.html">
+  <meta property="og:url" content="https://attanation.com/en/checkout.html">
+  <link rel="alternate" hreflang="id" href="https://attanation.com/checkout.html">
+  <link rel="alternate" hreflang="en" href="https://attanation.com/en/checkout.html">
+  <link rel="alternate" hreflang="x-default" href="https://attanation.com/checkout.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-link" aria-label="ATTA NATION, home">
+      <img src="../assets/images/simbol_putih.svg" alt="" class="brand-symbol">
+      <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" class="brand-wordmark">
+    </a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="apps.html">Apps</a>
+      <a href="services.html">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="account.html" class="btn-nav-login">Sign in</a>
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin</a>
+    </div>
+
+    <button type="button" class="btn-mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="display: none;">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="apps.html">Apps</a>
+    <a href="services.html">Services</a>
+    <a href="how-to-buy.html">How to buy</a>
+    <a href="faq.html">FAQ</a>
+    <a href="account.html">Sign in</a>
+    <a href="https://wa.me/6281235928712" target="_blank" rel="noopener" class="btn-chat-admin">Chat admin on WhatsApp</a>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Checkout Section (Paper) -->
+  <section class="paper" style="padding: 64px 32px 96px;">
+    <div class="container checkout-grid">
+
+      <!-- Left: Form -->
+      <form id="checkout-form">
+        <a href="docstudio.html" style="font-size: 16px; color: var(--c-ink); font-weight: 500;">&larr; Back to DocStudio Pro</a>
+        <h1 class="h1" style="font-size: 64px; margin-top: 18px; color: #17211C;">Checkout</h1>
+
+        <!-- Step 1: Account -->
+        <h2 style="font-size: 26px; margin: 48px 0 6px; font-weight: 800; color: #17211C;">Your Account</h2>
+        <p style="font-size: 16px; color: #3B4842; margin: 0 0 20px;">
+          Used to re-download the app and sign in on iOS. Already have an account? <a href="account.html" style="text-decoration: underline; font-weight: 700;">Sign in</a>
+        </p>
+
+        <div class="form-two-col">
+          <label class="fld">
+            Full Name
+            <input type="text" id="buyer-name" autocomplete="name" placeholder="Your full name" required>
+          </label>
+          <label class="fld">
+            Email Address
+            <input type="email" id="buyer-email" autocomplete="email" placeholder="name@email.com" required>
+          </label>
+          <label class="fld">
+            Account Password
+            <input type="password" id="buyer-pass" autocomplete="new-password" minlength="8" required>
+            <small>At least 8 characters</small>
+          </label>
+          <label class="fld">
+            WhatsApp Phone (Optional)
+            <input type="tel" id="buyer-phone" autocomplete="tel" placeholder="+62 8xx">
+          </label>
+        </div>
+
+        <!-- Step 2: Target Device -->
+        <h2 style="font-size: 26px; margin: 48px 0 20px; font-weight: 800; color: #17211C;">Target Device</h2>
+        <div class="form-two-col" style="gap: 14px;">
+          <label class="opt">
+            <input type="radio" name="target_device" value="android" checked>
+            <span>
+              <strong>Android Phone</strong>
+              <small>Download and install app package directly</small>
+            </span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="target_device" value="ios">
+            <span>
+              <strong>iPhone</strong>
+              <small>Launch in Safari, then Add to Home Screen</small>
+            </span>
+          </label>
+        </div>
+
+        <!-- Step 3: Payment Method -->
+        <h2 style="font-size: 26px; margin: 48px 0 20px; font-weight: 800; color: #17211C;">Payment Method</h2>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <label class="opt">
+            <input type="radio" name="payment_method" value="qris" checked>
+            <span>
+              <strong>QRIS (Instant)</strong>
+              <small>Scan QR code with digital wallet or mobile banking apps</small>
+            </span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="payment_method" value="bank">
+            <span>
+              <strong>Virtual Account Transfer</strong>
+              <small>Pay via automatic virtual account number (BCA, Mandiri, BNI, BRI)</small>
+            </span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="payment_method" value="ewallet">
+            <span>
+              <strong>Digital E-Wallet</strong>
+              <small>Pay directly via installed mobile wallet</small>
+            </span>
+          </label>
+        </div>
+
+        <!-- Agreement -->
+        <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 16px; margin: 36px 0 24px; cursor: pointer; color: #17211C;">
+          <input type="checkbox" id="agree-terms" style="width: 22px; height: 22px; margin: 1px 0 0; accent-color: #17211C; flex-shrink: 0;" required>
+          <span>I agree to the <a href="legal.html" target="_blank" style="text-decoration: underline; font-weight: 700;" rel="noopener">Terms of Service, Privacy Policy, and 7-day Refund Policy</a>.</span>
+        </label>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn" style="font-size: 19px; padding: 20px 34px; width: 100%;">
+          Pay Rp30,000 (~$2.00 USD)
+        </button>
+      </form>
+
+      <!-- Right: Order Summary Aside -->
+      <aside style="border: 2px solid #17211C; border-radius: 16px; padding: 28px; background: #fff;">
+        <h2 style="font-size: 22px; margin: 0 0 20px; font-weight: 800; color: #17211C;">Order Summary</h2>
+        <div style="display: flex; gap: 18px; align-items: center;">
+          <div style="width: 84px; aspect-ratio: 390/844; border-radius: 14px; background: #0E0F0F; padding: 3px; flex-shrink: 0;">
+            <img src="../assets/images/ds-vault-v2.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 11px; display: block;">
+          </div>
+          <div>
+            <div style="font-size: 21px; font-weight: 800; color: #17211C;">ATTA DocStudio Pro</div>
+            <div style="font-size: 15px; color: #4A5750; margin-top: 4px;">Version 2.5.0, All Pro Features</div>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid #C9CFCB; margin-top: 24px; padding-top: 18px; display: flex; justify-content: space-between; font-size: 17px; color: #17211C;">
+          <span>Subtotal</span>
+          <span style="font-variant-numeric: tabular-nums; font-weight: 700;">Rp30,000</span>
+        </div>
+
+        <div style="border-top: 2px solid #17211C; margin-top: 18px; padding-top: 18px; display: flex; justify-content: space-between; font-size: 24px; font-weight: 800; color: #17211C;">
+          <span>Total</span>
+          <span style="font-variant-numeric: tabular-nums;">Rp30,000 <span style="font-size: 16px; font-weight: 500; color: #666;">(~$2.00)</span></span>
+        </div>
+
+        <p style="font-size: 15px; color: #3B4842; line-height: 1.55; margin: 18px 0 0;">
+          One-time payment. Zero recurring fees. Free lifetime updates for this major release.
+        </p>
+      </aside>
+
+    </div>
+  </section>
+
+    </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div style="flex: 1 1 320px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="../assets/images/simbol_putih.svg" alt="" style="width: 36px; height: 36px;">
+        <img src="../assets/images/wordmark_putih.svg" alt="ATTA NATION" style="height: 18px; width: auto;">
+      </div>
+      <p style="font-size: 15px; color: #C9D6CE; line-height: 1.6; margin: 16px 0 0; max-width: 380px;">
+        Software studio from Kamal, Bangkalan, Indonesia. Built by Attala Alif Ramadhani Tri Hida.
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="apps.html">Apps</a>
+      <a href="services.html">Services</a>
+      <a href="how-to-buy.html">How to buy</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <nav class="footer-nav" aria-label="About and terms">
+      <a href="about.html">About ATTA NATION</a>
+      <a href="account.html">My account</a>
+      <a href="legal.html">Privacy, terms, & refunds</a>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <a href="../checkout.html" class="lang-btn inactive" style="display: inline-block; text-decoration: none;">Indonesia</a>
+        <button type="button" class="lang-btn active" aria-pressed="true">English</button>
+      </div>
+    </nav>
+
+    <div class="footer-nav">
+      <a href="https://wa.me/6281235928712" target="_blank" rel="noopener">WhatsApp +62 812-3592-8712</a>
+      <a href="mailto:attalaaliframadhanitrihida@gmail.com">attalaaliframadhanitrihida@gmail.com</a>
+      <a href="https://github.com/attaramadhani" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

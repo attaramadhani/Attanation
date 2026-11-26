@@ -1,0 +1,3537 @@
+/* ==========================================================================
+   ATTA DocStudio Pro — Versi 3+: "Kertas dan Tinta"
+   Sumber kebenaran tunggal: DESIGN.md
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('../assets/fonts/SchibstedGrotesk-Latin.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Warna */
+  --desk:        #DCE2E7; /* latar aplikasi (meja) */
+  --paper:       #FBFBF8; /* kertas, panel, nav bar */
+  --paper-cool:  #EEF1F4; /* kertas foto / kartu KTP */
+  --ink:         #17202B; /* teks utama, ikon aktif */
+  --muted:       #55606D; /* teks sekunder (kontras 4,9:1 di --desk, 6,2:1 di --paper) */
+  --pen:         #2445C9; /* aksen tunggal: tinta pulpen */
+  --pen-hover:   #16308F;
+  --pen-soft:    #8EA4FF; /* garis deteksi kamera di atas latar gelap */
+  --line:        #C9D1D9; /* pemisah baris */
+  --line-strong: #9AA6B2; /* border tombol outline, input, garis tanda tangan */
+  --sheet-line:  #C9CFD5; /* garis teks di dalam thumbnail dokumen */
+  --ktp:         #B8CCDD; /* blok kartu identitas di thumbnail */
+  --camera:      #2B3138; /* latar viewfinder kamera */
+  --danger:      #B42318; /* hanya untuk hapus & error */
+  --surface:     #FBFBF8; /* panel, nav, lembar bawah (berubah di tema gelap) */
+  --pen-text:    #2445C9; /* tinta sebagai warna teks */
+  --danger-text: #B42318;
+
+  /* Tipografi */
+  --font: 'Schibsted Grotesk', system-ui, sans-serif;
+
+  /* Radius: hanya 3 nilai */
+  --r-sheet: 3px;   /* semua kertas/dokumen */
+  --r-ctl:   12px;  /* tombol, input, panel, pill */
+  --r-round: 999px; /* hanya tombol shutter, tombol ikon bulat di kamera, badge angka */
+
+  /* Bayangan: hanya untuk kertas */
+  --shadow-sheet: 0 1px 1px rgba(23,32,43,.10), 0 10px 24px rgba(23,32,43,.12);
+  --shadow-thumb: 0 1px 1px rgba(23,32,43,.12), 0 3px 8px rgba(23,32,43,.10);
+
+  /* Spasi (kelipatan 4) */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s8: 32px;
+  --gutter: 20px;   /* margin kiri-kanan layar */
+  --tap: 44px;      /* tinggi minimum semua target sentuh */
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Reset & Dasar */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.45;
+  min-height: 100vh;
+}
+
+button, input, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--pen);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+/* Kerangka Layar Utama */
+.app-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-bottom: calc(96px + var(--safe-bottom));
+}
+
+.app-shell.scanner-mode {
+  padding-bottom: 0;
+}
+
+.tab-view {
+  display: none;
+}
+
+.tab-view.active {
+  display: block;
+}
+
+/* Header Layar & Tipografi */
+.screen-head {
+  padding: var(--s6) var(--gutter) var(--s4);
+}
+
+.head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  min-height: 44px;
+}
+
+.screen-title {
+  font-size: 32px;
+  line-height: 1.0;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.screen-lead {
+  margin-top: var(--s2);
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.section-heading {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.icon-btn {
+  width: var(--tap);
+  height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  border-radius: var(--r-ctl);
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Pencarian Overlay di Header */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  width: 100%;
+}
+
+.input-field {
+  width: 100%;
+  height: 46px;
+  padding: 0 var(--s4);
+  border-radius: var(--r-ctl);
+  border: 1.5px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.input-field::placeholder {
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   5.1 & 5.2 Kertas (.sheet) & Thumbnail Dokumen (.doc-thumb)
+   ========================================================================== */
+.sheet {
+  background: var(--paper);
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-sheet);
+  position: relative;
+  overflow: hidden;
+}
+
+.sheet-line {
+  height: 2px;
+  background: var(--sheet-line);
+  border-radius: 1px;
+}
+
+.sheet-line.thick {
+  height: 3px;
+}
+
+.sheet-line.ink {
+  background: var(--ink);
+}
+
+.w-90 { width: 90%; }
+.w-85 { width: 85%; }
+.w-80 { width: 80%; }
+.w-75 { width: 75%; }
+.w-70 { width: 70%; }
+.w-65 { width: 65%; }
+.w-60 { width: 60%; }
+.w-50 { width: 50%; }
+.w-45 { width: 45%; }
+.w-40 { width: 40%; }
+
+.doc-thumb {
+  width: 34px;
+  height: 46px;
+  border-radius: var(--r-sheet);
+  background: var(--paper);
+  box-shadow: var(--shadow-thumb);
+  flex: none;
+  position: relative;
+  overflow: hidden;
+  padding: 5px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.doc-thumb.ktp {
+  background: var(--paper-cool);
+  justify-content: center;
+}
+
+.doc-thumb .ktp-block {
+  height: 16px;
+  background: var(--ktp);
+  border-radius: 2px;
+}
+
+.doc-thumb .micro-head {
+  font-size: 4px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.doc-thumb .kop-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--sheet-line);
+}
+
+.doc-thumb .kop-circle {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--r-round);
+  border: 1px solid var(--ink);
+  flex: none;
+}
+
+.doc-thumb .table-block {
+  height: 10px;
+  background: var(--paper-cool);
+  border-top: 1px solid var(--sheet-line);
+  border-bottom: 1px solid var(--sheet-line);
+}
+
+.doc-thumb img.real-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   5.3 Tumpukan Terbaru (.stack) — Elemen Utama Layar Dokumen
+   ========================================================================== */
+.stack-region {
+  padding: var(--s2) var(--gutter) var(--s5);
+}
+
+.stack {
+  display: grid;
+  grid-template-columns: 154px 1fr;
+  gap: var(--s5);
+  align-items: center;
+}
+
+.stack-pile {
+  position: relative;
+  width: 146px;
+  height: 196px;
+  margin-left: 4px;
+}
+
+.stack-sheet {
+  position: absolute;
+  inset: 0;
+  width: 140px;
+  height: 188px;
+  background: var(--paper);
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-sheet);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stack-sheet.back-2 {
+  transform: rotate(-5deg) translate(-4px, 4px);
+}
+
+.stack-sheet.back-1 {
+  transform: rotate(7deg) translate(4px, 2px);
+}
+
+.stack-sheet.front {
+  transform: rotate(1.5deg);
+}
+
+.stack-sheet.drop-in {
+  animation: sheetDrop 320ms ease-out;
+}
+
+@keyframes sheetDrop {
+  from {
+    transform: translateY(-18px) rotate(6deg);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(0) rotate(1.5deg);
+    opacity: 1;
+  }
+}
+
+.sheet-kop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.sheet-kop-logo {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--r-round);
+  border: 1.5px solid var(--ink);
+  flex: none;
+}
+
+.sheet-kop-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sheet-doc-title {
+  text-align: center;
+  font-size: 6px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin: 4px 0 2px;
+}
+
+.sheet-body-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.sheet-sig-mark {
+  margin-top: auto;
+  align-self: flex-end;
+  width: 38px;
+  height: 14px;
+}
+
+.stack-meta-col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s1);
+}
+
+.stack-time {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.stack-doc-name {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.stack-doc-sub {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+  margin-bottom: var(--s3);
+}
+
+/* ==========================================================================
+   5.7 Tombol (.btn-ink, .btn-out, .btn-text, .btn-danger)
+   ========================================================================== */
+.btn-ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--s5);
+  border-radius: var(--r-ctl);
+  background: var(--pen);
+  color: var(--paper);
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+
+.btn-ink:hover {
+  background: var(--pen-hover);
+}
+
+.btn-ink:active {
+  transform: translateY(1px);
+}
+
+.btn-ink.full {
+  width: 100%;
+}
+
+.btn-out {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--s5);
+  border-radius: var(--r-ctl);
+  border: 1.5px solid var(--line-strong);
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 120ms ease;
+}
+
+.btn-out:active {
+  transform: translateY(1px);
+}
+
+.btn-out.full {
+  width: 100%;
+}
+
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--s2);
+  color: var(--pen);
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 120ms ease;
+}
+
+.btn-text:active {
+  transform: translateY(1px);
+}
+
+.btn-text.ink {
+  color: var(--ink);
+}
+
+.btn-text.danger {
+  color: var(--danger);
+}
+
+/* ==========================================================================
+   5.6 Tab Teks (.tabs)
+   ========================================================================== */
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+
+.tab-btn {
+  position: relative;
+  min-height: var(--tap);
+  padding: var(--s2) 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.tab-btn[aria-selected="true"] {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.tab-btn[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2.5px;
+  background: var(--pen);
+  transition: transform 180ms ease;
+}
+
+/* ==========================================================================
+   5.4 & 5.5 Daftar Berkas (.file-row) & Label Grup (.group-label)
+   ========================================================================== */
+.vault-list {
+  padding-bottom: var(--s6);
+}
+
+.group-label {
+  padding: var(--s4) var(--gutter) var(--s2);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.file-row {
+  width: 100%;
+  min-height: 68px;
+  padding: var(--s3) var(--gutter);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  text-align: left;
+  transition: transform 120ms ease;
+}
+
+.file-row:active {
+  transform: translateY(1px);
+}
+
+.file-row-body {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.file-row-name,
+.file-row-meta {
+  display: block;
+  max-width: 100%;
+}
+
+.file-row-name {
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-row-meta {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 5.19 Empty State */
+.empty-state {
+  padding: var(--s8) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s3);
+}
+
+.empty-sheet {
+  width: 84px;
+  height: 112px;
+  background: var(--paper);
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-sheet);
+  transform: rotate(-4deg);
+  margin-bottom: var(--s2);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   6.2 Layar Pindai (Viewfinder, Filter Preview, Setting Rows, Shutter)
+   ========================================================================== */
+.viewfinder {
+  position: relative;
+  background: var(--camera);
+  height: 54vh;
+  min-height: 330px;
+  max-height: 440px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--s4) var(--gutter);
+}
+
+.vf-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vf-round-btn {
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: var(--r-round);
+  background: rgba(23, 32, 43, 0.55);
+  color: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vf-round-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.vf-page-title {
+  color: var(--paper);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.vf-stage {
+  position: static;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Video kamera langsung memenuhi viewfinder, kontrol di atasnya */
+.vf-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Bingkai panduan lebar bertepi tipis: tidak menghalangi kamera atau memaksa menjauh */
+.vf-guide {
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  max-width: 100%;
+  border: 0;
+  box-shadow: none;
+  border-radius: 6px;
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+  background:
+    linear-gradient(to right, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 0 0 / 24px 24px no-repeat,
+    linear-gradient(to bottom, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 0 0 / 24px 24px no-repeat,
+    linear-gradient(to left, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 100% 0 / 24px 24px no-repeat,
+    linear-gradient(to bottom, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 100% 0 / 24px 24px no-repeat,
+    linear-gradient(to right, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 0 100% / 24px 24px no-repeat,
+    linear-gradient(to top, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 0 100% / 24px 24px no-repeat,
+    linear-gradient(to left, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 100% 100% / 24px 24px no-repeat,
+    linear-gradient(to top, rgba(251, 251, 248, 0.52) 2px, transparent 2px) 100% 100% / 24px 24px no-repeat;
+}
+
+.vf-fallback {
+  position: relative;
+  z-index: 1;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  text-align: center;
+}
+
+.vf-fallback-msg {
+  margin: 0;
+  color: var(--paper);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.vf-fallback-link {
+  min-height: var(--tap);
+  color: var(--paper);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.vf-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.vf-status-pill {
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--r-round);
+}
+
+/* 5.10 Pratinjau Filter (.filter-preview) */
+.scanner-controls {
+  padding: var(--s4) 0 var(--s5);
+}
+
+.filter-preview {
+  display: flex;
+  justify-content: center;
+  gap: var(--s5);
+  padding: 0 var(--gutter) var(--s4);
+}
+
+.filter-radio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 56px;
+}
+
+.filter-thumb {
+  width: 52px;
+  height: 68px;
+  border-radius: var(--r-sheet);
+  background: var(--paper);
+  box-shadow: var(--shadow-thumb);
+  padding: 8px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-thumb.gray {
+  background: var(--paper-cool);
+}
+
+.filter-thumb.asli {
+  background: linear-gradient(155deg, #EAE3D5 0%, #D5CCBC 100%);
+}
+
+.filter-radio[aria-checked="true"] .filter-thumb {
+  outline: 2.5px solid var(--pen);
+  outline-offset: 2px;
+}
+
+.filter-label {
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.filter-radio[aria-checked="true"] .filter-label {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* 5.9 Baris Setelan (.setting-row) */
+.setting-row {
+  width: 100%;
+  min-height: 56px;
+  padding: var(--s3) var(--gutter);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  text-align: left;
+  font-size: 15px;
+}
+
+.setting-row.border-bottom {
+  border-bottom: 1px solid var(--line);
+}
+
+.setting-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.setting-sub {
+  font-size: 13px;
+  color: var(--muted);
+  display: block;
+}
+
+.setting-val {
+  font-size: 14px;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  text-align: right;
+}
+
+.setting-val svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.check-input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--pen);
+  cursor: pointer;
+}
+
+/* 5.12 Shutter & Baki Halaman */
+.shutter-bar {
+  padding: var(--s5) var(--gutter) var(--s4);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.page-tray-btn {
+  justify-self: start;
+  position: relative;
+  width: 52px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tray-sheet {
+  width: 34px;
+  height: 44px;
+  background: var(--paper);
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-thumb);
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tray-sheet.back {
+  position: absolute;
+  transform: rotate(-7deg) translate(-3px, 2px);
+}
+
+.tray-sheet.front {
+  position: relative;
+  transform: rotate(3deg);
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.tray-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tray-plus {
+  width: 18px;
+  height: 18px;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.tray-thumb:not(.is-hidden) + .tray-plus {
+  display: none;
+}
+
+.tray-badge {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: var(--r-round);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shutter-btn {
+  width: 76px;
+  height: 76px;
+  border-radius: var(--r-round);
+  border: 4px solid var(--ink);
+  background: var(--paper);
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 120ms ease;
+}
+
+.shutter-btn:active {
+  transform: translateY(1px);
+}
+
+.shutter-core {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r-round);
+  background: var(--pen);
+}
+
+.shutter-done {
+  justify-self: end;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  min-height: var(--tap);
+  padding: 0 var(--s2);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   6.3 Layar Alat PDF (.tool, .sig-slip)
+   ========================================================================== */
+.tools-wrap {
+  padding: 0 var(--gutter) var(--s6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.tool {
+  background: var(--paper);
+  border-radius: var(--r-ctl);
+  padding: var(--s5);
+}
+
+.tool-featured {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--s4);
+  align-items: center;
+}
+
+.tool-diagram-merge {
+  position: relative;
+  width: 88px;
+  height: 98px;
+}
+
+.mini-sheet {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-thumb);
+  padding: 6px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mini-sheet .micro-head {
+  display: block;
+  font-size: 5px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  max-width: 100%;
+}
+
+.tool-diagram-merge .s-left {
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 48px;
+  height: 66px;
+  background: var(--paper-cool);
+  transform: rotate(-8deg);
+}
+
+.tool-diagram-merge .s-right {
+  position: absolute;
+  right: 6px;
+  top: 12px;
+  width: 50px;
+  height: 68px;
+  transform: rotate(3deg);
+}
+
+.tool-copy h2 {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.tool-copy p {
+  margin: var(--s1) 0 var(--s3);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.tool-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s3);
+}
+
+.tool-small {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s3);
+  text-align: left;
+  width: 100%;
+  transition: transform 120ms ease;
+}
+
+.tool-small:active {
+  transform: translateY(1px);
+}
+
+.tool-diagram-small {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.wm-stamp {
+  font-size: 7px;
+  font-weight: 800;
+  color: var(--pen);
+  transform: rotate(-28deg);
+  margin: auto 0;
+  letter-spacing: 0.04em;
+}
+
+.tool-small h3 {
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.tool-small p {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+/* 5.14 Slip Tanda Tangan (.sig-slip) */
+.sig-section {
+  margin-top: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.sig-slip {
+  position: relative;
+  background: var(--paper);
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-thumb);
+  height: 150px;
+  overflow: hidden;
+}
+
+.sig-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.sig-guide-line {
+  position: absolute;
+  left: var(--s5);
+  right: var(--s5);
+  bottom: 34px;
+  border-bottom: 1.5px dashed var(--line-strong);
+  pointer-events: none;
+}
+
+.sig-guide-hint {
+  position: absolute;
+  left: var(--s5);
+  bottom: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.sig-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 5.14.1 Alat Tanda Tangan: Palet Warna & Tebal Goresan */
+.sig-tools-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  padding: 2px 0;
+}
+
+.sig-color-palette {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sig-color-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-round);
+  background: var(--dot-color, var(--pen));
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px var(--line-strong);
+  cursor: pointer;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast);
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sig-color-dot:hover {
+  transform: scale(1.1);
+}
+
+.sig-color-dot.is-active {
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--pen);
+}
+
+.sig-color-custom-wrap {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-round);
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sig-color-picker-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sig-color-picker-swatch {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r-round);
+  background: conic-gradient(from 0deg, #F04438, #F79009, #12B76A, #06AED4, #2445C9, #7A5AF8, #EE46BC, #F04438);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px var(--line-strong);
+  pointer-events: none;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.sig-color-custom-wrap:hover .sig-color-picker-swatch {
+  transform: scale(1.1);
+}
+
+.sig-color-custom-wrap.is-active .sig-color-picker-swatch {
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--pen);
+}
+
+.sig-stroke-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sig-stroke-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sig-stroke-ctrl input[type="range"] {
+  width: 110px;
+  height: 6px;
+  accent-color: var(--pen);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   6.4 Layar Cadangan (Angka Besar 60/800, Tombol ZIP, Baris Aplikasi, Lisensi)
+   ========================================================================== */
+.backup-wrap {
+  padding: 0 var(--gutter) var(--s6);
+}
+
+.storage-Readout {
+  font-size: 60px;
+  line-height: 1.0;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  margin-bottom: var(--s2);
+}
+
+.backup-actions {
+  margin-top: var(--s5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.backup-note {
+  margin-top: var(--s3);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.sub-block {
+  margin-top: var(--s6);
+}
+
+.sub-block .section-heading {
+  margin-bottom: var(--s2);
+}
+
+.app-rows {
+  margin: 0 calc(var(--gutter) * -1);
+}
+
+/* ==========================================================================
+   5.8 Bilah Navigasi Bawah (.nav)
+   ========================================================================== */
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  min-height: calc(82px + var(--safe-bottom));
+  padding: var(--s2) var(--gutter) calc(var(--s2) + var(--safe-bottom));
+  display: flex;
+  align-items: center;
+}
+
+.nav-inner {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.bnav-btn {
+  min-height: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bnav-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.bnav-btn.active {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.bnav-scan {
+  min-height: 48px;
+  border-radius: var(--r-ctl);
+  background: var(--pen);
+  color: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 0 var(--s4);
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+
+.bnav-scan:hover {
+  background: var(--pen-hover);
+}
+
+.bnav-scan:active {
+  transform: translateY(1px);
+}
+
+.bnav-scan svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* ==========================================================================
+   5.17 Toast & 5.18 Lembar Bawah (Bottom Sheet / Modal)
+   ========================================================================== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(96px + var(--safe-bottom));
+  transform: translateX(-50%) translateY(16px);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--r-ctl);
+  white-space: normal;
+  text-align: center;
+  line-height: 1.4;
+  width: max-content;
+  max-width: min(440px, calc(100vw - 32px));
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 200ms ease, opacity 200ms ease;
+  z-index: 520;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.has-action {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.toast-action {
+  background: transparent;
+  border: 0;
+  color: #93A9FF;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  padding: 4px 6px;
+  min-height: 32px;
+  cursor: pointer;
+  flex: none;
+}
+
+.toast.error {
+  background: var(--danger);
+}
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(23, 32, 43, 0.45);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet-backdrop.show {
+  display: flex;
+}
+
+/* Susunan z-index lembar bersarang agar dialog di atas Review/Hasil selalu tampak */
+#toolResultSheet { z-index: 190; }
+#toolHistoryHubSheet { z-index: 195; }
+#toolHistorySheet { z-index: 205; }
+#cropPerspectiveSheet { z-index: 235; }
+#previewSheet { z-index: 220; }
+#renameSheet { z-index: 225; }
+#pinLockSheet { z-index: 230; }
+
+.bottom-sheet {
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: var(--r-ctl) var(--r-ctl) 0 0;
+  padding: var(--s3) var(--gutter) calc(var(--s6) + var(--safe-bottom));
+}
+
+.sheet-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: var(--r-round);
+  background: var(--line-strong);
+  margin: 0 auto var(--s4);
+}
+
+.sheet-title {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: var(--s2);
+}
+
+.sheet-desc {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-bottom: var(--s4);
+}
+
+.sheet-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0 calc(var(--gutter) * -1);
+}
+
+.sheet-action {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 var(--gutter);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+}
+
+.sheet-action.danger {
+  color: var(--danger);
+}
+
+.sheet-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+
+.vf-round-btn.is-active {
+  background: var(--pen);
+  color: var(--paper);
+}
+
+.preview-box {
+  background: var(--desk);
+  border-radius: var(--r-sheet);
+  padding: var(--s3);
+  margin-bottom: var(--s4);
+  max-height: 56vh;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-box img {
+  max-width: 100%;
+  max-height: 50vh;
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-sheet);
+  display: block;
+}
+
+.preview-box iframe {
+  width: 100%;
+  height: 48vh;
+  border: 0;
+  border-radius: var(--r-sheet);
+  background: var(--paper);
+}
+
+.preview-pdf-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  align-self: flex-start;
+}
+
+.preview-pdf-page {
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-sheet);
+  background: #FFFFFF;
+  display: block;
+}
+
+.preview-pdf-note {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  padding: var(--s1) 0;
+  margin: 0;
+}
+
+.mini-sheet.sz-lg {
+  width: 34px;
+  height: 46px;
+}
+
+.mini-sheet.sz-sm {
+  width: 24px;
+  height: 32px;
+}
+
+.mini-sheet.sz-wm {
+  width: 38px;
+  height: 50px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  margin-bottom: var(--s4);
+}
+
+.guide-item {
+  padding-top: var(--s3);
+  border-top: 1px solid var(--line);
+}
+
+.guide-item strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.guide-item p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.sig-actions-right {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.sheet-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  margin-bottom: var(--s3);
+}
+
+.sheet-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.analysis-output {
+  background: var(--desk);
+  border-radius: var(--r-ctl);
+  padding: var(--s4);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: pre-wrap;
+  max-height: 44vh;
+  overflow-y: auto;
+  margin-bottom: var(--s3);
+}
+
+.crop-stage-box {
+  background: var(--camera);
+  border-radius: var(--r-ctl);
+  padding: var(--s3);
+  margin-bottom: var(--s3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crop-canvas {
+  max-width: 100%;
+  max-height: 46vh;
+  display: block;
+  touch-action: none;
+  border-radius: var(--r-sheet);
+}
+
+.inline-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-bottom: var(--s3);
+}
+
+.tools-tabs {
+  margin-bottom: var(--s4);
+}
+
+.tool-subview {
+  display: none;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.tool-subview.active {
+  display: flex;
+}
+
+.diagram-arrow {
+  width: 16px;
+  height: 16px;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  flex: none;
+}
+
+.redact-bar {
+  height: 7px;
+  background: var(--ink);
+  border-radius: 1px;
+  width: 85%;
+}
+
+.page-num-dot {
+  margin-top: auto;
+  align-self: center;
+  font-size: 6px;
+  font-weight: 800;
+  color: var(--pen);
+}
+
+.vault-picker-wrap {
+  margin-bottom: var(--s3);
+}
+
+.vault-picker-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  background: var(--desk);
+  max-height: 184px;
+  overflow-y: auto;
+  margin-top: var(--s1);
+}
+
+.vault-picker-item {
+  width: 100%;
+  min-height: 46px;
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.vault-picker-item:last-child {
+  border-bottom: 0;
+}
+
+.vault-picker-item:active {
+  background: var(--paper);
+}
+
+.vault-picker-sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Catatan kecil di bawah input lembar bawah */
+.sheet-hint {
+  margin: var(--s2) 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Di layar Pindai nav disembunyikan; toast naik agar tidak menutupi shutter */
+.scanner-mode ~ .toast,
+body:has(.scanner-mode) .toast {
+  bottom: calc(150px + var(--safe-bottom));
+}
+
+.setting-row .setting-title {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  margin-top: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line);
+  background: var(--desk);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.consent-row .check-input {
+  margin-top: 2px;
+  flex: none;
+}
+
+/* Editor Samarkan info */
+.redact-stage {
+  background: var(--desk);
+  border-radius: var(--r-ctl);
+  padding: var(--s3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: min(46vh, 420px);
+  min-height: 240px;
+  overflow: auto;
+  border: 1px solid var(--line);
+}
+
+.redact-canvas {
+  display: block;
+  margin: auto;
+  flex: none;
+  background: var(--paper);
+  box-shadow: var(--shadow-sheet);
+  border-radius: var(--r-sheet);
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.redact-nav .btn-out {
+  padding: 0 14px;
+}
+
+.redact-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  margin-top: var(--s3);
+  flex-wrap: wrap;
+}
+
+.redact-page-label {
+  white-space: nowrap;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pin-error {
+  margin: 0 0 var(--s3);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--danger);
+}
+
+/* Thumbnail berkas terkunci: kertas polos dengan gembok */
+.doc-thumb.locked {
+  display: grid;
+  place-items: center;
+  background: var(--paper-cool);
+}
+
+.doc-thumb.locked svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--ink);
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Daftar pilih untuk Gabung PDF */
+.merge-list {
+  max-height: 46vh;
+  overflow-y: auto;
+  margin: var(--s2) 0 var(--s3);
+  border-top: 1px solid var(--line);
+}
+
+.merge-pick {
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.merge-order {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-round);
+  border: 1.5px solid var(--line-strong);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--paper);
+}
+
+.merge-pick.is-on .merge-order {
+  background: var(--pen);
+  border-color: var(--pen);
+}
+
+.merge-pick-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ==========================================================================
+   Layar pembuka (splash)
+   ========================================================================== */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--desk);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s3);
+  transition: opacity 200ms ease-out, visibility 0s linear 200ms;
+}
+
+.splash.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.splash-logo {
+  width: 64px;
+  height: 64px;
+  color: var(--ink);
+}
+
+.splash-logo.small {
+  width: 36px;
+  height: 36px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.splash-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.splash-bar {
+  width: 96px;
+  height: 3px;
+  border-radius: var(--r-round);
+  background: var(--line);
+  overflow: hidden;
+  margin-top: var(--s2);
+}
+
+.splash-bar span {
+  display: block;
+  width: 40%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--pen);
+  animation: splash-slide 900ms ease-in-out infinite;
+}
+
+@keyframes splash-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+.splash-foot {
+  position: absolute;
+  bottom: calc(28px + var(--safe-bottom));
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Layar kunci aplikasi
+   ========================================================================== */
+.app-lock {
+  position: fixed;
+  inset: 0;
+  z-index: 450;
+  background: var(--desk);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s4);
+  padding: var(--s6) var(--gutter) calc(var(--s6) + var(--safe-bottom));
+}
+
+.app-lock-title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.pin-dots {
+  display: flex;
+  gap: var(--s3);
+  min-height: 14px;
+}
+
+.pin-dots span {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--r-round);
+  border: 2px solid var(--ink);
+}
+
+.pin-dots span.on {
+  background: var(--ink);
+}
+
+.app-lock-msg {
+  min-height: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--danger-text);
+  text-align: center;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 76px);
+  gap: var(--s3) var(--s5);
+}
+
+.keypad button {
+  width: 76px;
+  height: 64px;
+  border-radius: var(--r-ctl);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+}
+
+.keypad button:active {
+  transform: translateY(1px);
+}
+
+.keypad .keypad-text {
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.keypad .keypad-text svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.sheet-backdrop.over-lock {
+  z-index: 460;
+}
+
+/* ==========================================================================
+   Layar Pengaturan
+   ========================================================================== */
+.head-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+}
+
+.head-row-back {
+  justify-content: flex-start;
+  gap: var(--s1);
+  margin-left: calc(var(--s2) * -1);
+}
+
+.icon-btn svg path {
+  fill: none;
+}
+
+.settings-wrap {
+  padding-bottom: calc(var(--s8) + 82px + var(--safe-bottom));
+}
+
+.settings-wrap .section-heading {
+  padding: var(--s6) var(--gutter) var(--s2);
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.setting-sub {
+  display: block;
+}
+
+.setting-link {
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.chev {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.setting-select {
+  min-height: 44px;
+  max-width: 52%;
+  padding: 0 var(--s3);
+  border-radius: var(--r-ctl);
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+}
+
+.setting-note {
+  padding: var(--s3) var(--gutter) 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.seg {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--r-ctl);
+  background: var(--line);
+}
+
+.seg button {
+  min-height: 40px;
+  padding: 0 var(--s3);
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.seg button[aria-checked="true"] {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--s5);
+  border-radius: var(--r-ctl);
+  background: var(--danger);
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn-danger.full {
+  width: 100%;
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  max-height: 55vh;
+  overflow-y: auto;
+  margin-bottom: var(--s4);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Tema gelap: meja dan panel jadi gelap, kertas dokumen tetap putih
+   ========================================================================== */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --desk: #12161B;
+  --surface: #1D232B;
+  --ink: #E6EAEE;
+  --muted: #A1ACB8;
+  --line: #2C3440;
+  --line-strong: #4B5664;
+  --pen-text: #93A9FF;
+  --danger-text: #FF8A80;
+  --camera: #0B0E12;
+  --shadow-sheet: 0 1px 1px rgba(0,0,0,.4), 0 10px 24px rgba(0,0,0,.45);
+  --shadow-thumb: 0 1px 1px rgba(0,0,0,.4), 0 3px 8px rgba(0,0,0,.35);
+}
+
+html[data-theme="dark"] :is(.input-field, .tool, .nav, .bottom-sheet, .vault-picker-item:active) {
+  background: var(--surface);
+}
+
+html[data-theme="dark"] :is(.btn-text, .check-input, .page-num-dot, .wm-stamp, a) {
+  color: var(--pen-text);
+}
+
+html[data-theme="dark"] :is(.btn-text.danger, .sheet-action.danger, .pin-error) {
+  color: var(--danger-text);
+}
+
+html[data-theme="dark"] .check-input {
+  accent-color: var(--pen-text);
+}
+
+html[data-theme="dark"] .toast:not(.error),
+html[data-theme="dark"] .tray-badge {
+  background: #E6EAEE;
+  color: #17202B;
+}
+
+html[data-theme="dark"] .toast:not(.error) .toast-action {
+  color: var(--pen);
+}
+
+/* Kertas tetap memakai tinta gelap di atas putih */
+html[data-theme="dark"] :is(.sheet, .doc-thumb, .stack-sheet, .empty-sheet, .filter-thumb, .tray-sheet, .mini-sheet, .sig-slip, .redact-canvas, .preview-box iframe) {
+  --ink: #17202B;
+  --muted: #55606D;
+  --line: #C9D1D9;
+  --line-strong: #9AA6B2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-bar span {
+    animation: none;
+    width: 100%;
+  }
+  .splash {
+    transition: none;
+  }
+}
+
+.btn-ico {
+  width: 20px;
+  height: 20px;
+  margin-right: var(--s2);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+a.setting-row {
+  text-decoration: none;
+}
+
+.app-lock .btn-out {
+  color: var(--ink);
+}
+
+/* Akun */
+.row-actions {
+  display: flex;
+  gap: var(--s1);
+}
+
+.account-id {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+}
+
+.account-avatar {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: var(--r-round);
+  background: var(--pen);
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#accountForm .btn-text.ink {
+  align-self: center;
+}
+
+.setting-row .btn-text {
+  white-space: nowrap;
+  flex: none;
+}
+
+/* ==========================================================================
+   V2.6 / Uji Coba v1.0.0: Pindai 2 Tahap, Riwayat per Alat, Kunci Multi-Opsi & Editor TTD
+   ========================================================================== */
+
+/* Tahap 1 Pindai: Viewfinder bersih hampir penuh layar */
+#view-scanner.tab-view.active {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--camera);
+}
+
+.viewfinder.vf-full {
+  flex: 1;
+  height: auto;
+  min-height: 420px;
+  max-height: none;
+}
+
+.shutter-bar.shutter-minimal {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding: var(--s4) var(--gutter) calc(var(--s4) + var(--safe-bottom));
+}
+
+.vf-flash-effect {
+  position: absolute;
+  inset: 0;
+  background: #FFFFFF;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 140ms ease;
+}
+
+.vf-flash-effect.flash-on {
+  opacity: 0.72;
+}
+
+.shutter-btn.is-busy {
+  opacity: 0.6;
+  transform: scale(0.94);
+}
+
+/* Tahap 2 Pindai: Lembar Tinjau, Filter & Multi-Format */
+.bottom-sheet.sheet-tall {
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-scroll-body {
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.scan-review-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  margin-bottom: var(--s2);
+}
+
+.scan-review-stage {
+  background: var(--camera);
+  border-radius: var(--r-ctl);
+  padding: var(--s3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 190px;
+  max-height: 32vh;
+  overflow: hidden;
+  margin-bottom: var(--s2);
+}
+
+.scan-review-img {
+  max-width: 100%;
+  max-height: 29vh;
+  border-radius: var(--r-sheet);
+  box-shadow: var(--shadow-sheet);
+  object-fit: contain;
+  display: block;
+}
+
+.scan-page-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  justify-content: center;
+  margin-bottom: var(--s3);
+}
+
+.chip-btn {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: var(--r-round);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chip-btn.primary {
+  background: var(--pen);
+  border-color: var(--pen);
+  color: #FFFFFF;
+}
+
+.chip-btn.danger {
+  color: var(--danger-text);
+  border-color: var(--line);
+}
+
+.scan-thumbs-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  overflow-x: auto;
+  padding: 4px 2px var(--s3);
+}
+
+.scan-page-thumb {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 68px;
+  border-radius: var(--r-sheet);
+  border: 2px solid transparent;
+  overflow: hidden;
+  background: var(--paper-cool);
+  box-shadow: var(--shadow-thumb);
+}
+
+.scan-page-thumb.active {
+  border-color: var(--pen);
+}
+
+.scan-page-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scan-page-num {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--r-round);
+  background: rgba(23, 32, 43, 0.8);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.scan-filter-strip {
+  display: flex;
+  gap: var(--s3);
+  overflow-x: auto;
+  padding: 4px 2px var(--s3);
+}
+
+.scan-filter-chip {
+  flex: none;
+  width: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.scan-filter-img-wrap {
+  width: 56px;
+  height: 70px;
+  border-radius: var(--r-sheet);
+  overflow: hidden;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-thumb);
+  background: var(--paper);
+}
+
+.scan-filter-chip.active .scan-filter-img-wrap {
+  border-color: var(--pen);
+}
+
+.scan-filter-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scan-filter-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.scan-filter-chip.active .scan-filter-name {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Diagram mini kartu alat PDF yang diperbaiki */
+.ktp-a4-diagram {
+  width: 64px;
+  height: 86px;
+  padding: 8px;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ktp-mini-card {
+  width: 100%;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--ktp);
+  border: 1px solid var(--line-strong);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 3px 5px;
+}
+
+.corner-frame {
+  position: relative;
+}
+
+.corner-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-round);
+  background: var(--pen);
+}
+
+.corner-dot.tl { top: 4px; left: 4px; }
+.corner-dot.tr { top: 4px; right: 4px; }
+.corner-dot.bl { bottom: 4px; left: 4px; }
+.corner-dot.br { bottom: 4px; right: 4px; }
+
+.repair-check-line {
+  width: 18px;
+  height: 18px;
+  stroke: var(--pen);
+  stroke-width: 2.4;
+  fill: none;
+  margin: auto;
+}
+
+/* Filter Tool Origin aktif di tab Dokumen */
+.vault-origin-pill {
+  margin: 0 var(--gutter) var(--s3);
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-ctl);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Hub Riwayat Hasil per Alat & Menu Hasil Pasca-Alat */
+.tool-hub-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  max-height: 55vh;
+  overflow-y: auto;
+  margin-bottom: var(--s3);
+}
+
+.tool-hub-row {
+  width: 100%;
+  min-height: 54px;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line);
+  background: var(--desk);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  text-align: left;
+}
+
+.tool-hub-row strong {
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.tool-hub-count {
+  min-width: 28px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: var(--r-round);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+}
+
+.tool-result-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pen-text);
+  margin-bottom: var(--s1);
+}
+
+.tool-result-preview {
+  background: var(--desk);
+  border-radius: var(--r-ctl);
+  padding: var(--s3);
+  margin-bottom: var(--s3);
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.tool-result-thumb {
+  width: 56px;
+  height: 76px;
+  flex: none;
+  border-radius: var(--r-sheet);
+  background: var(--paper);
+  box-shadow: var(--shadow-thumb);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.tool-result-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tool-result-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.tool-result-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.tool-result-meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.tool-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s2);
+  margin-bottom: var(--s3);
+}
+
+.tool-next-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: var(--s2) 0 var(--s3);
+}
+
+.tool-history-footer-btn {
+  align-self: center;
+  margin-top: var(--s1);
+}
+
+/* Kunci Multi-Opsi (Pola 3x3 & Kata Sandi) */
+.pattern-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.pattern-canvas {
+  width: 248px;
+  height: 248px;
+  touch-action: none;
+  display: block;
+}
+
+.password-lock-wrap {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  align-items: center;
+}
+
+.pass-input-row {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.pass-eye-btn {
+  min-height: 44px;
+  padding: 0 8px;
+  font-size: 13px;
+}
+
+.lock-method-seg {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Editor Penempatan TTD Interaktif */
+.saved-sigs-strip {
+  display: flex;
+  gap: var(--s2);
+  overflow-x: auto;
+  padding: 4px 0 var(--s2);
+}
+
+.saved-sig-item {
+  flex: none;
+  width: 88px;
+  height: 48px;
+  border-radius: var(--r-sheet);
+  border: 1.5px solid var(--line-strong);
+  background: var(--paper);
+  padding: 4px;
+  display: grid;
+  place-items: center;
+}
+
+.saved-sig-item.active {
+  border-color: var(--pen);
+  box-shadow: 0 0 0 2px rgba(36, 69, 201, 0.25);
+}
+
+.saved-sig-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.stamp-stage-wrap {
+  background: var(--desk);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  padding: var(--s3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: min(46vh, 420px);
+  min-height: 240px;
+  overflow: auto;
+  margin-bottom: var(--s3);
+  -webkit-overflow-scrolling: touch;
+}
+
+.stamp-stage-wrap.pan-mode {
+  cursor: grab;
+  touch-action: pan-x pan-y;
+}
+
+.stamp-stage {
+  position: relative;
+  display: inline-block;
+  margin: auto;
+  flex: none;
+  line-height: 0;
+  touch-action: none;
+}
+
+.stamp-stage-wrap.pan-mode .stamp-stage {
+  touch-action: pan-x pan-y;
+}
+
+.stamp-stage canvas {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: var(--r-sheet);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
+  display: block;
+}
+
+.stamp-drag-box {
+  position: absolute;
+  border: 2px dashed var(--pen);
+  background: rgba(36, 69, 201, 0.08);
+  border-radius: var(--r-sheet);
+  touch-action: none;
+  cursor: move;
+  user-select: none;
+}
+
+.stamp-drag-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  display: block;
+}
+
+.stamp-resize-dot {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-round);
+  background: var(--pen);
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+  cursor: nwse-resize;
+  touch-action: none;
+}
+
+.redact-canvas.pan-mode {
+  touch-action: pan-y pan-x;
+  cursor: grab;
+}
+
+.vault-picker-item.is-locked-item {
+  opacity: 0.85;
+}
+
+.sheet-backdrop.over-lock {
+  z-index: 465;
+}
+
+#wipeDataSheet.over-lock,
+#appPinSetupSheet.over-lock {
+  z-index: 485;
+}
+
+#recoverySetupSheet {
+  z-index: 240;
+}
+
+.setting-inline-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.recovery-card {
+  border: 1px solid var(--line);
+  background: var(--desk);
+  border-radius: var(--r-ctl);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.recovery-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.recovery-code-box {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* R1: Live Document Edge Overlay & Smart ML Kit Pill */
+.vf-edge-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vf-smart-pill {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: var(--r-round);
+  border: 1px solid rgba(251, 251, 248, 0.35);
+  background: rgba(36, 69, 201, 0.92);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  white-space: nowrap;
+}
+
+/* R2: Interactive Scan Review Stage & Full-Screen Preview Sheet */
+.scan-review-stage {
+  position: relative;
+  cursor: pointer;
+}
+
+.scan-stage-zoom-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 10px;
+  border-radius: var(--r-round);
+  background: rgba(23, 32, 43, 0.78);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.chip-btn-primary {
+  background: var(--pen);
+  border-color: var(--pen);
+  color: #FFFFFF;
+}
+
+#scanFullPreviewSheet {
+  z-index: 230;
+  padding: 0;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.scan-full-shell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #12171E;
+  color: #FFFFFF;
+}
+
+.scan-full-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: calc(var(--safe-top, 0px) + 12px) 14px 12px;
+  background: rgba(23, 32, 43, 0.94);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  flex-wrap: wrap;
+}
+
+.scan-full-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.scan-full-meta {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.scan-full-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scan-full-icon-btn {
+  min-width: 34px;
+  min-height: 34px;
+  padding: 0 8px;
+  border-radius: var(--r-ctl);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scan-full-zoom-badge {
+  min-width: 44px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.scan-full-close-btn {
+  min-height: 34px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+}
+
+.scan-full-stage {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  user-select: none;
+}
+
+.scan-full-canvas-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  transition: transform 0.08s ease-out;
+  will-change: transform;
+}
+
+.scan-full-img {
+  max-width: 94vw;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+.scan-full-bottombar {
+  padding: 10px 14px calc(var(--safe-bottom, 0px) + 12px);
+  background: rgba(23, 32, 43, 0.94);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scan-full-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scan-full-nav-row input[type="range"] {
+  flex: 1;
+}
+
+.scan-full-nav-row .btn-out {
+  min-height: 36px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #FFFFFF;
+}
+
+.scan-full-quick-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* R4: Photo Convert Sheet */
+#photoConvertSheet {
+  z-index: 215;
+}
+
+.photo-queue-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.photo-queue-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photo-queue-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+
+.photo-queue-btn {
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line-strong);
+  background: var(--desk);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SmartScanner Mode Strip, Studio Toolbars, Crop Loupe & In-App Color Sheet
+   ========================================================================== */
+.vf-mode-strip {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding-top: 6px;
+}
+
+.vf-mode-pill {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(15, 23, 42, 0.56);
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.vf-mode-pill.is-active {
+  background: var(--pen);
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #FFFFFF;
+}
+
+.crop-head-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s3);
+  margin-bottom: var(--s3);
+}
+
+.crop-paper-badge {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(36, 69, 201, 0.12);
+  color: var(--pen);
+  border: 1px solid rgba(36, 69, 201, 0.28);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.crop-stage-inner {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.crop-loupe-canvas {
+  position: absolute;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  border: 3px solid var(--pen);
+  background: #0F172A;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.45);
+  pointer-events: none;
+  z-index: 8;
+}
+
+.crop-studio-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: var(--s3);
+}
+
+.crop-tool-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 54px;
+  padding: 8px 6px;
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+
+.crop-tool-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.crop-tool-btn:active {
+  background: var(--desk);
+}
+
+.crop-auto-paper-row {
+  margin-bottom: var(--s3);
+}
+
+.studio-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: var(--s2);
+}
+
+.studio-zoom-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--desk);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  padding: 3px;
+}
+
+.studio-mini-btn {
+  min-width: 32px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: calc(var(--r-ctl) - 3px);
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.studio-mini-btn.is-active {
+  background: var(--surface);
+  color: var(--pen);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+}
+
+.studio-zoom-badge {
+  min-width: 40px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.studio-pager-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--r-ctl);
+  background: var(--desk);
+  border: 1px solid var(--line);
+  margin-bottom: var(--s2);
+}
+
+.studio-step-btn {
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: calc(var(--r-ctl) - 2px);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.studio-action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: var(--s3);
+}
+
+.studio-pill-btn {
+  min-height: 40px;
+  padding: 6px 10px;
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.studio-pill-btn:active {
+  background: var(--desk);
+}
+
+.studio-ctrl-card {
+  background: var(--desk);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  padding: var(--s3);
+  margin-bottom: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.studio-ctrl-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.studio-val-pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pen);
+  background: rgba(36, 69, 201, 0.1);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.studio-ctrl-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+
+.custom-color-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: var(--s3);
+}
+
+.custom-color-chip-btn {
+  aspect-ratio: 1;
+  border-radius: var(--r-ctl);
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--line-strong);
+  cursor: pointer;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.custom-color-chip-btn.is-active {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--pen);
+}
+
+.custom-hue-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ef4444, #eab308, #22c55e, #06b6d4, #2563eb, #a855f7, #ef4444);
+  outline: none;
+}
+
+.custom-color-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--r-ctl);
+  background: var(--desk);
+  border: 1px solid var(--line);
+  margin-bottom: var(--s3);
+}
+
+.custom-color-chip {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px var(--line-strong);
+  flex: none;
+}
+
+.custom-color-preview-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.custom-hex-input {
+  width: 96px;
+  min-height: 36px;
+  padding: 4px 8px;
+  font-family: monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+html[data-theme="dark"] .studio-mini-btn.is-active,
+html[data-theme="dark"] .studio-step-btn,
+html[data-theme="dark"] .studio-pill-btn,
+html[data-theme="dark"] .crop-tool-btn {
+  background: var(--surface);
+  color: var(--ink);
+}

@@ -1,0 +1,34 @@
+# Build artifacts & caches (Flutter / Android Gradle)
+**/build/
+**/.dart_tool/
+**/.gradle/
+**/.idea/
+**/*.iml
+**/ephemeral/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/GeneratedPluginRegistrant.*
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Signing, environment & server secrets (keep *.example.* tracked)
+.env
+.env.*
+!.env.example
+key.properties
+local.properties
+*.jks
+*.keystore
+web-platform/api/config.php
+pwa-docstudio-pro/server-api/config.php
+
+# Node, internal AI scratch & OS clutter
+.agents/
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
