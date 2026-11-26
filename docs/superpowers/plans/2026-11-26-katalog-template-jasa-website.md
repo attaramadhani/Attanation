@@ -37,6 +37,23 @@ Jika developer memakai AI coding agent (Antigravity / Claude Code / Codex / Curs
 | 6 | `frontend-ui-engineering` | Merapikan struktur komponen, state interaksi (`hover`, `focus-visible`, `disabled`, `empty state`), dan pemisahan CSS/JS per folder. |
 | 7 | `web-design-guidelines` + `accessibility-engineering` | Audit akhir sebelum membuka Pull Request di GitHub (cek kontras, semantik heading, `aria-label`, dan ukuran sentuh `44x44px`). |
 
+**Jika skill belum terpasang di laptop developer, jalankan perintah instalasi berikut (atau minta AI coding agent mengeksekusinya di terminal lokal):**
+
+```bash
+# 1. Anti-Slop (antislop, antislop-ui, antislop-copywriting, antislop-layoutmobile, antislop-human)
+npx skills add miqdadbadjuber/anti-slop
+# (Alternatif installer interaktif: npx antislop-ai | Antigravity CLI: agy plugin install https://github.com/miqdadbadjuber/anti-slop)
+
+# 2. UI/UX Pro Max (ganti 'antigravity' sesuai AI editor: cursor / claude / codex / windsurf / all)
+npx ui-ux-pro-max-cli init --ai antigravity
+
+# 3. Vercel Web Design Guidelines
+npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines
+
+# 4. Modern Web Guidance (berjalan langsung via npx atau pasang plugin "Modern Web Guidance" di Marketplace)
+npx -y modern-web-guidance@latest list
+```
+
 ---
 
 ## Panduan Sumber Foto Internet Gratis & Aman Komersial
